@@ -1,4 +1,13 @@
 {{ define "main" -}}
+<section class="news-section">
+    <h2>News</h2>
+    {{ with .Site.GetPage "/news" }}
+        {{ .Content }}
+    {{ else }}
+        <p>No news content found.</p>
+    {{ end }}
+</section>
+
 <div class="posts">
     {{ $frontPageTypes := default (slice "posts") .Site.Params.front_page_content }}
     {{ range (.Paginate (where .Site.RegularPages "Type" "in" $frontPageTypes)).Pages }}

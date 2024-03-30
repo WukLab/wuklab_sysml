@@ -3,7 +3,7 @@ title: "About"
 date: 2023-07-10
 draft: false
 hideToc: true
-tags: ["Hugo"]
+layout: single
 ---
 
 WukLab SysML is a research group focused on bridging the gap between systems engineering and machine learning (ML) with the aim of enhancing the reliability, scalability, and efficiency of ML technologies. By integrating advanced systems design principles with cutting-edge ML algorithms, WukLab SysML endeavors to tackle some of the most pressing challenges in deploying ML applications at scale. Their work involves optimizing computational resources, reducing latency, and ensuring that ML models can operate under varying conditions without compromising performance. This multidisciplinary approach not only advances the state of ML research but also paves the way for more robust, efficient, and scalable ML solutions that can be deployed across different industries. The group's mission is to foster a collaborative environment where innovations in systems engineering and ML converge to accelerate the development of next-generation technologies that are both powerful and practical.

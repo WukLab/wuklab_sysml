@@ -26,6 +26,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
         # Limit:        If the files should be listed, how many should be shown.
     menu = [
         {Name = "About", URL = "/about/", HasChildren = false},
+        {Name = "News", URL = "/news/", HasChildren = false},
         {Name = "Posts", URL = "/posts/", Pre = "Recent", HasChildren = true, Limit = 5},
     ]
 
@@ -101,6 +102,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
                                           # For this to work though og_image and brand_url must be a path inside the assets directory
                                           # e.g. /assets/images/site/og-image.png becomes images/site/og-image.png
     # publisher_icon = ""                 # path to publisher icon - defaults to favicon, used in schema
+    front_page_content = ["news", "posts"]
 
 [taxonomies]
     series = 'series'

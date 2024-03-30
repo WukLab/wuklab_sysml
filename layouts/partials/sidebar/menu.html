@@ -56,6 +56,15 @@
                 {{ end }}
             {{ end }}
         {{ end }}
-
+        <li class="heading">
+            Tags
+        </li>
+        {{ range .Site.Taxonomies.tags }}
+        <li class="bullet"><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a> {{ .Count }}</li>
+        {{ end }}
     </ul>
+    <!-- <ul>
+        
+    </ul> -->
+    
 </nav>
