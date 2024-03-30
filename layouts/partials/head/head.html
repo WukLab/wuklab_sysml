@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- favicon -->
-    <link rel="icon" href={{ .Site.Params.favicon | default "/favicon.png" }}>
-
+    <link rel="icon" href="{{ (.Site.Params.favicon | default "/favicon.png") | relURL }}">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400&family=PT+Sans:wght@400;700&family=Abril+Fatface&display=swap" rel="stylesheet">
     <!-- META -->
     {{ partial "head/meta.html" . }}
 
