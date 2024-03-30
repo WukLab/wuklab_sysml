@@ -2,7 +2,7 @@
   [module.hugoVersion]
     min = "0.41.0"
 
-baseURL = "/"
+baseURL = "https://wuklab.github.io/wuklab_sysml/"
 languageCode = "en-us"
 theme = "poison"
 paginate = 10
@@ -16,7 +16,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
     brand_image = "/images/brand_image.webp"    # path to the image shown in the sidebar
     description = "A Systems and ML group to make ML more reliable, scalable, and effecient " # Used as default meta description if not specified in front matter
     dark_mode = true                      # optional - defaults to false
-    # favicon = "favicon.png"             # path to favicon (defaults to favicon.png)
+    favicon = "/images/brand_image.webp"             # path to favicon (defaults to favicon.png)
 
     # MENU PLACEHOLDER
     # Menu dict keys:
