@@ -16,7 +16,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
     brand_image = "/images/wukong-sysml.webp"    # path to the image shown in the sidebar
     description = "Building next-generation AI/ML and systems that are efficient, scalable, and reliable." # Used as default meta description if not specified in front matter
     dark_mode = true                      # optional - defaults to false
-    favicon = "/images/brand_image.webp"             # path to favicon (defaults to favicon.png)
+    favicon = "/images/wukong-sysml.webp"             # path to favicon (defaults to favicon.png)
 
     # MENU PLACEHOLDER
     # Menu dict keys:
