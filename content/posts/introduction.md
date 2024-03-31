@@ -3,7 +3,7 @@ title: "Efficient Serving for API-Augmented LLMs"
 date: 2024-02-10
 draft: false
 hideToc: false
-tags: ["LLM", "API Serving"]
+tags: ["LLM", "Serving", "Agents"]
 ---
 
 Large language models are increasingly integrated with external tools and APIs like ChatGPT plugins to extend their capability beyond language-centric tasks. However, today's LLM inference systems are designed for standalone LLMs. They treat API calls as new requests, causing unnecessary recomputation of already computed contexts, which accounts for 37-40% of total model forwarding time.
