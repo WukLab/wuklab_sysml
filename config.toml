@@ -2,7 +2,7 @@
   [module.hugoVersion]
     min = "0.41.0"
 
-baseURL = "https://sysml.wuklab.io/"
+baseURL = "https://mlsys.wuklab.io/"
 languageCode = "en-us"
 theme = "poison"
 paginate = 10
