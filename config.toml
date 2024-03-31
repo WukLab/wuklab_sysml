@@ -13,7 +13,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
 
 [params]
     brand = "MLSys @ WukLab"                      # name of your site - appears in the sidebar
-    brand_image = "/images/brand_image.webp"    # path to the image shown in the sidebar
+    brand_image = "/images/wukong-sysml.webp"    # path to the image shown in the sidebar
     description = "Building next-generation AI/ML and systems that are efficient, scalable, and reliable." # Used as default meta description if not specified in front matter
     dark_mode = true                      # optional - defaults to false
     favicon = "/images/brand_image.webp"             # path to favicon (defaults to favicon.png)
