@@ -1,5 +1,5 @@
 ---
-title: "Efficient Serving for Augmented LLMs"
+title: "InferCept: Efficient Intercept Support for Augmented LLM Inference"
 date: 2024-02-10
 draft: false
 hideToc: false
