@@ -25,8 +25,9 @@ Some typical workloads with long and shared prompts include Tools and agents, vi
 
   
 
-![Long Prompt Workloads](../../static/images/preble_gifs/long_prompt_ggl_drive_4k.gif)
+![Long Prompt Workloads](../../static/images/preble_gifs/long_prompt_gif_large_text.gif)
 
+  
 
 ## Background: Prefix Caching + Distributed Serving
 
@@ -50,7 +51,7 @@ Most existing serving systems, such as [vLLM](https://github.com/vllm-project/vl
 
   
 
-![Existing System](../../static/images/preble_gifs/existing_system_gif_4k.gif)
+![Existing System](../../static/images/preble_gifs/existing_system_gif.gif)
 
   
 
@@ -58,7 +59,7 @@ By creating a scheduler that accounts for shared properties among requests, we c
 
   
 
-![Preble System](../../static/images/preble_gifs/preble_system_processing_gif_4k.gif)
+![Preble System](../../static/images/preble_gifs/preble_system_processing_gif.gif)
 
   
   
@@ -79,7 +80,7 @@ E2 picks exploitation when reusing a prefix saves more computation. This happens
 
   
 
-![E2 Scheduling](../../static/images/preble_gifs/e2_scheduling_gif_4k.gif)
+![E2 Scheduling](../../static/images/preble_gifs/e2_scheduling_gif.gif)
 
   
 
@@ -125,7 +126,7 @@ See our technical report for more detailed experiment results.
 
 We also run a mixed workload on a real [LLM azure trace](https://github.com/Azure/AzurePublicDataset) to test a bursty workload.
 
-![Real Trace](../../static/images/preble_gifs/eval_real_trace.svg)
+![Real Trace](../../static/images//preble_gifs/eval_real_trace.svg)
 
 *Results on a real microsoft trace combining two workloads*
 
