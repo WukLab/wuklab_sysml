@@ -25,7 +25,7 @@ Some typical workloads with long and shared prompts include Tools and agents, vi
 
   
 
-![Long Prompt Workloads](../../static/images//preble_gifs/long_prompt_ggl_drive.gif)
+![Long Prompt Workloads](../../static/images/preble_gifs/long_prompt_ggl_drive.gif)
 
   
 
@@ -51,7 +51,7 @@ Most existing serving systems, such as [vLLM](https://github.com/vllm-project/vl
 
   
 
-![Existing System](../../static/images//preble_gifs/existing_system_gif.gif)
+![Existing System](../../static/images/preble_gifs/existing_system_gif.gif)
 
   
 
@@ -59,7 +59,7 @@ By creating a scheduler that accounts for shared properties among requests, we c
 
   
 
-![Preble System](../../static/images//preble_gifs/preble_system_processing_gif.gif)
+![Preble System](../../static/images/preble_gifs/preble_system_processing_gif.gif)
 
   
   
@@ -80,7 +80,7 @@ E2 picks exploitation when reusing a prefix saves more computation. This happens
 
   
 
-![E2 Scheduling](../../static/images//preble_gifs/e2_scheduling_gif.gif)
+![E2 Scheduling](../../static/images/preble_gifs/e2_scheduling_gif.gif)
 
   
 
@@ -118,7 +118,7 @@ The individual GPUs receive the request and inserts into a waiting queue. The wa
 
 We evaluated this across 5 different workloads, 2 different models(Mistral 7b & LLama 3 70b), and 2 different gpu(A6000 + H100) and found a consistent improvement across all systems.
 
-![All Evaluations](../../static/images//preble_gifs/eval_all_in_one.svg)
+![All Evaluations](../../static/images/preble_gifs/eval_all_in_one.svg)
 
 See our technical report for more detailed experiment results.
 
@@ -126,7 +126,7 @@ See our technical report for more detailed experiment results.
 
 We also run a mixed workload on a real [LLM azure trace](https://github.com/Azure/AzurePublicDataset) to test a bursty workload.
 
-![Real Trace](../../static/images//preble_gifs/eval_real_trace.svg)
+![Real Trace](../../static/images/preble_gifs/eval_real_trace.svg)
 
 *Results on a real microsoft trace combining two workloads*
 
