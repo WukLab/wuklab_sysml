@@ -25,9 +25,8 @@ Some typical workloads with long and shared prompts include Tools and agents, vi
 
   
 
-![Long Prompt Workloads](../../static/images/preble_gifs/long_prompt_ggl_drive.gif)
+![Long Prompt Workloads](../../static/images/preble_gifs/long_prompt_ggl_drive_4k.gif)
 
-  
 
 ## Background: Prefix Caching + Distributed Serving
 
@@ -51,7 +50,7 @@ Most existing serving systems, such as [vLLM](https://github.com/vllm-project/vl
 
   
 
-![Existing System](../../static/images/preble_gifs/existing_system_gif.gif)
+![Existing System](../../static/images/preble_gifs/existing_system_gif_4k.gif)
 
   
 
@@ -59,7 +58,7 @@ By creating a scheduler that accounts for shared properties among requests, we c
 
   
 
-![Preble System](../../static/images/preble_gifs/preble_system_processing_gif.gif)
+![Preble System](../../static/images/preble_gifs/preble_system_processing_gif_4k.gif)
 
   
   
@@ -80,7 +79,7 @@ E2 picks exploitation when reusing a prefix saves more computation. This happens
 
   
 
-![E2 Scheduling](../../static/images/preble_gifs/e2_scheduling_gif.gif)
+![E2 Scheduling](../../static/images/preble_gifs/e2_scheduling_gif_4k.gif)
 
   
 
