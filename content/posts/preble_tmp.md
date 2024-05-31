@@ -6,11 +6,8 @@ hideToc: false
 tags: ["LLM", "Serving", "Prefix Sharing"]
 ---
 
-LLM prompts are growing more complex and longer with agents, tool use, large documents, video clips, and detailed few-shot prompts. For example, Gemini now supports a context length of 2 million tokens and GPT4-turbo supports up to 128k. When prompting the model with the same prompt multiple times, a recent technique prefix caching enables preventing recomputation of the same prefix of a prompt. Major advancements of LLMs are due to providing it with more data and improving the distributed performance. 
-
-When an LLM processes long and complex prompts, they store an intermediate state(KV cache) in order to improve performance of similar questions. Current distributed LLM serving systems treat each request to the LLM serving system as independent and miss the opportunity to reuse the computed intermediate state. 
-
-To optimize average latency and p99 latency, we introduce Preble, the first distributed LLM serving system that targets long and shared prompts, which achieves 2-10x on average latency and 2-14x on p99 latency.  We also provide a workload study providing key insights for other developers. We build this system to support any prefix caching system such as Sglang and vLLM.
+LLM prompts are growing more complex and longer with agents, tool use, large documents, video clips, and detailed few-shot examples. These prompts often have content that is shared across many requests. The computed intermediate state (KV cache) from one prompt can be reused by another for their shared parts to improve request handling performance and save GPU computation resources. However, current distributed LLM serving systems treat each request as independent and miss the opportunity to reuse the computed intermediate state. 
+We introduce Preble, the first distributed LLM serving system that targets long and shared prompts. Preble achieves 2-10x average latency and 2-14x p99 latency over SOTA serving systems. The core of Preble is a new E2 Scheduling that optimizes load distribution and KV cache reutilization.  Preble is compatible with multiple serving backends such as vLLM and SGLang.
 
 ## Background: Prefix Caching + Data Parallel handing
 ### Prefix Caching
