@@ -68,6 +68,8 @@ We compare against four baselines:
 
 For our evaluation, we compose a dataset of six different augmentations: a calculator API, a wikipedia API, a stable diffusion model, a text-to-speech model, an embodied agent in a virtual environment, and a chatbot (where the user providing follow-ups is the augmentation). Each of these augmentations vary significantly in both invocation frequency and duration. This represents the growing diversity of usages for augmented language models.
 
+![results](../../static/images/infercept/e2e_mixed_lat.svg)
+
 InferCept sustains 1.6x higher request arrival rates at the same low latency as vLLM, while completing 2x more requests per second. It also has 1.9x-5.7x lower normalized latency per output token. These findings hold for larger models and for distributed inference, where we see up to 12x lower latency and 2x higher serving load. 
 
 ## Our Vision
