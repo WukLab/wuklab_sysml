@@ -6,6 +6,8 @@ hideToc: false
 tags: ["LLM", "Serving", "Augmented LLM"]
 summary: "
 Today's large language models (LLMs) are being paired with various tools and environments to satisfy increasingly complex user queries. Augmenting models with these capabilities means LLM <ins>**infer**</ins>ence can be inter<ins>**cept**</ins>ed by external actions. We designed [InferCept [ICML '24]](https://arxiv.org/pdf/2402.01869), the first serving framework designed for augmented LLMs. InferCept minimizes resource waste and sustains a **1.6x-2x higher serving load**, completing twice as many requests compared to [state-of-the-art serving systems](https://github.com/vllm-project/vllm). Try InferCept [here](https://github.com/WukLab/InferCept).
+<br/><br/>
+[Read More...](https://mlsys.wuklab.io/posts/infercept/)
 "
 
 ---
