@@ -1,5 +1,5 @@
 ---
-title: "PREBLE: Efficient Prompt Scheduling for Augmented Large Language Models"
+title: "Preble: Efficient Prompt Scheduling for Augmented Large Language Models"
 date: 2024-05-07
 draft: false
 hideToc: false
@@ -82,7 +82,7 @@ Furthermore, to accommodate load changes after the initial assignment of a KV ca
 When a request arrives, Preble first tokenizes the request and then sends it to Preble’s global scheduler. The global scheduler maintains a prefix tree representing all cached prefixes in the cluster and per-GPU load distributions. It uses these sets of information to apply the E2 scheduling algorithm. If an imbalance load is detected, the global scheduler adjusts its placement policy accordingly. After the global scheduler sends a request to a GPU, a GPU-local scheduler inserts it into a local waiting queue that is sorted based on fairness and cache reusing considerations. After a request finishes or when a local GPU evicts a cached KV, it informs the global scheduler to update the maintained information. 
 
 
-![E2 Scheduling](/images/preble_gifs/preble_arch.gif)
+![E2 Scheduling](/images/preble_gifs/preble_arch_gif.gif)
 
 
 ## Evaluating the effectiveness of Preble
