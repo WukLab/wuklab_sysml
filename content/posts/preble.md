@@ -23,7 +23,7 @@ Some typical workloads with long and shared prompts include Tools and agents, vi
 
   
 
-![Long Prompt Workloads](images/preble_gifs/long_prompt_ggl_drive.gif)
+![Long Prompt Workloads](/images/preble_gifs/long_prompt_ggl_drive.gif)
 
   
 
@@ -46,20 +46,20 @@ When scaling up a serving system, common techniques include data parallelism, mo
 Most existing serving systems, such as [vLLM](https://github.com/vllm-project/vllm), [deepspeed-mii](https://github.com/microsoft/DeepSpeed-MII), and [TGI](https://github.com/huggingface/text-generation-inference), treat requests as independent. Additionally, most focus on optimizing output generation (decoding) and are unfit for today's long prompt workloads. The diagram below illustrates how a serving system distributes requests across data-parallel GPUs without considering prompts. Requests of the same color have the same shared prefix.
   
 
-![Existing System](images/preble_gifs/existing_system_processing.gif)  
+![Existing System](/images/preble_gifs/existing_system_processing.gif)  
 
-![Preble System](images/preble_gifs/prompt_aware_scheduling_gif.gif)
+![Preble System](/images/preble_gifs/prompt_aware_scheduling_gif.gif)
   
 
 ## Primitive Scheduling Strategies
 
 **Load-based, prefix-agnostic scheduling (Exploration)**: Today’s LLM serving systems distribute requests across data-parallel GPU instances to balance their loads, using techniques such as Round robin and least outstanding requests. This approach allows for all GPUs to be equally and fully utilized but results in more KV recomputation. 
 
-![Load based Scheduling](images/preble_gifs/load_based.gif)
+![Load based Scheduling](/images/preble_gifs/load_based.gif)
 
 **Prefix-based, load-agnostic scheduling (Exploitation)**: Another approach is to schedule a request to the GPU with the KV of the longest prefix match. This approach maximizes the exploitation of computed KV cache but could cause imbalanced GPU utilization. 
   
-![Prefix Based Scheduling](images/preble_gifs/prefix_based.gif)
+![Prefix Based Scheduling](/images/preble_gifs/prefix_based.gif)
 
 ## E2 Scheduling: Efficient Scheduling for Long and Shared Prompts
 
@@ -73,7 +73,7 @@ We use the following cost function in order to make an efficient scheduling deci
 
 Furthermore, to accommodate load changes after the initial assignment of a KV cache and inaccuracy in the above cost estimation, Preble detects load imbalance across GPUs and adapts request placement accordingly. 
 
-![E2 Scheduling](images/preble_gifs/preble_arch_gif.gif)
+![E2 Scheduling](/images/preble_gifs/preble_arch_gif.gif)
 
   
 
@@ -82,14 +82,14 @@ Furthermore, to accommodate load changes after the initial assignment of a KV ca
 When a request arrives, Preble first tokenizes the request and then sends it to Preble’s global scheduler. The global scheduler maintains a prefix tree representing all cached prefixes in the cluster and per-GPU load distributions. It uses these sets of information to apply the E2 scheduling algorithm. If an imbalance load is detected, the global scheduler adjusts its placement policy accordingly. After the global scheduler sends a request to a GPU, a GPU-local scheduler inserts it into a local waiting queue that is sorted based on fairness and cache reusing considerations. After a request finishes or when a local GPU evicts a cached KV, it informs the global scheduler to update the maintained information. 
 
 
-![E2 Scheduling](images/preble_gifs/preble_arch.gif)
+![E2 Scheduling](/images/preble_gifs/preble_arch.gif)
 
 
 ## Evaluating the effectiveness of Preble
 
 We evaluated Preble across five workloads, two LLMs (Mistral 7B & LLama-3 70B), and two GPU clusters (NVidia A6000 and H100). Results, as shown below, reflect Preble's consistent improvement  (1.5-10x average and 2-14x p99 latency reduction) over SGLang (a SOTA serving system that performs prefix caching but no distributed load consideration) and an optimally balanced load scheme. 
 
-![All Evaluations](images/preble_gifs/eval_all_in_one.svg)
+![All Evaluations](/images/preble_gifs/eval_all_in_one.svg)
 
 See our technical report for more detailed experiment results.
 
@@ -97,7 +97,7 @@ See our technical report for more detailed experiment results.
 
 Preble also improves performance on all metrics over SGLang with a mixed workload on a real [LLM request trace](https://github.com/Azure/AzurePublicDataset).
 
-![Real Trace](images/preble_gifs/eval_real_trace.svg)
+![Real Trace](/images/preble_gifs/eval_real_trace.svg)
 
 See our paper for more detailed experiment results, such as the comparison to VLLM and an ablation study. 		
   
