@@ -3,7 +3,7 @@ title: "Preble: Efficient Prompt Scheduling for Augmented Large Language Models"
 date: 2024-05-07
 draft: false
 hideToc: false
-tags: ["LLM", "Serving", "Prefix Sharing"]
+tags: ["LLM", "Serving", "Load Balancing", "Prompt Oriented Scheduling"]
 truncated: false
 summary: "
 LLM prompts are growing more complex and longer with [agents](https://arxiv.org/abs/2308.11432), [tool use](https://platform.openai.com/docs/guides/function-calling), [large documents](https://arxiv.org/html/2404.07143v1), [video clips](https://blog.google/technology/ai/google-gemini-next-generation-model-february-2024/#context-window), and detailed [few-shot examples](https://arxiv.org/pdf/2210.03629). These prompts often have content that is shared across many requests. The computed intermediate state (KV cache) from one prompt can be reused by another for their shared parts to improve request handling performance and save GPU computation resources. However, current distributed LLM serving systems treat each request as independent and miss the opportunity to reuse the computed intermediate state. 
@@ -81,7 +81,7 @@ We use the following cost function in order to make an efficient scheduling deci
 
 Furthermore, to accommodate load changes after the initial assignment of a KV cache and inaccuracy in the above cost estimation, Preble detects load imbalance across GPUs and adapts request placement accordingly. 
 
-![E2 Scheduling](/images/preble_gifs/preble_arch_gif.gif)
+![E2 Scheduling](/images/preble_gifs/preble_shared_prefix.gif)
 
   
 
