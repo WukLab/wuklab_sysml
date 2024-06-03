@@ -26,6 +26,11 @@ currentMembers:
         imageFile: Vikranth.jpeg
         link: https://viks.me/
 
+  - name: Masters Students
+    members:
+      - name: Dongming Li
+        imageFile: dongming.JPG
+
   - name: Undergraduate Students
     members:
       - name: Ryan Kosta
