@@ -57,7 +57,7 @@ body.layout-reverse .wrapper {
 }
 
  /* Handles dark/light themes */
-h1, h2, h3, h4, h5, strong {
+h1, h2, h3, h4, h6, h5, strong {
     color: var(--text-color);
 }
 .content div, p, table {
