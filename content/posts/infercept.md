@@ -99,12 +99,11 @@ We see augmented LLM, or augmented models in general, to be the future, whether 
 
 If you use InferCept for your research, please cite our paper:
 ```bibtex
-@inproceedings{
-  abhyankar2024infer,
-  title={INFERCEPT: Efficient Intercept Support for Large-Language Model
-Inferencing},
+@inproceedings{abhyankar2024infer,
+  title="{INFERCEPT: Efficient Intercept Support for Large-Language Model
+Inferencing}",
   author={Reyna Abhyankar and Zijian He and Vikranth Srivatsa and Hao Zhang and Yiying Zhang},
-  booktitle={Forty-first International Conference on Machine Learning},
+  booktitle={Proceedings of the Forty-First International Conference on Machine Learning (ICML'24)},
   year={2024},
   month=Jul,
   address={Vienna, Austria},
