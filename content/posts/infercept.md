@@ -14,7 +14,7 @@ tags: ["LLM", "Serving", "Agents"]
 
 To broaden the capabilities of LLMs to handle more diverse tasks, there's a growing trend of augmenting LLMs with external tools and real-time interactions, such as [ChatGPT plugins](https://openai.com/index/chatgpt-plugins/), [non-language models](https://openai.com/index/dall-e-3/), [math tools](https://writings.stephenwolfram.com/2023/03/chatgpt-gets-its-wolfram-superpowers/), and [virtual environments](https://alfworld.github.io/). With fine tuning or prompt demonstration, LLMs can generate the triggering of an appropriate augmentation. When that happens, the LLM output generation is paused. We refer to all such non-LLM usages as “**interceptions**,” as they essentially intercept normal LLM generation. 
 
-![aug-llm-infer](../../static/images/infercept/aug-llm-inference.gif)
+![aug-llm-infer](../../static/images/infercept/aug-llm-inference-xl.gif)
 
 The workflow of LLMs with interception, as shown in the figure above, is as follows:
 1. LLM generates tokens that trigger a particular tool, environment, or another model (an “**augmentation**”).
@@ -32,15 +32,15 @@ There are three potential techniques to deal with interceptions.
 
 1. **Discard**. This is today’s inference systems approach, as described above. 
 
-![discard](../../static/images/infercept/discard.gif)
+![discard](../../static/images/infercept/discard-xl.gif)
 
 2. **Preserve**. The token states are preserved in GPU memory and wait for the interception to finish, at which point it can resume immediately without any recomputation. However, the preserved memory is unusable for other requests for the duration of the interception. 
 
-![preserve](../../static/images/infercept/preserve.gif)
+![preserve](../../static/images/infercept/preserve-xl.gif)
 
 3. **Swap**. We can swap token states out to CPU memory, such as in [offloading-based systems](https://github.com/FMInference/FlexGen). This alleviates the need for recomputation and frees up memory on the GPU, but those token states must be swapped in when the interception finishes. Swapping can stall other running requests because the amount of data being swapped often greatly exceeds the limited CPU-GPU bandwidth.
 
-![swap](../../static/images/infercept/swap.gif) 
+![swap](../../static/images/infercept/swap-xl.gif) 
 
 
 ## Introducing InferCept
@@ -60,18 +60,18 @@ The key idea behind InferCept is to minimize the memory waste caused by intercep
 
 For **WasteDiscard** and **WasteSwap**, we pipeline the recomputation and swapping out and in for increased throughput. For the former, we [chunk](https://arxiv.org/abs/2308.16369) the context sequence into multiple segments and recompute one at an iteration, so that each iteration’s GPU computation resource is fully utilized but not exceeded. As a result, no other running requests are stalled because of recomputation.  
 
-![min-waste-discard](../../static/images/infercept/min-waste-discard.gif) 
+![min-waste-discard](../../static/images/infercept/min-waste-discard-xl.gif) 
 
 For swapping, we overlap all data communication with computation. By profiling the model and the CPU-GPU bus bandwidth, we identify a _swapping budget_ in terms of the number of tokens allowed to swap without incurring extra latency. As long as we do not swap more than this budget, we can completely eliminate **all waste from swapping**. Because of offline profiling, computing **WasteDiscard** and **WasteSwap** is easy and incurs no additional overhead during scheduling.
 
-![min-waste-swap](../../static/images/infercept/min-waste-swap.gif) 
+![min-waste-swap](../../static/images/infercept/min-waste-swap-xl.gif) 
 
 
 ### Scheduling requests to minimize GPU memory waste
 
 In each iteration, we sort all intercepted requests in descending order based on their memory waste, which we compute as the minimum of **WasteDiscard** and **WastePreserve**. We swap out the KV context from these requests according to this order until we run out of the swap-out budget. For the remaining paused requests, we discard (preserve) their KV context if its **WasteDiscard** is smaller (greater) than **WastePreserve**. 
 
-![scheduling](../../static/images/infercept/scheduling.gif) 
+![scheduling](../../static/images/infercept/scheduling-xl.gif) 
 
 We maintain three queues: a running queue for all active requests, a waiting queue for all un-served and discarded requests, and a swapped queue for all requests in CPU memory. We follow FCFS scheduling based on the request’s original arrival time to ensure fairness.
 
