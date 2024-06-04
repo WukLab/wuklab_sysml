@@ -107,3 +107,11 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
 [taxonomies]
     series = 'series'
     tags = 'tags'
+
+
+
+[services]
+  [services.disqus]
+    shortname = 'wuklab-mlsys'
+
+disquisShortname = "wuklab-mlsys"
