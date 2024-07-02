@@ -120,13 +120,11 @@ This material is based upon work supported by gifts from AWS, Google, and Meta. 
 
 ## Citation
 ```
-@misc{srivatsa2024preble,
-booktitle=“{Preble: Efficient Distributed Prompt Scheduling for LLM Serving}“,
-author={Vikranth Srivatsa and Zijian He and Reyna Abhyankar and Dongming Li and Yiying Zhang},
-booktitle = {UCSD CSE Technical Reports},
-year={2024},
-month = May,
-howpublished=“\url{https://escholarship.org/uc/item/1bm0k1w0}”
+@article{srivatsa2024preble,
+  title   = {Preble: Efficient Distributed Prompt Scheduling for LLM Serving},
+  author  = {Vikranth Srivatsa and Zijian He and Reyna Abhyankar and Dongming Li and Yiying Zhang},
+  year    = {2024},
+  journal = {arXiv preprint arXiv: 2407.00023}
 }
 ```
 
