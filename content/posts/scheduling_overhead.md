@@ -63,11 +63,11 @@ We also tested the same set of workloads on our local servers, each consisting o
 To understand where vLLM’s scheduling overhead come from, we analyze the breakdown of its scheduling tasks, as shown in Figure 4 and Figure 5 below. 
 
 **Figure 4: vLLM Scheduling Time Breakdown.** Running 1024:1024 with Llama-8B on A6000.  
-![][image4]
+![1024 1024](../../static/images/scheduling_overhead/1024_1024.svg)
 
 
 **Figure 5: vLLM Scheduling Time Breakdown.** Running Loogle with Llama-8B on A6000.  
-![][image5]
+![loogle](../../static/images/scheduling_overhead/loogle.svg)
 
 Overall, we found that the actual scheduling algorithm contributes only a small portion of the overall scheduling overhead. The majority of the overhead arises from the preparation of model inputs and the post-processing of model outputs. Specifically, the most significant overhead comes from building input tensors and performing incremental output detokenization. 
 
@@ -75,13 +75,15 @@ Due to the longer prompts and shorter decoding of Loogle, each forward batch con
 
 We find that processing the model input and preparing the model inputs takes a significant amount of time. There are also multiple other sources of overhead from the default logging/measurements, preparing metadata, and batch selection. 
 
-![][image6]\`
+![][image6]
 
 **Figure 4: vLLM Scheduling Overhead as Per-Iteration Batch Size (in Number of Tokens) Increases**
 
 Larger chunk sizes take longer to execute. It also takes longer to build the metadata required to construct the chunked prefill batch.
 
-TODO: explain chunk size effect and probably light/heavy load effect
+![vLLLM num requests](../../static/images/scheduling_overhead/vLLM_A6000_Requests.svg)
+
+Figure 5: As the number of requests increases, the scheduling overhead for vLLM increases. 
 
 We provide a breakdown of the line-by-line trace using instrument at 
 
@@ -105,7 +107,7 @@ We provide a breakdown of the line-by-line trace using instrument at
 
 **Detokenization**: Currently, detokenization runs every iteration. This is to enable applications such as tools to stop. However, for the majority of regular chat applications, this can be provided as an application flag. This can also be run in a multi-threaded fashion as tokenization is CPU bottlenecked. [Other works](https://arxiv.org/abs/2402.05099) also notice the throughput improvement when removing the detokenization overhead.  
 
-#### **Logging**: Current logging occurs on the main process and is used to track current scheduling metrics. This can be moved to a separate process to avoid blocking tokenization.
+**Logging**: Current logging occurs on the main process and is used to track current scheduling metrics. This can be moved to a separate process to avoid blocking tokenization.
 
 **Building Model Input Tensors/Sampling Metadata:** We find that the overhead from these regions is due to Python objection creation and looping. In order to support a variety of use cases,vLLM extensively uses dynamic object creation and dispatching. By leveraging the use of pytorch vectorized operations, these operations can be improved. 
 
