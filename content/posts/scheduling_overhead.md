@@ -30,9 +30,9 @@ Two new developments in LLM inferencing are challenging this assumption. First, 
 ***Has the tipping point come that scheduling now dominates the model inference time?***
 
 To answer this question scientifically, we performed a detailed study on two LLM inference systems, [vLLM](https://github.com/vllm-project/vllm) and [SGLang](https://github.com/sgl-project/sglang).   
-   
+<p align="center">
 ![Iterative Scheduling](../../static/images/scheduling_overhead/iterative_scheduling.png)
-
+</p>
 **Figure 1: Illustration of Iterative Scheduling.** Rx represents xth request. Ix represents xth iteration. In I3, I4, I5, I6, new requests get added to the batch as previous requests finish.
 
 ## Evaluation Methodology
