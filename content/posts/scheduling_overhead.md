@@ -95,7 +95,7 @@ We provide a breakdown of the line-by-line trace using instrument at
 
 #### SGLang Scheduling Overhead 
 
-![][image10]
+![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A100.svg)
 
 ### Sglang W/Without Radix Cache
 
