@@ -30,9 +30,9 @@ Two new developments in LLM inferencing are challenging this assumption. First, 
 ***Has the tipping point come that scheduling now dominates the model inference time?***
 
 To answer this question scientifically, we performed a detailed study on two LLM inference systems, [vLLM](https://github.com/vllm-project/vllm) and [SGLang](https://github.com/sgl-project/sglang).   
-<p align="center">
-![Iterative Scheduling](../../static/images/scheduling_overhead/iterative_scheduling.png)
-</p>
+
+![Iterative Scheduling](../../static/images/scheduling_overhead/iterative_scheduling_gif.gif)
+
 **Figure 1: Illustration of Iterative Scheduling.** Rx represents xth request. Ix represents xth iteration. In I3, I4, I5, I6, new requests get added to the batch as previous requests finish.
 
 ## Evaluation Methodology
@@ -97,6 +97,9 @@ We provide a breakdown of the line-by-line trace using instrument at
 
 ![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A100.svg)
 
+
+![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A6000.svg)
+
 ### Sglang W/Without Radix Cache
 
 ![Line by Line Tracing Scheduling](../../static/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg)
@@ -111,18 +114,6 @@ We provide a breakdown of the line-by-line trace using instrument at
 
 **Building Model Input Tensors/Sampling Metadata:** We find that the overhead from these regions is due to Python objection creation and looping. In order to support a variety of use cases,vLLM extensively uses dynamic object creation and dispatching. By leveraging the use of pytorch vectorized operations, these operations can be improved. 
 
-We similarly profiled SGlang and found that scheduling overhead never was more than 3ms. This is due to turning off detokenization every iteration by default and using PyTorch vectorized operations whenever possible to build input/output. 
+We similarly profiled SGlang and found that scheduling overhead never was low. This is due to turning off detokenization every iteration by default and using PyTorch vectorized operations whenever possible to build input/output. 
 
 As new features are added, we hope that the effect of scheduling overhead can be prioritized for faster LLM Serving
-
-### Conclusion
-
-References: 
-
-Other blog posts have brought up scheduling overhead:
-
-- [https://fireworks.ai/blog/speed-python-pick-two-how-cuda-graphs-enable-fast-python-code-for-deep-learning](https://fireworks.ai/blog/speed-python-pick-two-how-cuda-graphs-enable-fast-python-code-for-deep-learning)  
-- 
-
-On the roadmap, [https://github.com/vllm-project/vllm/issues/6801](https://github.com/vllm-project/vllm/issues/6801)
-
