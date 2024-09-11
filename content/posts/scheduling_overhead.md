@@ -63,32 +63,28 @@ We also tested the same set of workloads on our local servers, each consisting o
 
 ## Scheduling Overhead Breakdown
 
-To understand where vLLM’s scheduling overhead come from, we analyze the breakdown of its scheduling tasks, as shown in Figure 4 and Figure 5 below. 
+To understand where vLLM’s scheduling overhead comes from, we analyze the breakdown of its scheduling tasks, as shown in Figure 4 and Figure 5 below. 
 
 **Figure 4: vLLM Scheduling Time Breakdown.** Running 1024:1024 with Llama-8B on A6000.  
 ![1024 1024](../../static/images/scheduling_overhead/1024_1024.svg)
+Overall, we found that running the actual scheduling algorithm contributes only a small portion of the overall scheduling overhead. The majority of the overhead arises from the preparation of model inputs and the post-processing of model outputs. Specifically, the most significant overhead comes from building input tensors, performing output detokenization, and preparing per-request metadata. 
 
+Our inspection of the vLLM code revealed that vLLM has complex Python object manipulation when preparing model input tensors and various metadata, causing the total pre-processing to be large and to increase with more input requests. On the other hand, vLLM detokenize each generated output, causing its post-processing time to also be significant and proportional to the number of output tokens in a batch.
 
 **Figure 5: vLLM Scheduling Time Breakdown.** Running Loogle with Llama-8B on A6000.  
 ![loogle](../../static/images/scheduling_overhead/loogle.svg)
 
-Overall, we found that the actual scheduling algorithm contributes only a small portion of the overall scheduling overhead. The majority of the overhead arises from the preparation of model inputs and the post-processing of model outputs. Specifically, the most significant overhead comes from building input tensors and performing incremental output detokenization. 
-
-Due to the longer prompts and shorter decoding of Loogle, each forward batch contains fewer sequences. Consequently, the scheduling overhead in this setting is relatively small in absolute terms. It's important to note that scheduling overhead is proportional to the number of sequences in the batch, rather than the number of tokens.
-
-We find that processing the model input and preparing the model inputs takes a significant amount of time. There are also multiple other sources of overhead from the default logging/measurements, preparing metadata, and batch selection. 
-
-![][image6]
+The Loogle workload also incurs non-trivial pre- and post-processing time. However, comparing the two workloads, the Loogle workload incurs smaller overhead in absolute values for model input tensor building and detokenization. Due to the longer prompts and shorter decoding of Loogle, each forward batch contains fewer sequences. Consequently, the input-tensor-building overhead is smaller than the 1024:1024 workload. Meanwhile, fewer requests generate fewer output tokens per batch, resulting in smaller detokenization cost.
 
 **Figure 4: vLLM Scheduling Overhead as Per-Iteration Batch Size (in Number of Tokens) Increases**
 
-Larger chunk sizes take longer to execute. It also takes longer to build the metadata required to construct the chunked prefill batch.
+We conducted an ablation study on the number of requests sent to the vLLM serving system. Figure 4 shows that as the total number of requests increases, the relative scheduling overhead also rises. This collaborates earlier analysis of vLLM’s scheduling overhead
 
 ![vLLLM num requests](../../static/images/scheduling_overhead/vLLM_A6000_Requests.svg)
 
-Figure 5: As the number of requests increases, the scheduling overhead for vLLM increases. 
+**Figure 5: As the number of requests increases, the scheduling overhead for vLLM increases.**
 
-We provide a breakdown of the line-by-line trace using instrument at 
+Below, we provide a breakdown of the line-by-line trace of running 1024 input 1024 output with LLama- 8b on our local A6000 GPU servers. 
 
 ![Line by Line Tracing Prepare Model Input](../../static/images/scheduling_overhead/prepare_model_input.png)
 
@@ -97,29 +93,35 @@ We provide a breakdown of the line-by-line trace using instrument at
 ![Line by Line Tracing Scheduling](../../static/images/scheduling_overhead/process_model_output.png)
 
 #### SGLang Scheduling Overhead 
+To further understand LLM inference scheduling time, we examined another serving system, SGLang. We profiled SGLang v0.2.13 and with multi-step scheduling, and chunked prefill budget of 512, and without prefix caching. SGLang’s multi-step scheduling performs scheduling every K iterations (K=10 by default) when a batch consists only of decoding requests. In our experiments, as new requests keep getting added from the waiting queue, decoding-only batch and thus multi-step scheduling only happens when the waiting queue drains at the end of an experiment.
 
 ![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A100.svg_0.svg)
 ![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A100.svg_1.svg)
 ![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A100.svg_2.svg)
 
+Figure 6 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. Scheduling can account for up to 20% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. However, unlike vLLM, SGLang maintains minimal overhead across different settings, likely due to its use of vectorized Python operations and streamlined scheduling processes.
+
 
 ![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A6000.svg_0.svg)
 ![SGLang Scheduling Overhead](../../static/images/scheduling_overhead/SGLang_A6000.svg_1.svg)
 
+Similar to the vLLM setting, we tested SGLang on our local servers with A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. In both the A100 and A6000 GPU, the scheduling overhead took a minimal amount of end to end time with at most 5.6%.
+
 ### Sglang W/Without Radix Cache
 
 ![Line by Line Tracing Scheduling](../../static/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg)
+By default, SGLang uses prefix caching, which involves maintaining a prefix tree for scheduling and a custom kernel, Radix Attention. Depending on the workload, this can lead to slower model forwarding due to the kernel and increased scheduling time from prefix tree indexing. The figure above shows that both forwarding and scheduling times are negatively impacted with the LooGLE dataset. 
 
-#### 
+#### Conclusion
+Our study revealed several interesting new findings about scheduling overhead in SoTA LLM serving systems. 
 
-#### Potential Future Improvements
+*Detokenization*: In vLLM, Detokenization runs every iteration to support string-matching tools, but is optional for most chat applications. SGLang, for example, only runs the detokenization if there is a stop_str provided when starting the server. Other works also notice the throughput improvement when removing the detokenization overhead. To further reduce tokenization overhead, detokenization can be run in parallel as it’s CPU bottlenecked.
 
-**Detokenization**: Currently, detokenization runs every iteration. This is to enable applications such as tools to stop. However, for the majority of regular chat applications, this can be provided as an application flag. This can also be run in a multi-threaded fashion as tokenization is CPU bottlenecked. [Other works](https://arxiv.org/abs/2402.05099) also notice the throughput improvement when removing the detokenization overhead.  
+*Building Model Input Tensors/Sampling Metadata*: The overhead in building model input tensors and sampling metadata is mainly due to Python object creation and looping. vLLM’s extensive use of dynamic object creation and dispatching can be optimized with PyTorch vectorized operations. By leveraging the use of pytorch vectorized operations or compiled C++, these operations can be improved. 
 
-**Logging**: Current logging occurs on the main process and is used to track current scheduling metrics. This can be moved to a separate process to avoid blocking tokenization.
+We similarly profiled SGlang and found that scheduling overhead was very small. We hope the vLLM community can use the optimizations found in the platform. As new features are added, we hope that the effect of scheduling overhead can be prioritized for faster LLM Serving
 
-**Building Model Input Tensors/Sampling Metadata:** We find that the overhead from these regions is due to Python objection creation and looping. In order to support a variety of use cases,vLLM extensively uses dynamic object creation and dispatching. By leveraging the use of pytorch vectorized operations, these operations can be improved. 
+## Limitations:
+Depending on the workload setting, GPU, network, and CPU selected the exact scheduling overhead can change. There was also variation between runs of the system.
 
-We similarly profiled SGlang and found that scheduling overhead never was low. This is due to turning off detokenization every iteration by default and using PyTorch vectorized operations whenever possible to build input/output. 
-
-As new features are added, we hope that the effect of scheduling overhead can be prioritized for faster LLM Serving
+The exact versions selected may also have scheduling overhead improved upon/fixed in later versions. 
