@@ -10,8 +10,6 @@ summary: "Today’s LLM serving systems like [vLLM](https://github.com/vllm-proj
 [Read More...](https://mlsys.wuklab.io/posts/scheduling_overhead/)
 "
 ---
-## Can Scheduling Overhead Dominate LLM Inference Performance? A Study of CPU Scheduling Overhead on Two Popular LLM Inference Systems
-
 Author: Vikranth, Dongming, Yiying, Reyna
 
 **TL;DR:**
