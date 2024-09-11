@@ -113,10 +113,8 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
 [services]
   [services.disqus]
     shortname = 'wuklab-mlsys'
-
-disquisShortname = "wuklab-mlsys"
-
-[services]
   [services.googleAnalytics]
     ID = 'G-HSQHT143HB'
+disquisShortname = "wuklab-mlsys"
+
 
