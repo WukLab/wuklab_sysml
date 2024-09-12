@@ -98,7 +98,7 @@ To further understand LLM inference scheduling time, we examined another serving
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_1.svg)
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_2.svg)
 
-Figure 6 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. Scheduling can account for up to 20% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. However, unlike vLLM, SGLang maintains minimal overhead across different settings, likely due to its use of vectorized Python operations and streamlined scheduling processes.
+Figure 6 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, likely due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 20% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
 
 
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_0.svg)
@@ -108,19 +108,30 @@ Similar to the vLLM setting, we tested SGLang on our local servers with A6000 Nv
 
 ### Sglang W/Without Radix Cache
 
-![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg)
+![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg_0.svg)
+![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A100_Radix_Cache.svg_0.svg)
 By default, SGLang uses prefix caching, which involves maintaining a prefix tree for scheduling and a custom kernel, Radix Attention. Depending on the workload, this can lead to slower model forwarding due to the kernel and increased scheduling time from prefix tree indexing. The figure above shows that both forwarding and scheduling times are negatively impacted with the LooGLE dataset. 
 
-#### Conclusion
+By default, SGLang uses prefix caching, which involves maintaining a prefix tree for scheduling and a custom kernel, Radix Attention. Depending on the workload, this feature can lead to slower model forwarding due to the kernel and increased scheduling time from prefix tree indexing. The figure above shows that both forwarding and scheduling times are negatively impacted by the LooGLE dataset, because the dataset has a lot of prefix sharing between different requests. 
+
+### Conclusion
+
 Our study revealed several interesting new findings about scheduling overhead in SoTA LLM serving systems. 
 
-*Detokenization*: In vLLM, Detokenization runs every iteration to support string-matching tools, but is optional for most chat applications. SGLang, for example, only runs the detokenization if there is a stop_str provided when starting the server. Other works also notice the throughput improvement when removing the detokenization overhead. To further reduce tokenization overhead, detokenization can be run in parallel as it’s CPU bottlenecked.
+1. LLM scheduling overhead can be significant and dominate application end-to-end performance.
+2. Absolute scheduling overhead grows with both input size and task complexity. For example, vLLM scheduling overhead grows with request counts, while SGLang scheduling overhead increases when enabling prefix cache.
+3. Relative scheduling overhead is higher when other parts in the end-to-end performance are faster. For example, when model forwarding is faster with a smaller model or faster GPU, scheduling accounts for more relative overhead. 
+4. The more decoding requests there are in a batch, the higher the absolute and relative scheduling overhead. For example, workloads with longer prompts have fewer requests in a batch, resulting in lower scheduling overhead, especially for vLLM. On the other hand, chunked prefill increases scheduling overhead, as it allows a batch to contain more requests and have lower model forwarding time.
+5. Multi-step scheduling lowers overall scheduling overhead but has its tradeoffs. For example, 
+6. Reducing scheduling overhead may have the tradeoff of increased model forwarding time and vice versa. 
 
-*Building Model Input Tensors/Sampling Metadata*: The overhead in building model input tensors and sampling metadata is mainly due to Python object creation and looping. vLLM’s extensive use of dynamic object creation and dispatching can be optimized with PyTorch vectorized operations. By leveraging the use of pytorch vectorized operations or compiled C++, these operations can be improved. 
+Based on these observations, we make several suggestions for future LLM serving system developments. Note that reducing the scheduling overhead is already on the [vLLM roadmap](https://github.com/vllm-project/vllm/issues/5805).
 
-We similarly profiled SGlang and found that scheduling overhead was very small. We hope the vLLM community can use the optimizations found in the platform. As new features are added, we hope that the effect of scheduling overhead can be prioritized for faster LLM Serving
+*Co-design scheduling and model forwarding*. Our study demonstrated the impact of scheduling overhead on LLM serving performance. As features keep being added, scheduling overheads can no longer be easily ignored. Meanwhile, these added features do often improve the model forwarding performance or overall application capabilities. Thus, the answer to reducing scheduling overhead likely does not lie in eliminating features. We call for future serving systems to measure and optimize scheduling overheads together with model forwarding performance when adding/changing features. 
 
-## Limitations:
-Depending on the workload setting, GPU, network, and CPU selected the exact scheduling overhead can change. There was also variation between runs of the system.
+*Avoid detokenization when possible*. vLLM performs detokenization for all model outputs at every iteration to allow the outputs to be used as text immediately (e.g., comparing output text to a generation stop string). However, such text-based usages of outputs are not always needed. For example, SGLang only performs detokenization if users provide a stop string. [Other works](https://arxiv.org/abs/2402.05099) also reported serving throughput improvements when removing detokenization. To reduce tokenization overhead when it cannot be avoided, a potential method is to perform detokenization asynchronously while allowing foreground LLM serving to continue with the next iteration.
 
-The exact versions selected may also have scheduling overhead improved upon/fixed in later versions. 
+*Improve Python object operations*. vLLM’s overhead in building model input tensors and sampling metadata is mainly due to Python object creation and looping. vLLM’s extensive use of dynamic object creation and dispatching can potentially be optimized via PyTorch vectorized operations or native language implementation. 
+
+### Disclaimer:
+The findings of this work are based on the authors’ experiments on a limited set of workloads, models, GPU server environments, and LLM serving system versions. This material is based upon work supported by gifts from AWS, Google, and Meta. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of these institutions.
