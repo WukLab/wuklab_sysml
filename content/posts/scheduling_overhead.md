@@ -3,7 +3,7 @@ title: "Can Scheduling Overhead Dominate LLM Inference Performance? A Study of C
 date: 2024-09-10
 draft: false
 hideToc: false
-tags: ["LLM", "Serving", "Iterative Scheduling"]
+tags: ["LLM", "Serving", "Scheduling"]
 truncated: false
 summary: "Today’s LLM serving systems like [vLLM](https://github.com/vllm-project/vllm) and [TGI](https://huggingface.co/docs/text-generation-inference/en/index)  primarily use a scheduling approach called iterative scheduling (or continuous batching), which decides the batch composition at every round (or every few rounds) of model forwarding. Different from prior serving systems that schedule the next batch after the entire current batch finishes, iterative scheduling promises to improve GPU utilization and LLM serving rate, but with a key assumption: the scheduling overhead can be ignored. While this assumption generally held in the past, it is worth reexamination as today’s LLM [inference kernels](https://flashinfer.ai/) run much faster than before and as more scheduling tasks and considerations get added. 
 
