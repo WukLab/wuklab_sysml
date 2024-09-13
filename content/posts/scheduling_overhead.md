@@ -75,13 +75,12 @@ Our inspection of the vLLM code revealed that vLLM has complex Python object man
 
 The Loogle workload also incurs non-trivial pre- and post-processing time. However, comparing the two workloads, the Loogle workload incurs smaller overhead in absolute values for model input tensor building and detokenization. Due to the longer prompts and shorter decoding of Loogle, each forward batch contains fewer sequences. Consequently, the input-tensor-building overhead is smaller than the 1024:1024 workload. Meanwhile, fewer requests generate fewer output tokens per batch, resulting in smaller detokenization cost.
 
-**Figure 4: vLLM Scheduling Overhead as Per-Iteration Batch Size (in Number of Tokens) Increases**
 
-We conducted an ablation study on the number of requests sent to the vLLM serving system. Figure 4 shows that as the total number of requests increases, the relative scheduling overhead also rises. This collaborates earlier analysis of vLLM’s scheduling overhead
-
+**Figure 6: vLLM Scheduling Overhead as Per-Iteration Batch Size (in Number of Tokens) Increases**
 ![vLLLM num requests](/images/scheduling_overhead/vLLM_A6000_Requests.svg)
 
-**Figure 5: As the number of requests increases, the scheduling overhead for vLLM increases.**
+We conducted an ablation study on the number of requests sent to the vLLM serving system. Figure 6 shows that as the total number of requests increases, the relative scheduling overhead also rises. This collaborates earlier analysis of vLLM’s scheduling overhead
+
 
 Below, we provide a breakdown of the line-by-line trace of running 1024 input 1024 output with LLama- 8b on our local A6000 GPU servers. 
 
@@ -92,33 +91,32 @@ Below, we provide a breakdown of the line-by-line trace of running 1024 input 10
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/process_model_output.png)
 
 ## SGLang Scheduling Overhead 
-To further understand LLM inference scheduling time, we examined another serving system, SGLang. We profiled SGLang v0.2.13 and with multi-step scheduling, and chunked prefill budget of 512, and without prefix caching. SGLang’s multi-step scheduling performs scheduling every K iterations (K=10 by default) when a batch consists only of decoding requests. In our experiments, as new requests keep getting added from the waiting queue, decoding-only batch and thus multi-step scheduling only happens when the waiting queue drains at the end of an experiment.
+To further understand LLM inference scheduling time, we examined another serving system, [SGLang](https://github.com/sgl-project/sglang). We profiled SGLang v0.2.13 and with multi-step scheduling, and chunked prefill budget of 512, with and without prefix caching. SGLang’s multi-step scheduling performs scheduling every K iterations (K=10 by default) when a batch consists only of decoding requests. In our experiments, as new requests keep getting added from the waiting queue, decoding-only batch and thus multi-step scheduling only happens when the waiting queue drains at the end of an experiment. Below, we first present the evaluation results without prefix caching enabled.
 
+**Figure 7 SGLang Scheduling vs Forwarding Time on A100 GPUs**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_0.svg)
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_1.svg)
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_2.svg)
 
-**Figure 6 SGLang Scheduling vs Forwarding Time on A100 GPUs**
 
-Figure 6 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, likely due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 20% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
+Figure 7 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 18% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
 
-
+**Figure 8 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_0.svg)
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_1.svg)
 
-**Figure 6 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
 
 Similar to the vLLM setting, we tested SGLang on our local servers with A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. In both the A100 and A6000 GPU, the scheduling overhead took a minimal amount of end to end time with at most 5.6%.
 
 ### Sglang W/Without Radix Cache
-
+**Figure 9 SGLang Scheduling Prefix Caching on LooGLE Dataset on A6000**
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg_0.svg)
-**Figure 8 SGLang Scheduling Prefix Caching on LooGLE Dataset on A6000**
+
+**Figure 10 SGLang Scheduling Prefix Caching on LooGLE Dataset on A100**
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A100_Radix_Cache.svg_0.svg)
 
-**Figure 9 SGLang Scheduling Prefix Caching on LooGLE Dataset on A100**
 
-We performed the first set of SGLang experiments without enabling its prefix caching feature to have a setup similar to vLLM. However, by default, SGLang uses prefix caching, a technique to cache and reuse shared prompt prefixes across requests to avoid recomputation. Prefix caching involves maintaining a prefix tree for scheduling and a custom kernel called Radix Attention. To understand the implication of prefix cache, we performed another set of experiments to compare SGLang’s scheduling and model forwarding time with and without prefix caching. Figures 8 and 9 show that per-iteration model forwarding and scheduling times both increase with prefix caching, and the impact is larger with the LooGLE dataset because LooGLE has more shared prefixes across its requests. Relatively, scheduling overhead increases with prefix caching, because the increased scheduling time dominates the increase in model forwarding time.
+We performed the first set of SGLang experiments without enabling its prefix caching feature to have a setup similar to vLLM. However, by default, SGLang uses prefix caching, a technique to cache and reuse shared prompt prefixes across requests to avoid recomputation. Prefix caching involves maintaining a prefix tree for scheduling and a custom kernel called Radix Attention. To understand the implication of prefix cache, we performed another set of experiments to compare SGLang’s scheduling and model forwarding time with and without prefix caching. Figures 9 and 10 show that per-iteration model forwarding and scheduling times both increase with prefix caching, and the impact is larger with the LooGLE dataset because LooGLE has more shared prefixes across its requests. Relatively, scheduling overhead increases with prefix caching, because the increased scheduling time dominates the increase in model forwarding time.
 
 
 ## Conclusion
