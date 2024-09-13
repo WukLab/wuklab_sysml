@@ -10,7 +10,7 @@ summary: "Today’s LLM serving systems like [vLLM](https://github.com/vllm-proj
 [Read More...](https://mlsys.wuklab.io/posts/scheduling_overhead/)
 "
 ---
-Author: Vikranth, Dongming, Yiying, Reyna
+Author: Vikranth Srivatsa, Dongming Li, Yiying Zhang, Reyna Abhyankar
 
 **TL;DR:**
 
