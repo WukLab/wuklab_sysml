@@ -107,7 +107,7 @@ To further understand LLM inference scheduling time, we examined another serving
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_2.svg)
 
 
-Figure 10-12 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 18% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
+Figures 10-12 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 18% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
 
 **Figure 13 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_0.svg)
