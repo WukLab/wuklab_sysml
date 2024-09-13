@@ -44,42 +44,46 @@ We benchmarked three models — the [Llama-1.3B](https://huggingface.co/princeto
 
 ## vLLM Scheduling Overhead Analysis  
 
-**Figure 2: vLLM Scheduling Time vs. Model Forwarding Time on A100 GPUs**
-
+**Figure 2: vLLM Scheduling Time vs. Model Forwarding Time on A100 GPUs on LLama 1.3b**
 ![vLLM Scheduling Overhead A100](/images/scheduling_overhead/vLLM_A100.svg_0.svg)
+
+**Figure 3: vLLM Scheduling Time vs. Model Forwarding Time on A100 GPUs on LLama 8b**
 ![vLLM Scheduling Overhead A100](/images/scheduling_overhead/vLLM_A100.svg_1.svg)
+
+**Figure 4: vLLM Scheduling Time vs. Model Forwarding Time on A100 GPUs on LLama 70b**
 ![vLLM Scheduling Overhead A100](/images/scheduling_overhead/vLLM_A100.svg_2.svg)
 
-Figure 2 presents the median per-iteration model forwarding time and scheduling time of vLLM running different workloads and models. Our results show that scheduling can take as high as half of the total end-to-end inference latency. The scheduling overhead gets relatively higher with the smaller model because the model forwarding time of a small model is faster but the scheduling overhead is not impacted by model sizes as much. Comparing across workloads, we observe workloads with longer output generation (1024:1024, ShareGPT) incur higher scheduling overhead. As we will show in the next section, vLLM’s scheduling overhead increases with more requests in a batch. Workloads with longer outputs have more requests performing decoding stages. For the same batch size in token counts, a batch can accommodate more decoding requests than prefill requests. Thus, for workloads with more decoding, the number of requests in a batch is larger, causing higher scheduling overhead. Loogle has the lowest scheduling overhead for two reasons. First, its model forwarding time is longer than other workloads. Second, the number of requests in a batch is smaller than other workloads, causing less scheduling overhead.
+Figure 2-4 presents the median per-iteration model forwarding time and scheduling time of vLLM running different workloads and models. Our results show that scheduling can take as high as half of the total end-to-end inference latency. The scheduling overhead gets relatively higher with the smaller model because the model forwarding time of a small model is faster but the scheduling overhead is not impacted by model sizes as much. Comparing across workloads, we observe workloads with longer output generation (1024:1024, ShareGPT) incur higher scheduling overhead. As we will show in the next section, vLLM’s scheduling overhead increases with more requests in a batch. Workloads with longer outputs have more requests performing decoding stages. For the same batch size in token counts, a batch can accommodate more decoding requests than prefill requests. Thus, for workloads with more decoding, the number of requests in a batch is larger, causing higher scheduling overhead. Loogle has the lowest scheduling overhead for two reasons. First, its model forwarding time is longer than other workloads. Second, the number of requests in a batch is smaller than other workloads, causing less scheduling overhead.
 
-**Figure 3: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs**
-
+**Figure 5: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs on Llama 1.3b**
 ![vLLM Scheduling Overhead A6000](/images/scheduling_overhead/vLLM_A6000.svg_0.svg)
+
+**Figure 6: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs on Llama 8b**
 ![vLLM Scheduling Overhead A6000](/images/scheduling_overhead/vLLM_A6000.svg_1.svg)
 
 
-We also tested the same set of workloads on our local servers, each consisting of two A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. Figure 3 presents these results. The A6000 GPUs model forwarding is much slower than A100. The relative scheduling overhead is lower than A100, as the model forwarding running on GPU gets slower. 
+We also tested the same set of workloads on our local servers, each consisting of two A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. Figure 5-6 presents these results. The A6000 GPUs model forwarding is much slower than A100. The relative scheduling overhead is lower than A100, as the model forwarding running on GPU gets slower. 
 
 ## vLLM Scheduling Overhead Breakdown
 
-To understand where vLLM’s scheduling overhead comes from, we analyze the breakdown of its scheduling tasks, as shown in Figure 4 and Figure 5 below. 
+To understand where vLLM’s scheduling overhead comes from, we analyze the breakdown of its scheduling tasks, as shown in Figure 7 and Figure 8 below. 
 
-**Figure 4: vLLM Scheduling Time Breakdown.** Running 1024:1024 with Llama-8B on A6000.  
+**Figure 7: vLLM Scheduling Time Breakdown.** Running 1024:1024 with Llama-8B on A6000.  
 ![1024 1024](/images/scheduling_overhead/1024_1024.svg)
 Overall, we found that running the actual scheduling algorithm contributes only a small portion of the overall scheduling overhead. The majority of the overhead arises from the preparation of model inputs and the post-processing of model outputs. Specifically, the most significant overhead comes from building input tensors, performing output detokenization, and preparing per-request metadata. 
 
 Our inspection of the vLLM code revealed that vLLM has complex Python object manipulation when preparing model input tensors and various metadata, causing the total pre-processing to be large and to increase with more input requests. On the other hand, vLLM detokenize each generated output, causing its post-processing time to also be significant and proportional to the number of output tokens in a batch.
 
-**Figure 5: vLLM Scheduling Time Breakdown.** Running Loogle with Llama-8B on A6000.  
+**Figure 8: vLLM Scheduling Time Breakdown.** Running Loogle with Llama-8B on A6000.  
 ![loogle](/images/scheduling_overhead/loogle.svg)
 
 The Loogle workload also incurs non-trivial pre- and post-processing time. However, comparing the two workloads, the Loogle workload incurs smaller overhead in absolute values for model input tensor building and detokenization. Due to the longer prompts and shorter decoding of Loogle, each forward batch contains fewer sequences. Consequently, the input-tensor-building overhead is smaller than the 1024:1024 workload. Meanwhile, fewer requests generate fewer output tokens per batch, resulting in smaller detokenization cost.
 
 
-**Figure 6: vLLM Scheduling Overhead as Per-Iteration Batch Size (in Number of Tokens) Increases**
+**Figure 9: vLLM Scheduling Overhead as Per-Iteration Batch Size (in Number of Tokens) Increases**
 ![vLLLM num requests](/images/scheduling_overhead/vLLM_A6000_Requests.svg)
 
-We conducted an ablation study on the number of requests sent to the vLLM serving system. Figure 6 shows that as the total number of requests increases, the relative scheduling overhead also rises. This collaborates earlier analysis of vLLM’s scheduling overhead
+We conducted an ablation study on the number of requests sent to the vLLM serving system. Figure 9 shows that as the total number of requests increases, the relative scheduling overhead also rises. This collaborates earlier analysis of vLLM’s scheduling overhead
 
 
 Below, we provide a breakdown of the line-by-line trace of running 1024 input 1024 output with LLama- 8b on our local A6000 GPU servers. 
@@ -93,30 +97,36 @@ Below, we provide a breakdown of the line-by-line trace of running 1024 input 10
 ## SGLang Scheduling Overhead 
 To further understand LLM inference scheduling time, we examined another serving system, [SGLang](https://github.com/sgl-project/sglang). We profiled SGLang v0.2.13 and with multi-step scheduling, and chunked prefill budget of 512, with and without prefix caching. SGLang’s multi-step scheduling performs scheduling every K iterations (K=10 by default) when a batch consists only of decoding requests. In our experiments, as new requests keep getting added from the waiting queue, decoding-only batch and thus multi-step scheduling only happens when the waiting queue drains at the end of an experiment. Below, we first present the evaluation results without prefix caching enabled.
 
-**Figure 7 SGLang Scheduling vs Forwarding Time on A100 GPUs**
+**Figure 10 SGLang Scheduling vs Forwarding Time on A100 GPUs on Llama 1.3b**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_0.svg)
+
+**Figure 11 SGLang Scheduling vs Forwarding Time on A100 GPUs on Llama 8b**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_1.svg)
+
+**Figure 12 SGLang Scheduling vs Forwarding Time on A100 GPUs on Llama 70b**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_2.svg)
 
 
-Figure 7 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 18% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
+Figure 10-12 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 18% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
 
-**Figure 8 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
+**Figure 13 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_0.svg)
+
+**Figure 14 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_1.svg)
 
 
 Similar to the vLLM setting, we tested SGLang on our local servers with A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. In both the A100 and A6000 GPU, the scheduling overhead took a minimal amount of end to end time with at most 5.6%.
 
 ### Sglang W/Without Radix Cache
-**Figure 9 SGLang Scheduling Prefix Caching on LooGLE Dataset on A6000**
+**Figure 15 SGLang Scheduling Prefix Caching on LooGLE Dataset on A6000**
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg_0.svg)
 
-**Figure 10 SGLang Scheduling Prefix Caching on LooGLE Dataset on A100**
+**Figure 16 SGLang Scheduling Prefix Caching on LooGLE Dataset on A100**
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A100_Radix_Cache.svg_0.svg)
 
 
-We performed the first set of SGLang experiments without enabling its prefix caching feature to have a setup similar to vLLM. However, by default, SGLang uses prefix caching, a technique to cache and reuse shared prompt prefixes across requests to avoid recomputation. Prefix caching involves maintaining a prefix tree for scheduling and a custom kernel called Radix Attention. To understand the implication of prefix cache, we performed another set of experiments to compare SGLang’s scheduling and model forwarding time with and without prefix caching. Figures 9 and 10 show that per-iteration model forwarding and scheduling times both increase with prefix caching, and the impact is larger with the LooGLE dataset because LooGLE has more shared prefixes across its requests. Relatively, scheduling overhead increases with prefix caching, because the increased scheduling time dominates the increase in model forwarding time.
+We performed the first set of SGLang experiments without enabling its prefix caching feature to have a setup similar to vLLM. However, by default, SGLang uses prefix caching, a technique to cache and reuse shared prompt prefixes across requests to avoid recomputation. Prefix caching involves maintaining a prefix tree for scheduling and a custom kernel called Radix Attention. To understand the implication of prefix cache, we performed another set of experiments to compare SGLang’s scheduling and model forwarding time with and without prefix caching. Figures 15 and 16 show that per-iteration model forwarding and scheduling times both increase with prefix caching, and the impact is larger with the LooGLE dataset because LooGLE has more shared prefixes across its requests. Relatively, scheduling overhead increases with prefix caching, because the increased scheduling time dominates the increase in model forwarding time.
 
 
 ## Conclusion
