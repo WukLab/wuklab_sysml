@@ -140,5 +140,5 @@ Based on these observations, we make several suggestions for future LLM serving 
 
 *Improve Python object operations*. vLLM’s overhead in building model input tensors and sampling metadata is mainly due to Python object creation and looping. vLLM’s extensive use of dynamic object creation and dispatching can potentially be optimized via PyTorch vectorized operations or native language implementation. 
 
-## Disclaimer:
+## Disclaimer
 The findings of this work are based on the authors’ experiments on a limited set of workloads, models, GPU server environments, and LLM serving system versions. This material is based upon work supported by gifts from AWS, Google, and Meta. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of these institutions.
