@@ -98,23 +98,30 @@ To further understand LLM inference scheduling time, we examined another serving
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_1.svg)
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_2.svg)
 
+**Figure 6 SGLang Scheduling vs Forwarding Time on A100 GPUs**
+
 Figure 6 shows the median per-iteration model forwarding and scheduling times for SGLang across various workloads and models. SGLang’s scheduling overhead is smaller than vLLM across different settings, likely due to its use of vectorized Python operations, its streamlined scheduling processes, and its avoidance of detokenization when users do not provide a stop string. Nevertheless, scheduling accounts for up to 20% of total inference latency in smaller models, as their faster forwarding time makes the scheduling overhead more noticeable. 
 
 
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_0.svg)
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A6000.svg_1.svg)
 
+**Figure 6 SGLang Scheduling vs Forwarding Time on A6000 GPUs**
+
 Similar to the vLLM setting, we tested SGLang on our local servers with A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. In both the A100 and A6000 GPU, the scheduling overhead took a minimal amount of end to end time with at most 5.6%.
 
 ### Sglang W/Without Radix Cache
 
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A6000_Radix_Cache.svg_0.svg)
+**Figure 8 SGLang Scheduling Prefix Caching on LooGLE Dataset on A6000**
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/SGLang_A100_Radix_Cache.svg_0.svg)
-By default, SGLang uses prefix caching, which involves maintaining a prefix tree for scheduling and a custom kernel, Radix Attention. Depending on the workload, this can lead to slower model forwarding due to the kernel and increased scheduling time from prefix tree indexing. The figure above shows that both forwarding and scheduling times are negatively impacted with the LooGLE dataset. 
 
-By default, SGLang uses prefix caching, which involves maintaining a prefix tree for scheduling and a custom kernel, Radix Attention. Depending on the workload, this feature can lead to slower model forwarding due to the kernel and increased scheduling time from prefix tree indexing. The figure above shows that both forwarding and scheduling times are negatively impacted by the LooGLE dataset, because the dataset has a lot of prefix sharing between different requests. 
+**Figure 9 SGLang Scheduling Prefix Caching on LooGLE Dataset on A100**
 
-### Conclusion
+We performed the first set of SGLang experiments without enabling its prefix caching feature to have a setup similar to vLLM. However, by default, SGLang uses prefix caching, a technique to cache and reuse shared prompt prefixes across requests to avoid recomputation. Prefix caching involves maintaining a prefix tree for scheduling and a custom kernel called Radix Attention. To understand the implication of prefix cache, we performed another set of experiments to compare SGLang’s scheduling and model forwarding time with and without prefix caching. Figures 8 and 9 show that per-iteration model forwarding and scheduling times both increase with prefix caching, and the impact is larger with the LooGLE dataset because LooGLE has more shared prefixes across its requests. Relatively, scheduling overhead increases with prefix caching, because the increased scheduling time dominates the increase in model forwarding time.
+
+
+## Conclusion
 
 Our study revealed several interesting new findings about scheduling overhead in SoTA LLM serving systems. 
 
@@ -122,7 +129,7 @@ Our study revealed several interesting new findings about scheduling overhead in
 2. Absolute scheduling overhead grows with both input size and task complexity. For example, vLLM scheduling overhead grows with request counts, while SGLang scheduling overhead increases when enabling prefix cache.
 3. Relative scheduling overhead is higher when other parts in the end-to-end performance are faster. For example, when model forwarding is faster with a smaller model or faster GPU, scheduling accounts for more relative overhead. 
 4. The more decoding requests there are in a batch, the higher the absolute and relative scheduling overhead. For example, workloads with longer prompts have fewer requests in a batch, resulting in lower scheduling overhead, especially for vLLM. On the other hand, chunked prefill increases scheduling overhead, as it allows a batch to contain more requests and have lower model forwarding time.
-5. Multi-step scheduling lowers overall scheduling overhead but has its tradeoffs. For example, 
+5. Multi-step scheduling lowers overall scheduling overhead but has its tradeoffs. For example, between two scheduling invocations, no new requests can be added to a batch even if some requests finish early.
 6. Reducing scheduling overhead may have the tradeoff of increased model forwarding time and vice versa. 
 
 Based on these observations, we make several suggestions for future LLM serving system developments. Note that reducing the scheduling overhead is already on the [vLLM roadmap](https://github.com/vllm-project/vllm/issues/5805).
@@ -133,5 +140,5 @@ Based on these observations, we make several suggestions for future LLM serving 
 
 *Improve Python object operations*. vLLM’s overhead in building model input tensors and sampling metadata is mainly due to Python object creation and looping. vLLM’s extensive use of dynamic object creation and dispatching can potentially be optimized via PyTorch vectorized operations or native language implementation. 
 
-### Disclaimer:
+## Disclaimer:
 The findings of this work are based on the authors’ experiments on a limited set of workloads, models, GPU server environments, and LLM serving system versions. This material is based upon work supported by gifts from AWS, Google, and Meta. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of these institutions.
