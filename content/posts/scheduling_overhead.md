@@ -60,7 +60,7 @@ Figure 2 presents the median per-iteration model forwarding time and scheduling 
 
 We also tested the same set of workloads on our local servers, each consisting of two A6000 Nvidia GPUs and Intel(R) Xeon(R) Gold 5218 CPUs. Figure 3 presents these results. The A6000 GPUs model forwarding is much slower than A100. The relative scheduling overhead is lower than A100, as the model forwarding running on GPU gets slower. 
 
-## Scheduling Overhead Breakdown
+## vLLM Scheduling Overhead Breakdown
 
 To understand where vLLM’s scheduling overhead comes from, we analyze the breakdown of its scheduling tasks, as shown in Figure 4 and Figure 5 below. 
 
