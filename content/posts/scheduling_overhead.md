@@ -91,7 +91,7 @@ Below, we provide a breakdown of the line-by-line trace of running 1024 input 10
 
 ![Line by Line Tracing Scheduling](/images/scheduling_overhead/process_model_output.png)
 
-#### SGLang Scheduling Overhead 
+## SGLang Scheduling Overhead 
 To further understand LLM inference scheduling time, we examined another serving system, SGLang. We profiled SGLang v0.2.13 and with multi-step scheduling, and chunked prefill budget of 512, and without prefix caching. SGLang’s multi-step scheduling performs scheduling every K iterations (K=10 by default) when a batch consists only of decoding requests. In our experiments, as new requests keep getting added from the waiting queue, decoding-only batch and thus multi-step scheduling only happens when the waiting queue drains at the end of an experiment.
 
 ![SGLang Scheduling Overhead](/images/scheduling_overhead/SGLang_A100.svg_0.svg)
