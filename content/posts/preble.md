@@ -127,6 +127,7 @@ This material is based upon work supported by gifts from AWS, Google, and Meta. 
   journal = {arXiv preprint arXiv: 2407.00023}
 }
 ```
+Arxiv URL: https://arxiv.org/abs/2407.00023
 
 Preble is ready to install/run at https://github.com/WukLab/preble
 ```
