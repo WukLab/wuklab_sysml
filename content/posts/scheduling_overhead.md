@@ -55,10 +55,10 @@ We benchmarked three models — the [Llama-1.3B](https://huggingface.co/princeto
 
 Figures 2-4 presents the median per-iteration model forwarding time and scheduling time of vLLM running different workloads and models. Our results show that scheduling can take as high as half of the total end-to-end inference latency. The scheduling overhead gets relatively higher with the smaller model because the model forwarding time of a small model is faster but the scheduling overhead is not impacted by model sizes as much. Comparing across workloads, we observe workloads with longer output generation (1024:1024, ShareGPT) incur higher scheduling overhead. As we will show in the next section, vLLM’s scheduling overhead increases with more requests in a batch. Workloads with longer outputs have more requests performing decoding stages. For the same batch size in token counts, a batch can accommodate more decoding requests than prefill requests. Thus, for workloads with more decoding, the number of requests in a batch is larger, causing higher scheduling overhead. Loogle has the lowest scheduling overhead for two reasons. First, its model forwarding time is longer than other workloads. Second, the number of requests in a batch is smaller than other workloads, causing less scheduling overhead.
 
-**Figure 5: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs on Llama 1.3b**
+**Figure 5: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs on Llama 8b**
 ![vLLM Scheduling Overhead A6000](/images/scheduling_overhead/vLLM_A6000.svg_0.svg)
 
-**Figure 6: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs on Llama 8b**
+**Figure 6: vLLM Scheduling Time vs. Model Forwarding Time on A6000 GPUs on Llama 1.3b**
 ![vLLM Scheduling Overhead A6000](/images/scheduling_overhead/vLLM_A6000.svg_1.svg)
 
 
