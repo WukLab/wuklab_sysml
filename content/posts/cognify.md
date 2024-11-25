@@ -1,8 +1,19 @@
+---
+title: "Cognify: A Comprehensive, Multi-Faceted Gen AI Workflow Optimizer"
+date: 2024-11-25
+draft: false
+hideToc: false
+tags: ["LLM", "GenAI Workflow", "LLM Optimizer"]
+summary: "
+Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **56% improvement in generation quality** and up to **11x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
+<br/><br/>
+[Read More...](https://mlsys.wuklab.io/posts/cognify/)
+"
+
+---
+Author: Yiying Zhang, Reyna Abhyankar, Zijian He
+
 ![logo](images/cognify/logo.jpg "image_tooltip")
-
-# Cognify: A Comprehensive, Multi-Faceted Gen AI Workflow Optimizer 
-
-Oct 2024, Author: Yiying Zhang, Reyna Abhyankar, Zijian He   
 
 **TL;DR:** Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **56% improvement in generation quality** and up to **11x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
 
