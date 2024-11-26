@@ -5,7 +5,7 @@ draft: false
 hideToc: false
 tags: ["LLM", "GenAI Workflow", "LLM Optimizer"]
 summary: "
-Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **47% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
+Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **48% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
 <br/><br/>
 [Read More...](https://mlsys.wuklab.io/posts/cognify/)
 "
@@ -13,10 +13,9 @@ Building high-quality, cost-effective generative AI applications is challenging 
 ---
 Author: Yiying Zhang, Reyna Abhyankar, Zijian He
 
-![logo](/images/cognify/logo-dark.jpg#gh-dark-mode-only)
-![logo](/images/cognify/logo-light.jpg#gh-light-mode-only)
+![logo-light](/images/cognify/logo-light.jpg)
 
-**TL;DR:** Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **47% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
+**TL;DR:** Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **48% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
 
 
 ## Today’s Gen AI Workflow Practices
@@ -26,13 +25,22 @@ A common practice of deploying generative AI (gen AI) in production today involv
 
 ## Introducing Cognify
 
-We introduce Cognify, a comprehensive, multi-objective gen-AI workflow optimizer. Cognify transforms gen-AI workflow programs (e.g., written in LangChain, DSPy, Python) into optimized workflows with multi-faceted optimization goals, including high workflow generation quality and low workflow execution cost. As shown in the results below, across application domains, Cognify **achieves up to 56% higher generation quality** with the same or smaller models, **pushes the cost-quality Pareto frontier**, and allows users to choose their preferred cost-quality combinations. Moreover, Cognify automates the entire optimization process with one click. Internally, it tests different combinations of optimization methods (we call them “*cogs*”) to achieve its optimization goals. Our current cogs include model selection, prompt engineering methods, and workflow structure changes (e.g., breaking and parallelizing components). Cognify allows users to configure cogs to include, models to select from, and the maximum optimization duration. 
+We introduce Cognify, a comprehensive, multi-objective gen-AI workflow optimizer. Cognify transforms gen-AI workflow programs (e.g., written in LangChain, DSPy, Python) into optimized workflows with multi-faceted optimization goals, including high workflow generation quality and low workflow execution cost. As shown in the results below, across application domains, Cognify **achieves up to 48% higher generation quality** with the same or smaller models, **pushes the cost-quality Pareto frontier**, and allows users to choose their preferred cost-quality combinations. Moreover, Cognify automates the entire optimization process with one click. Internally, it tests different combinations of optimization methods (we call them “*cogs*”) to achieve its optimization goals. Our current cogs include model selection, prompt engineering methods, and workflow structure changes (e.g., breaking and parallelizing components). Cognify allows users to configure cogs to include, models to select from, and the maximum optimization duration. 
 
-| Results on different workloads |
-| ------------------------------------- | --------------------------------------- |
-| {::nomarkdown}<img src="/images/cognify/hotpot.png">{:/} | {::nomarkdown}<img src="/images/cognify/codegen.png">{:/} |
-| {::nomarkdown}<img src="/images/cognify/hover.png">{:/} | {::nomarkdown}<img src="/images/cognify/t2s.png">{:/} |
-| {::nomarkdown}<img src="/images/cognify/datavis.png">{:/} | {::nomarkdown}<img src="/images/cognify/math.png">{:/} |
+<table>
+  <tr>
+    <td><img src="/images/cognify/hotpot.png"></td>
+    <td><img src="/images/cognify/codegen.png"></td>
+  </tr>
+  <tr>
+    <td><img src="/images/cognify/hover.png"></td>
+    <td><img src="/images/cognify/t2s.png"></td>
+  </tr>
+  <tr>
+    <td><img src="/images/cognify/datavis.png"></td>
+    <td><img src="/images/cognify/math.png"></td>
+  </tr>
+</table>
 
 
 
@@ -76,26 +84,28 @@ We welcome community contributions of more cogs.
 Below, we provide the generation results of a data visualization task for plotting a figure that represents mobile phone sales data across brands and quarters. We compare 1) directly asking OpenAI o1, 2) running a workflow (adopted from [MatPlotAgent](https://arxiv.org/pdf/2402.11453)), 3) the workflow optimized by DSPy, and 4) the workflow optimized by Cognify against the human plotted ground truth figure. As seen, Cognify’s generation is the closest to the ground truth.
 
 
-
-![ground_truth](/images/cognify/ground_truth_plot.png)
-                     
-Human Plotted Ground Truth
-
-
-![o1](/images/cognify/o1_plot.png)
-
-
-Generated by o1-preview
-
-
-![original](/images/cognify/original_wf_plot.png)
-
-Generated by Original Workflow
-     
-![dspy](/images/cognify/dspy_plot.png)
-
-
-Generated by DSPy-optimized workflow
+<table>
+  <tr>
+    <td>
+      <img src="/images/cognify/ground_truth_plot.png">
+      <strong>Human Plotted Ground Truth</strong>
+    </td>
+    <td>
+      <img src="/images/cognify/o1_plot.png">
+      <strong>Generated by o1-preview</strong>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/images/cognify/original_wf_plot.png">
+      <strong>Generated by Original Workflow</strong>
+    </td>
+    <td>
+      <img src="/images/cognify/dspy_plot.png">
+      <strong>Generated by DSPy-optimized workflow</strong>
+    </td>
+  </tr>
+</table>
 
 
 ![cognify](/images/cognify/cognify_plot.png)
