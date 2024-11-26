@@ -29,6 +29,17 @@ We introduce Cognify, a comprehensive, multi-objective gen-AI workflow optimizer
 
 <table>
   <tr>
+    <td><img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/hotpot.png?raw=true"></td>
+    <td><img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/codegen.png?raw=true"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/hover.png?raw=true"></td>
+    <td><img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/t2s.png?raw=true"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
     <td><img src="../../static/images/cognify/hotpot.png"></td>
     <td><img src="../../static/images/cognify/codegen.png"></td>
   </tr>
