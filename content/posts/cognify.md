@@ -55,7 +55,7 @@ We introduce Cognify, a comprehensive, multi-objective gen-AI workflow optimizer
 </table> -->
 
 
-![results](/images/cognify/results_all_white.png)
+![results](/images/cognify/output_figure.png)
 
 
 ## The Secret Sauce: Holistic Workflow Hyperparameter Tuning
@@ -72,7 +72,7 @@ The core idea of Cognify is to perform optimizations at the workflow level inste
 A key challenge in holistic workflow optimization is the associated optimization cost, both in terms of monetary cost and optimization time. A simplistic approach would involve performing a grid search over every possible cog combination, leading to exponential optimization costs. To confront this challenge, Cognify employs two strategies. First, we treats a workflow as a “*grey box*” and cogs as hyper-parameters to the workflow. The grey-box approach is in between white boxes and black boxes where we analyze and utilize workflows’ internal structures but not what each workflow step does. We design a customized Bayesian Optimizer for tuning workflow hyperparameters (i.e., cogs) based on the grey-box information, which allows for efficient exploration of the cog space. Second, we categorize cogs into two distinct layers: an outer loop containing cogs that alter workflow structures (like adding or removing components or rearranging their order) and an inner loop containing cogs that do not affect workflow structures (like prompt tuning and model selection). This two-layer approach reduces the overall search space that our Bayesian Optimizer needs to navigate.
 
 
-![optim](/images/cognify/optim.gif)
+![optim](/images/cognify/search_gif_large.gif)
 
 
 ***Cognify Optimization Flow***
