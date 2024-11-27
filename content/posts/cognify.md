@@ -64,7 +64,7 @@ The core idea of Cognify is to perform optimizations at the workflow level inste
 
 
 
-![arch](/images/cognify/architecture.jpg)
+![arch](/images/cognify/architecture.png)
 
 
 ***Cognify Overall Architecture***
