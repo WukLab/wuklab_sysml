@@ -14,7 +14,7 @@ Building high-quality, cost-effective generative AI applications is challenging 
 Author: Yiying Zhang, Reyna Abhyankar, Zijian He
 
 <p align="center">
-    <img src="https://github.com/GenseeAI/cognify/blob/main/cognify.jpg?raw=true" alt="Cognify logo">
+    <img src="https://github.com/GenseeAI/cognify/blob/main/cognify.jpg?raw=true" alt="Cognify logo" style="width: 60%">
 </p>
 
 **TL;DR:** Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **48% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
@@ -57,7 +57,7 @@ We introduce Cognify, a comprehensive, multi-objective gen-AI workflow optimizer
 </table> -->
 
 <p align="center">
-  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/output_figure.png?raw=true" width=800>
+  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/output_figure.png?raw=true" style="width: 80%">
 </p>
 
 
@@ -67,7 +67,7 @@ We introduce Cognify, a comprehensive, multi-objective gen-AI workflow optimizer
 The core idea of Cognify is to perform optimizations at the workflow level instead of at each individual workflow component. Since upstream components’ generation highly affects how downstream components perform, optimizing components in isolation can negatively impact both final generation quality and workflow execution costs. Instead, Cognify optimizes the entire workflow by experimenting with various combinations of cogs applied across workflow components and assessing the effectiveness of these combinations based on the quality of the final output. 
 
 <p align="center">
-  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/architecture.png?raw=true" width=800>
+  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/architecture.png?raw=true" style="width: 80%">
 </p>
 
 
@@ -76,7 +76,7 @@ The core idea of Cognify is to perform optimizations at the workflow level inste
 A key challenge in holistic workflow optimization is the associated optimization cost, both in terms of monetary cost and optimization time. A simplistic approach would involve performing a grid search over every possible cog combination, leading to exponential optimization costs. To confront this challenge, Cognify employs two strategies. First, we treats a workflow as a “*grey box*” and cogs as hyper-parameters to the workflow. The grey-box approach is in between white boxes and black boxes where we analyze and utilize workflows’ internal structures but not what each workflow step does. We design a customized Bayesian Optimizer for tuning workflow hyperparameters (i.e., cogs) based on the grey-box information, which allows for efficient exploration of the cog space. Second, we categorize cogs into two distinct layers: an outer loop containing cogs that alter workflow structures (like adding or removing components or rearranging their order) and an inner loop containing cogs that do not affect workflow structures (like prompt tuning and model selection). This two-layer approach reduces the overall search space that our Bayesian Optimizer needs to navigate.
 
 <p align="center">
-  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/search_gif_large.gif?raw=true" width=800>
+  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/search_gif_large.gif?raw=true" style="width: 80%">
 </p>
 
 
@@ -102,39 +102,40 @@ We welcome community contributions of more cogs.
 
 Below, we provide the generation results of a data visualization task for plotting a figure that represents mobile phone sales data across brands and quarters. We compare 1) directly asking OpenAI o1, 2) running a workflow (adopted from [MatPlotAgent](https://arxiv.org/pdf/2402.11453)), 3) the workflow optimized by DSPy, and 4) the workflow optimized by Cognify against the human plotted ground truth figure. As seen, Cognify’s generation is the closest to the ground truth.
 
-<!-- 
-<table>
-  <tr>
-    <td>
-      <img src="../../static/images/cognify/ground_truth_plot.png" height=280>
-      <p style="position: relative; bottom: 0; margin: 0"><strong>Human Plotted Ground Truth</strong></p>
+<div align="center">
+<table style="width: 80%">
+  <tr style="background-color: white">
+    <td style="vertical-align: bottom; background-color: white;">
+      <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/ground_truth_plot.png?raw=true">
+      <strong style="color: black">Human Plotted Ground Truth</strong>
     </td>
-    <td>
-      <img src="../../static/images/cognify/o1_plot.png" height=280>
-      <p style="position: relative; bottom: 0; margin: 0"><strong>Generated by o1-preview</strong></p>
+    <td style=" vertical-align: bottom; background-color: white;">
+      <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/o1_plot.png?raw=true">
+      <p style="color: white"><em style="font-size: 14px">(Required manual concatenation of messages in chat history)</em></p>
+      <strong style="color: black">Generated by o1-preview</strong>
     </td>
   </tr>
-  <tr>
-    <td>
-      <img src="../../static/images/cognify/original_wf_plot.png">
-      <p style="position: relative; bottom: 0; margin: 0"><strong>Generated by Original Workflow</strong></p>
+  <tr style="background-color: white">
+    <td style="vertical-align: bottom; background-color: white;">
+      <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/original_wf_plot.png?raw=true">
+      <strong style="color: black">Generated by Original Workflow</strong>
     </td>
-    <td>
-      <img src="../../static/images/cognify/dspy_plot.png">
-      <p style="position: relative; bottom: 0; margin: 0"><strong>Generated by DSPy-optimized Workflow</strong></p>
+    <td style="vertical-align: bottom; background-color: white;">
+      <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/dspy_plot.png?raw=true">
+      <strong style="color: black">Generated by DSPy-optimized Workflow</strong>
     </td>
   </tr>
 </table>
- -->
+</div>
+
+
+<!-- <p align="center">
+  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/demos_all_white.png?raw=true" style="width: 80%">
+</p> -->
 
 
 <p align="center">
-  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/demos_all_white.png?raw=true" width=800>
-</p>
-
-
-<p align="center">
-  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/cognify.png?raw=true" width=800>
+  <img src="https://github.com/WukLab/wuklab_sysml/blob/main/static/images/cognify/cognify.png?raw=true" style="width: 80%">
 </p>
 
 <p align="center">
