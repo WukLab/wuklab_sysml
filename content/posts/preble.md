@@ -119,12 +119,15 @@ This material is based upon work supported by gifts from AWS, Google, and Meta. 
   
 
 ## Citation
-```
-@article{srivatsa2024preble,
-  title   = {Preble: Efficient Distributed Prompt Scheduling for LLM Serving},
-  author  = {Vikranth Srivatsa and Zijian He and Reyna Abhyankar and Dongming Li and Yiying Zhang},
-  year    = {2024},
-  journal = {arXiv preprint arXiv: 2407.00023}
+
+```bibtex
+@inproceedings{srivatsa2024preble,
+  title="{Preble: Efficient Distributed Prompt Scheduling for LLM Serving}",
+  author={Vikranth Srivatsa and Zijian He and Reyna Abhyankar and Dongming Li and Yiying Zhang},
+  booktitle={Proceedings of the Forty-First International Conference on Machine Learning (ICML'25)},
+  year={2025},
+  month=Jul,
+  address={Singapore},
 }
 ```
 Arxiv URL: https://arxiv.org/abs/2407.00023
