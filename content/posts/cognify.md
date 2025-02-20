@@ -17,7 +17,7 @@ Author: Yiying Zhang, Reyna Abhyankar, Zijian He
     <img src="https://github.com/GenseeAI/cognify/blob/main/cognify.jpg?raw=true" alt="Cognify logo" style="width: 60%">
 </p>
 
-**TL;DR:** Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **48% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify).
+**TL;DR:** Building high-quality, cost-effective generative AI applications is challenging due to the absence of systematic methods for tuning, testing, and optimization. We introduce **Cognify**, a tool that automatically enhances generation quality and reduces costs for generative AI workflows, including those written with LangChain, DSPy, and annotated Python. Built on a novel foundation of hierarchical, workflow-level optimization, Cognify delivers up to a **48% improvement in generation quality** and up to **9x cost reduction**. Cognify is publicly available at [https://github.com/GenseeAI/cognify](https://github.com/GenseeAI/cognify), and the Cognify research paper can be found on [arxiv](https://arxiv.org/abs/2502.08056).
 
 
 ## Today’s Gen AI Workflow Practices
