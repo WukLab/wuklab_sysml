@@ -4,6 +4,7 @@ date: 2024-02-10
 draft: false
 hideToc: false
 ---
+- 5/15/2025 🎉 Cognify was accepted to KDD 2025!
 - 2/05/2024 [Preprint release of Cognify](https://arxiv.org/abs/2502.08056): The Automated Optimizer for Generative AI Workflows
 - 1/22/2024 🎉 Preble was accepted to ICLR 2025! 
 - 11/25/2024 [Release of Cognify](https://github.com/GenseeAI/cognify/): The Automated Optimizer for Generative AI Workflows
