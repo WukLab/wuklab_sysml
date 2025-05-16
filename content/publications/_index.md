@@ -6,7 +6,7 @@ date: 2024-02-10
 ## Conference Papers  
 - **Cognify: The Automated Optimizer for Generative AI Workflows**  
   *Zijian He\*, Reyna Abhyankar\*, Vikranth Srivatsa, Yiying Zhang*  
-  *31st ACM SIGKDD International Conference on Knowledge Discovery and Data Mining 2025*  
+  *31st ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 2025*  
   [KDD 2025](https://arxiv.org/abs/2502.08056)  
 
 - **SC-Bench: A Large-Scale Dataset for Smart Contract Auditing**
