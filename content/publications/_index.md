@@ -9,9 +9,9 @@ date: 2024-02-10
   *31st ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 2025*  
   [KDD 2025](https://arxiv.org/abs/2502.08056)  
 
-- **SC-Bench: A Large-Scale Dataset for Smart Contract Auditing**
+- **SC-Bench: A Large-Scale Dataset for Smart Contract Auditing**<br/>
   *Shihao Xia, Mengting He, Linhai Song, Yiying Zhang*
-  *Second International Workshop on Large Language Models for Code*
+  *Second International Workshop on Large Language Models for Code*<br/>
   [LLM4Code '25](https://arxiv.org/abs/2410.06176)
 
 - **Preble: Efficient Distributed Prompt Scheduling for LLM Serving**  
