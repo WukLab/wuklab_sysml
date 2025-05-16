@@ -8,6 +8,24 @@ date: 2024-02-10
   *Zijian He\*, Reyna Abhyankar\*, Vikranth Srivatsa, Yiying Zhang*  
   *31st ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 2025*  
   [KDD 2025](https://arxiv.org/abs/2502.08056)  
+<a href="#bibtex-cognify" data-bs-toggle="modal">[BibTeX]</a>
+
+<!-- BibTeX Modal -->
+<div id="bibtex-cognify" class="bibtex-modal">
+  <div class="bibtex-modal-content">
+    <a href="#" class="bibtex-close">&times;</a>
+    <pre><code>
+@inproceedings{he2025cognify,
+  title     = {Cognify: The Automated Optimizer for Generative AI Workflows},
+  author    = {He, Zijian and Abhyankar, Reyna and Srivatsa, Vikranth and Zhang, Yiying},
+  booktitle = {Proceedings of the 31st ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2502.08056}
+}
+    </code></pre>
+  </div>
+</div>
+
 
 - **SC-Bench: A Large-Scale Dataset for Smart Contract Auditing**<br/>
   *Shihao Xia, Mengting He, Linhai Song, Yiying Zhang*
@@ -30,3 +48,27 @@ date: 2024-02-10
   *Shihao Xia, Shuai Shao, Mengting He, Tingting Yu, Linhai Song, Yiying Zhang*
   *Preprint, April 2024*
   [arXiv:2404.04306](https://arxiv.org/abs/2404.04306)  
+
+
+<div class="modal fade" id="bibtexModal" tabindex="-1" aria-labelledby="bibtexModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bibtexModalLabel">BibTeX Citation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <pre><code id="bibtexModalContent" class="language-bibtex"></code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showBibtexModal(id, bibtex) {
+  const contentEl = document.getElementById('bibtexModalContent');
+  contentEl.textContent = bibtex;
+  const modal = new bootstrap.Modal(document.getElementById('bibtexModal'));
+  modal.show();
+}
+</script>
