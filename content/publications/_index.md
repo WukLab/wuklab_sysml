@@ -44,9 +44,14 @@ date: 2024-02-10
 
 
 ## Preprints  
-- **AuditGPT: Auditing Smart Contracts with ChatGPT**
-  *Shihao Xia, Shuai Shao, Mengting He, Tingting Yu, Linhai Song, Yiying Zhang*
-  *Preprint, April 2024*
+- **Deep-Learning-Driven Prefetching for Far Memory**<br/>
+  *Yutong Huang, Zhiyuan Guo, Yiying Zhang*<br/>
+  *Preprint, April 2025*<br/>
+  [arXiv:2506.00384](https://arxiv.org/abs/2506.00384)
+
+- **AuditGPT: Auditing Smart Contracts with ChatGPT**<br/>
+  *Shihao Xia, Shuai Shao, Mengting He, Tingting Yu, Linhai Song, Yiying Zhang*<br/>
+  *Preprint, April 2024*<br/>
   [arXiv:2404.04306](https://arxiv.org/abs/2404.04306)  
 
 
