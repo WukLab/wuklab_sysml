@@ -1,0 +1,19 @@
+.popover.bibtex-popover {
+  max-width: 800px;
+}
+
+.bibtex-inline-trigger {
+  margin-left: 0.25em;
+  cursor: pointer;
+}
+
+.popover-body .bibtex-code {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: .25rem;
+  font-size: 0.875em;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
