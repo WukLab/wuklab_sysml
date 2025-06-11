@@ -1,0 +1,67 @@
+<section id="how-it-works" class="fade-in mb-5">
+    <div class="border-bottom mb-4">
+        <ul class="nav nav-tabs justify-content-center border-0" id="how-it-works-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active font-weight-bold" id="predictor-tab" data-toggle="tab" href="#predictor-content" role="tab">The Predictor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="future-maps-tab" data-toggle="tab" href="#future-maps-content" role="tab">Future Maps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="optimizations-tab" data-toggle="tab" href="#optimizations-content" role="tab">Optimizations</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="predictor-content" role="tabpanel">
+            <h4>Compact & Efficient Prediction</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">Retentive Network (RetNet):</span><br>
+                    Uses a Transformer variant model architecture (~3K parameters), small enough to fit in L1 cache for fast inference.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">CPU-Based Inference:</span><br>
+                    Avoids slow GPU communication. Prediction runs on the application's core during idle I/O wait time, hiding latency.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Small Vocabulary:</span><br>
+                    Predicting ordinals instead of full memory addresses space simplifies model complexity, boosting accuracy.
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="future-maps-content" role="tabpanel">
+            <h4>The Runtime Address Book</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">Dynamic Mapping:</span><br>
+                    Future Maps are created at runtime, learning the memory layout as the app runs and making the system immune to ASLR.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Page-Specific:</span><br>
+                    Each memory page has its own Future Map, tracking the most likely next pages to be accessed from it.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Swappable & Indirected:</span><br>
+                    Future Maps can be swapped to far memory. An indirection layer (Future Map Roots) manages their locations efficiently.
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="optimizations-content" role="tabpanel">
+            <h4>Making Prefetching Timely & Effective</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">Multi-Step Lookahead:</span><br>
+                    The model predicts several steps into the future to ensure prefetched data arrives <em>before</em> it's needed.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Asynchronous Prefetching:</span><br>
+                    Prefetch requests are sent in the background, so the application thread isn't blocked.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Efficient Input Encoding:</span><br>
+                    Uses rotary positional encoding to reuse computations for overlapping access histories, speeding up predictions.
+                </li>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,94 @@
+<section id="visualizations" class="fade-in mb-4">
+    <div class="border-bottom mb-4 mt-3">
+        <ul class="nav nav-tabs justify-content-center border-0" id="vizTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active font-weight-bold" id="bfs-tab" data-toggle="tab" href="#bfs-viz-content" role="tab">Example 1: Breadth-First Search</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="dijkstra-tab" data-toggle="tab" href="#dijkstra-viz-content" role="tab">Example 2: Dijkstra's Algorithm</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="vizTabContent">
+        <div class="tab-pane fade show active" id="bfs-viz-content" role="tabpanel">
+            <p class="text-center text-secondary my-4">Instead of predicting volatile memory addresses (A, B, C...), FarSight predicts stable, semantic edge ordinals (1, 2, 1...). Click "Start" to see the translation for a level-by-level BFS traversal.</p>
+            <div class="graph-container">
+                <svg>
+                    <defs>
+                        <marker id="arrowhead-bfs" class="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" />
+                        </marker>
+                    </defs>
+                    <line id="edge-bfs-A-B" class="edge" x1="50%" y1="15%" x2="25%" y2="50%" marker-end="url(#arrowhead-bfs)" />
+                    <line id="edge-bfs-A-C" class="edge" x1="50%" y1="15%" x2="75%" y2="50%" marker-end="url(#arrowhead-bfs)" />
+                    <line id="edge-bfs-B-D" class="edge" x1="25%" y1="50%" x2="15%" y2="85%" marker-end="url(#arrowhead-bfs)" />
+                    <line id="edge-bfs-B-E" class="edge" x1="25%" y1="50%" x2="40%" y2="85%" marker-end="url(#arrowhead-bfs)" />
+                    <line id="edge-bfs-C-F" class="edge" x1="75%" y1="50%" x2="60%" y2="85%" marker-end="url(#arrowhead-bfs)" />
+                    <text class="edge-label" x="38%" y="28%">1</text>
+                    <text class="edge-label" x="62%" y="28%">2</text>
+                    <text class="edge-label" x="20%" y="63%">1</text>
+                    <text class="edge-label" x="35%" y="63%">2</text>
+                    <text class="edge-label" x="68%" y="63%">1</text>
+                </svg>
+                <div id="bfs-node-A" class="graph-node" style="left: 50%; top: 15%;">A</div>
+                <div id="bfs-node-B" class="graph-node" style="left: 25%; top: 50%;">B</div>
+                <div id="bfs-node-C" class="graph-node" style="left: 75%; top: 50%;">C</div>
+                <div id="bfs-node-D" class="graph-node" style="left: 15%; top: 85%;">D</div>
+                <div id="bfs-node-E" class="graph-node" style="left: 40%; top: 85%;">E</div>
+                <div id="bfs-node-F" class="graph-node" style="left: 60%; top: 85%;">F</div>
+            </div>
+            <div class="text-center mt-4">
+                <button id="startBfsBtn" class="btn btn-success">Start BFS</button>
+                <button id="resetBfsBtn" class="btn btn-secondary ml-2">Reset</button>
+            </div>
+            <div id="bfs-path-display" class="text-center mt-4 font-monospace" style="height: 5rem; display: flex; align-items: center; justify-content: center;"></div>
+        </div>
+        <div class="tab-pane fade" id="dijkstra-viz-content" role="tabpanel">
+            <p class="text-center text-secondary my-4">More complex algorithms like Dijkstra's also produce predictable semantic paths based on which edges are explored. This "visited sequence" is what FarSight learns. Click "Start" to see the translation.</p>
+            <div class="graph-container">
+                <svg>
+                    <defs>
+                        <marker id="arrowhead-dijkstra" class="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" />
+                        </marker>
+                    </defs>
+                    <line id="edge-dijkstra-A-B" class="edge" x1="10%" y1="50%" x2="30%" y2="20%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-A-C" class="edge" x1="10%" y1="50%" x2="30%" y2="80%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-B-D" class="edge" x1="30%" y1="20%" x2="50%" y2="20%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-B-E" class="edge" x1="30%" y1="20%" x2="50%" y2="50%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-C-E" class="edge" x1="30%" y1="80%" x2="50%" y2="50%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-C-G" class="edge" x1="30%" y1="80%" x2="50%" y2="80%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-D-F" class="edge" x1="50%" y1="20%" x2="70%" y2="20%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-E-F" class="edge" x1="50%" y1="50%" x2="70%" y2="20%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-E-G" class="edge" x1="50%" y1="50%" x2="50%" y2="80%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-G-H" class="edge" x1="50%" y1="80%" x2="70%" y2="50%" marker-end="url(#arrowhead-dijkstra)" />
+                    <line id="edge-dijkstra-F-H" class="edge" x1="70%" y1="20%" x2="70%" y2="50%" marker-end="url(#arrowhead-dijkstra)" />
+                    <text class="edge-label" x="18%" y="30%">1(w:2)</text>
+                    <text class="edge-label" x="18%" y="70%">2(w:1)</text>
+                    <text class="edge-label" x="40%" y="16%">1(w:3)</text>
+                    <text class="edge-label" x="35%" y="40%">2(w:7)</text>
+                    <text class="edge-label" x="35%" y="60%">1(w:3)</text>
+                    <text class="edge-label" x="40%" y="84%">2(w:5)</text>
+                    <text class="edge-label" x="60%" y="16%">1(w:1)</text>
+                    <text class="edge-label" x="55%" y="30%">1(w:4)</text>
+                    <text class="edge-label" x="46%" y="65%">2(w:1)</text>
+                    <text class="edge-label" x="58%" y="60%">1(w:1)</text>
+                    <text class="edge-label" x="72%" y="35%">1(w:2)</text>
+                </svg>
+                <div id="dijkstra-node-A" class="graph-node" style="left: 10%; top: 50%;">A</div>
+                <div id="dijkstra-node-B" class="graph-node" style="left: 30%; top: 20%;">B</div>
+                <div id="dijkstra-node-C" class="graph-node" style="left: 30%; top: 80%;">C</div>
+                <div id="dijkstra-node-D" class="graph-node" style="left: 50%; top: 20%;">D</div>
+                <div id="dijkstra-node-E" class="graph-node" style="left: 50%; top: 50%;">E</div>
+                <div id="dijkstra-node-G" class="graph-node" style="left: 50%; top: 80%;">G</div>
+                <div id="dijkstra-node-F" class="graph-node" style="left: 70%; top: 20%;">F</div>
+                <div id="dijkstra-node-H" class="graph-node" style="left: 70%; top: 50%;">H</div>
+            </div>
+            <div class="text-center mt-4">
+                <button id="startDijkstraBtn" class="btn btn-success">Start Dijkstra</button>
+                <button id="resetDijkstraBtn" class="btn btn-secondary ml-2">Reset</button>
+            </div>
+            <div id="dijkstra-path-display" class="text-center mt-4 font-monospace" style="height: 5rem; display: flex; align-items: center; justify-content: center;"></div>
+        </div>
+    </div>
+</section>
