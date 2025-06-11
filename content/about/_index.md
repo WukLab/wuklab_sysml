@@ -18,6 +18,7 @@ currentMembers:
         link: https://depctg.github.io/
       - name: Yutong Huang
         imageFile: Yutong.jpg
+        link: https://yutonghuang.me/
       - name: Reyna Abhyankar
         imageFile: Reyna.png
       - name: Zijian He

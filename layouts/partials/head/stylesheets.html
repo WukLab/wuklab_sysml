@@ -6,7 +6,8 @@
     (resources.Get "css/lib/katex.css")
     (resources.Get "css/tabs.css")
     (resources.Get "css/custom.css")
+    (resources.Get "css/farsight-interactive.css")
   | resources.Concat "css/bundle.css" | minify | fingerprint }}
 
 <link type="text/css" rel="stylesheet" href="{{ $css_bundle.RelPermalink }}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">

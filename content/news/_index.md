@@ -4,6 +4,7 @@ date: 2024-02-10
 draft: false
 hideToc: false
 ---
+- 6/10/2025 [Preprint release of FarSight](https://arxiv.org/abs/2506.00384): Deep-Learning-Driven Prefetching for Far Memory
 - 5/15/2025 🎉 Cognify was accepted to KDD 2025!
 - 2/05/2024 [Preprint release of Cognify](https://arxiv.org/abs/2502.08056): The Automated Optimizer for Generative AI Workflows
 - 1/22/2024 🎉 Preble was accepted to ICLR 2025! 

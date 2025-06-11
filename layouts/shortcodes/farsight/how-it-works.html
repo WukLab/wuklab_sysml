@@ -1,0 +1,84 @@
+<section id="how-it-works" class="fade-in mb-5">
+    <div class="border-bottom mb-4">
+        <ul class="nav nav-tabs justify-content-center border-0" id="how-it-works-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active font-weight-bold" id="model-tab" data-toggle="tab" href="#model-content" role="tab">The Model</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="runtime-tab" data-toggle="tab" href="#runtime-content" role="tab">RunTime Prediction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="future-maps-tab" data-toggle="tab" href="#future-maps-content" role="tab">Future Maps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="linux-tab" data-toggle="tab" href="#linux-content" role="tab">Linux Integration</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="model-content" role="tabpanel">
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">Retentive Network (RetNet):</span><br>
+                    Uses a Transformer variant model architecture (~3K parameters),
+                    small enough to fit in L1 cache for fast and constant inference time.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Small Vocabulary:</span><br>
+                    Predicts ordinals instead of full memory addresses space simplifies model complexity, boosting accuracy.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Rotational Embedding:</span><br>
+                    Uses 2&pi;-scaled rotary positional encoding to reuse computations across overlapping memory traces, speeding up predictions.
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="runtime-content" role="tabpanel">
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">CPU-Core-Local Prediction:</span><br>
+                    Prediction runs on the application's CPU core, avoiding slow CPU-GPU communication.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Hiding Prediction overhead:</span><br>
+                    Prefetch requests are sent while waiting for application on-demand paging, no extra latency overhead.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Multi-Step Lookahead:</span><br>
+                    The model predicts several steps into the future to ensure prefetched data arrives <em>before</em> it's needed.
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="future-maps-content" role="tabpanel">
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">Dynamic Mapping:</span><br>
+                    Future Maps are created at runtime, learning the memory layout as the app runs and making the system immune to ASLR.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Page-Specific:</span><br>
+                    Each memory page has its own Future Map, tracking the most likely next pages to be accessed from it.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Swappable & Indirected:</span><br>
+                    Future Maps can be swapped to far memory. An indirection layer (Future Map Roots) manages their locations efficiently.
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="linux-content" role="tabpanel">
+            <ul class="list-unstyled">
+                <li>
+                    <span class="font-weight-bold text-primary">Linux Kernel Implementation:</span><br>
+                    Implemented as a swappable kernel module and introduces changes to the underlying Linux swap system. 
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Asynchronous Page Prefetching:</span><br>
+                    Prefetched Page are not waited on IO completion, eliminating additional IO latency.
+                </li>
+                <li class="mt-2">
+                    <span class="font-weight-bold text-primary">Efficient Page Eviction:</span><br>
+                    Application pages are evicted in the background, allowing the system to reclaim memory without blocking the application.
+                </li>
+        </div>
+    </div>
+</section>
