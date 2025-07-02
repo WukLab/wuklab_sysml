@@ -1,6 +1,6 @@
 ---
 title: "OSWorld-Human: Benchmarking the Efficiency of Computer-Use Agents"
-date: 2025-07-03
+date: 2025-07-02
 draft: false
 hideToc: false
 tags: ["Sys for ML", "CUAs", "LLM Benchmarks"]
@@ -40,8 +40,6 @@ To measure the performance of SOTA agents on OSWorld-Human, we introduce two **w
 
 {{< oshuman/wes >}}
 
-These metrics are aggregated over the entire dataset and paint a clear picture of an agent’s accuracy and efficiency.
-
 We analyze 16 agents’ performance on OSWorld and OSWorld-Human.
 
 <!-- {{< oshuman/agent-time >}} -->
@@ -50,10 +48,4 @@ Even the highest-performing agent, S2, takes 1.4x more steps than needed to comp
 
 ## Our Vision
 
-CUAs can significantly boost human productivity and accessibility by automating desktop tasks. Their adoption hinges on bringing latency down to human or sub-human levels. We hope OSWorld-Human encourages future research on improving the efficiency of CUAs as a parallel goal to accuracy.
-
-<br>
-
-{{< oshuman/checkout-paper >}}
-
-<br>
+CUAs can significantly boost human productivity and accessibility by automating desktop tasks. Their adoption hinges on bringing latency down to human or sub-human levels. We hope OSWorld-Human encourages future research on improving the efficiency of CUAs as a parallel goal to accuracy. Read our full paper on [arXiv](https://arxiv.org/abs/2506.00384).
