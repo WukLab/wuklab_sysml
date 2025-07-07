@@ -112,7 +112,6 @@ main > * + * {
   display: flex;
   align-items: center;                   /* items-center */
   justify-content: center;              /* justify-center */
-  min-height: 100vh;                    /* min-h-screen */
 }
 
 @media (min-width: 640px) {
@@ -225,9 +224,26 @@ div.w-full.max-w-3xl {
   border-color: #ef4444;
 }
 
-.rounded-r-lg {
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .md\:flex-row {
+    flex-direction: row;
+  }
+}
+
+.gap-6 {
+  gap: 1.5rem; /* 24px */
 }
 
 /* Section padding */
@@ -278,9 +294,9 @@ div.w-full.max-w-3xl {
   padding: 0.75rem;
 }
 
-.text-center {
+/* .text-center {
   text-align: center;
-}
+} */
 
 /* Explanatory paragraph */
 .mt-4 {
@@ -302,4 +318,301 @@ div.w-full.max-w-3xl {
 
 .border-t {
   border-top-width: 1px;
+}
+
+#app-breakdown {
+  color: #333;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#single-v-grouped {
+  color: #333;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: 0;
+}
+
+#chart-container, #sg-chart-container {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1200px;
+}
+
+h1 {
+  /* text-align: center; */
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+#legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.legend-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+#chart {
+  width: 120%;
+  height: 515px;
+}
+
+.bar-segment {
+  transition: opacity 0.3s ease;
+}
+
+.axis-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.domain {
+  stroke-width: 1.5px;
+}
+
+.tick line {
+  stroke: #e2e8f0;
+}
+
+.tick text {
+  fill: #4a5568;
+  font-size: 12px;
+}
+
+#tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translate(-50%, -100%);
+  white-space: nowrap;
+}
+
+#sg-chart-container {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1200px;
+}
+.bar {
+  transition: opacity 0.3s ease-in-out;
+}
+.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  background: #333;
+  color: white;
+  border-radius: 0.5rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.axis-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.tick text {
+  font-size: 0.75rem;
+}
+
+/* --- Main Container and Content Wrapper --- */
+#result-scatter-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#result-scatter-content-wrapper {
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Typography --- */
+#result-scatter-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#result-scatter-description {
+  text-align: center;
+  color: #4b5563;
+  margin-bottom: 2rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- NEW: Main Card Container for Controls and Chart --- */
+#result-scatter-main-card {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+/* --- Controls and Buttons (Now inside the main card) --- */
+#result-scatter-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem; /* Spacing between buttons and chart */
+  background-color: #f9fafb; /* A slightly different background for the button bar */
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+#result-scatter-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  border: none;
+  cursor: pointer;
+}
+
+#result-scatter-controls button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #2563eb;
+}
+
+/* Button State Styles */
+.result-scatter-btn-active-single { background-color: #3b82f6; color: white; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.result-scatter-btn-inactive-single { background-color: transparent; color: #2563eb; }
+.result-scatter-btn-inactive-single:hover { background-color: #eff6ff; }
+
+.result-scatter-btn-active-grouped { background-color: #22c55e; color: white; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.result-scatter-btn-inactive-grouped { background-color: transparent; color: #16a34a; }
+.result-scatter-btn-inactive-grouped:hover { background-color: #f0fdf4; }
+
+.result-scatter-btn-active-wes_minus { background-color: #ef4444; color: white; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.result-scatter-btn-inactive-wes_minus { background-color: transparent; color: #dc2626; }
+.result-scatter-btn-inactive-wes_minus:hover { background-color: #fef2f2; }
+
+/* --- Chart Area (Now just a container for the SVG) --- */
+#result-scatter-chart-area {
+  width: 100%;
+  height: 500px;
+}
+
+/* --- Tooltip --- */
+.result-scatter-tooltip {
+  position: absolute;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font: 12px sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.result-scatter-tooltip p { margin: 0.2rem 0; }
+.result-scatter-tooltip .font-bold { font-weight: 700; color: #1f2937; }
+.result-scatter-tooltip .text-gray-600 { color: #4b5563; }
+.result-scatter-tooltip .font-medium { font-weight: 500; color: black; }
+
+
+/* --- Responsive Design --- */
+@media (min-width: 640px) { /* sm: */
+  #result-scatter-container { padding: 1.5rem; }
+  #result-scatter-title { font-size: 1.875rem; line-height: 2.25rem; }
+  #result-scatter-controls { gap: 1rem; }
+  #result-scatter-controls button { font-size: 1rem; line-height: 1.5rem; }
+  #result-scatter-chart-area { height: 600px; }
+}
+
+@media (min-width: 1024px) { /* lg: */
+  #result-scatter-container { padding: 2rem; }
+}
+
+.arxiv-container {
+  padding: 1rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;              /* justify-center */
+  text-align: center; /* This will center all inline or inline-block children */
+}
+
+/* Style for the link to remove underline and set text color */
+.arxiv-link {
+  text-decoration: none; /* Removes the default underline from the link */
+}
+
+/* Style for the button */
+.arxiv-button {
+  background-color: #4285F4; /* Google's blue color */
+  color: white;             /* Text color */
+  padding: 15px 32px;       /* Top/bottom and left/right padding */
+  border: none;             /* No border */
+  border-radius: 8px;       /* Rounded corners */
+  font-size: 18px;          /* Font size */
+  font-family: Arial, sans-serif; /* A clean, modern font */
+  cursor: pointer;          /* Changes cursor to a pointer on hover */
+  display: inline-block;    /* Allows padding and margin */
+  text-align: center;       /* Centers the text inside the button */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Darker blue on hover for a nice interactive effect */
+.arxiv-button:hover {
+  background-color: #3367D6;
 }
