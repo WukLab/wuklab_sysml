@@ -55,6 +55,11 @@ date: 2024-02-10
   {{< /bibtex >}}
 
 ## Preprints  
+- **OSWorld-Human: Benchmarking the Efficiency of Computer-Use Agents**<br/>
+  *Reyna Abhyankar, Qi Qi, Yiying Zhang*<br/>
+  *Accepted to Workshop on Computer Use Agents at ICML, 2025*<br/>
+  [arXiv:2506.16042](https://arxiv.org/abs/2506.16042)
+
 - **Deep-Learning-Driven Prefetching for Far Memory**<br/>
   *Yutong Huang, Zhiyuan Guo, Yiying Zhang*<br/>
   *Preprint, April 2025*<br/>

@@ -1,0 +1,32 @@
+<section id="wes" class="bg-gray-100 flex items-center justify-center sm:p-6 md:p-8">
+
+    <!-- Main container card -->
+    <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg p-6 sm:p-8 md:p-10 border flex flex-col md:flex-row border-gray-200 gap-6">
+
+        <!-- Success Case (Green Box) -->
+        <div class="bg-green-50/80 border-l-4 border-green-500 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-green-900">Successful Task: $r_t = 1$</h2>
+            <div class="mt-3 text-center bg-white border border-gray-200 rounded-md p-3">
+                <!-- LaTeX formula for the success score -->
+                $$ WES^{+} = \frac{t_{\text{human}}}{t_{\text{agent}}} $$
+            </div>
+            <p class="mt-4 text-green-800">
+                A higher score is awarded for using fewer agent steps ($t_{\text{agent}}$) relative to the expected human steps ($t_{\text{human}}$).
+            </p>
+        </div>
+
+        <!-- Failure Case (Red Box) -->
+        <div class="bg-red-50/80 border-l-4 border-red-500 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-red-900">Failed Task: $r_t = 0$</h2>
+            <div class="mt-3 text-center bg-white border border-gray-200 rounded-md p-3">
+                 <!-- LaTeX formula for the failure penalty -->
+                $$ WES^{-} = - \left( \frac{t_{\text{agent}}}{S} \right) $$
+            </div>
+            <p class="mt-4 text-red-800">
+                A smaller penalty is assigned for failing in fewer agent steps ($t_{\text{agent}}$) relative to the maximum steps allowed ($S$).
+            </p>
+        </div>
+
+    </div>
+
+</section>
