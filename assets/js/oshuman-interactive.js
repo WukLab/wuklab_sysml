@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const item = document.createElement('div');
             item.className = 'legend-item';
             item.dataset.key = key;
+            item.style.color = "black";
 
             const colorBox = document.createElement('div');
             colorBox.className = 'legend-color';
@@ -338,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sg_mousemove(sg_event, sg_key, sg_value) {
-        sg_tooltip.innerHTML = `<strong>${sg_key}</strong><br>Steps: ${sg_value}`;
+        sg_tooltip.innerHTML = `<strong style="color: white">${sg_key}</strong><br>Steps: ${sg_value}`;
         sg_tooltip.style.left = (sg_event.pageX + 15) + "px";
         sg_tooltip.style.top = (sg_event.pageY - 28) + "px";
     }
@@ -457,6 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sg_legend.style.display = "flex";
     sg_legend.style.justifyContent = "center";
     sg_legend.style.gap = "20px";
+    sg_legend.style.color = "black";
     sg_legend.style.fontFamily = "sans-serif";
     // ---- MODIFICATION: Changed margin to be on the bottom to space it from the chart ----
     sg_legend.style.marginBottom = "10px";
@@ -468,6 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.display = 'flex';
         item.style.alignItems = 'center';
         item.style.cursor = 'default';
+        item.style.color = "black";
         item.style.transition = 'opacity 0.2s';
     
         const colorBox = document.createElement('div');
@@ -525,8 +528,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const result_scatter_plotConfigs = {
-        single: { yKey: 'single_wes_plus', name: 'Single WES+', color: '#3b82f6', yDomain: [0, 30], yTicks: [0, 10, 20, 30] },
-        grouped: { yKey: 'grouped_wes_plus', name: 'Grouped WES+', color: '#16a34a', yDomain: [0, 30], yTicks: [0, 10, 20, 30] },
+        single: { yKey: 'single_wes_plus', name: 'Single WES+ (%)', color: '#3b82f6', yDomain: [0, 30], yTicks: [0, 10, 20, 30] },
+        grouped: { yKey: 'grouped_wes_plus', name: 'Grouped WES+ (%)', color: '#16a34a', yDomain: [0, 30], yTicks: [0, 10, 20, 30] },
         wes_minus: { yKey: 'wes_minus', name: 'WES-', color: '#ef4444', yDomain: [-1, 0], yTicks: [-1.0, -0.8, -0.6, -0.4, -0.2, 0] },
     };
     const result_scatter_xDomain = [0, 50];
@@ -628,7 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
         result_scatter_xAxisLabel.setAttribute('y', result_scatter_height + 50);
         result_scatter_xAxisLabel.style.fill = '#4b5563';
         result_scatter_xAxisLabel.style.fontSize = '14px';
-        result_scatter_xAxisLabel.textContent = 'Original Success Rate';
+        result_scatter_xAxisLabel.textContent = 'Original Success Rate (%)';
         result_scatter_mainGroup.appendChild(result_scatter_xAxisLabel);
 
         const result_scatter_yAxisLabel = result_scatter_createSvgElement('text');
