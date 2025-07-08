@@ -14,7 +14,7 @@ Author: Reyna Abhyankar, Qi Qi, Yiying Zhang
 
 ## AI Agents: Smart, But Slow
 
-Computer-Use Agents (CUAs) can perform complex tasks, but their high latency makes them impractical. A task taking a human minutes can take an agent over 20 minutes. We study these bottlenecks and construct a new benchmark, OSWorld-Human, that measures both accuracy and temporal efficiency of CUAs. 
+Computer-Use Agents (CUAs) can perform complex tasks, but their high latency makes them impractical. A task that takes a human just 2 minutes to complete can take an agent over 20 minutes. We study these bottlenecks and construct a new benchmark, OSWorld-Human, that measures both accuracy and temporal efficiency of CUAs. 
 
 {{< oshuman/agent-time >}}
 
