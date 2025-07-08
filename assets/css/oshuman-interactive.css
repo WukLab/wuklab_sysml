@@ -46,9 +46,9 @@ main > * + * {
 }
 
 /* Section container */
-#problem {
+/* #problem {
   text-align: center;
-}
+} */
 
 /* Grid wrapper */
 #problem > div {
@@ -67,45 +67,118 @@ main > * + * {
   }
 }
 
-/* Card content (excluding section-card) */
-
-.section-card {
-  background-color: white;
-  border-radius: 0.75rem; /* 12px */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem; /* p-6 */
+/* grid */
+.grid {
+  display: grid;
 }
+
+/* grid-cols-1 */
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+/* md:grid-cols-2 */
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* gap-6 */
+.gap-6 {
+  gap: 1.5rem; /* 24px */
+}
+
+/* max-w-2xl */
+.max-w-2xl {
+  max-width: 42rem; /* 672px */
+}
+
+/* mx-auto */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Card content (excluding section-card) */
+.bg-white {
+  background-color: white;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem; /* 12px */
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+}
+
 
 /* Human heading */
-.section-card .text-teal-600 {
-  color: #0d9488;                 /* Tailwind's teal-600 */
-  font-size: 1.5rem;              /* text-2xl */
-  font-weight: 600;               /* font-semibold */
-  margin-bottom: 0.5rem;          /* mb-2 */
+/* Layout */
+.p-6 {
+  padding: 1.5rem;
 }
 
-/* Agent heading */
-.section-card .text-red-500 {
-  color: #ef4444;                 /* Tailwind's red-500 */
-  font-size: 1.5rem;              /* text-2xl */
-  font-weight: 600;               /* font-semibold */
-  margin-bottom: 0.5rem;          /* mb-2 */
+.text-center {
+  text-align: center;
 }
 
-/* Bold timing */
-.section-card .text-4xl {
-  font-size: 2.25rem;             /* text-4xl */
+/* Headings */
+.text-teal-600 {
+  color: #0d9488 !important;
+}
+
+.text-red-500 {
+  color: #ef4444 !important;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Timer text */
+.text-4xl {
+  font-size: 2.25rem;
   line-height: 2.5rem;
-  font-weight: 700;               /* font-bold */
-  color: #0f172a;                 /* text-slate-800 */
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-slate-800 {
+  color: #0f172a;
 }
 
 /* Paragraph */
-.section-card p {
-  font-size: 0.875rem;            /* text-sm */
-  color: #64748b;                 /* text-slate-500 */
-  margin-top: 0.25rem;            /* mt-1 */
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
+
+.text-slate-500 {
+  color: #64748b;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 
 /* Body layout and background */
 #wes {
