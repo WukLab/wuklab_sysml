@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const colorMap = new Map(keys.map((key, i) => [key, colors[i % colors.length]]));
 
-    const svg = document.querySelector("#chart");
-    const tooltip = document.querySelector("#tooltip");
-    const legend = document.querySelector("#legend");
-    const chartContainer = document.querySelector("#chart-container");
+    const svg = document.querySelector("#app-breakdown-chart");
+    const tooltip = document.querySelector("#app-breakdown-tooltip");
+    const legend = document.querySelector("#app-breakdown-legend");
+    const chartContainer = document.querySelector("#app-breakdown-chart-container");
     const SVG_NS = "http://www.w3.org/2000/svg";
 
     function drawChart() {
@@ -539,10 +539,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- VANILLA JS CHART RENDERING ---
 
-    const result_scatter_chartContainer = document.getElementById("result-scatter-chart-area");
-    const result_scatter_tooltip = document.querySelector(".result-scatter-tooltip") || (()=>{
+    const result_scatter_chartContainer = document.getElementById("oswh-result-scatter-chart-area");
+    const result_scatter_tooltip = document.querySelector(".oswh-result-scatter-tooltip") || (()=>{
         const newTooltip = document.createElement("div");
-        newTooltip.className = "result-scatter-tooltip";
+        newTooltip.className = "oswh-result-scatter-tooltip";
         document.body.appendChild(newTooltip);
         return newTooltip;
     })();
@@ -565,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const result_scatter_svg = result_scatter_createSvgElement("svg");
         result_scatter_svg.setAttribute("width", result_scatter_containerWidth);
         result_scatter_svg.setAttribute("height", result_scatter_containerHeight);
-        result_scatter_svg.id = "result-scatter-svg";
+        result_scatter_svg.id = "oswh-result-scatter-svg";
 
         const result_scatter_mainGroup = result_scatter_createSvgElement("g");
         result_scatter_mainGroup.setAttribute("transform", `translate(${result_scatter_margin.left},${result_scatter_margin.top})`);
@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 result_scatter_tooltip.style.opacity = 0.9;
                 result_scatter_tooltip.innerHTML = `
                     <p class="font-bold">${d.baseline}</p>
-                    <p class="text-gray-600">Original: <span class="font-medium">${d.original}</span></p>
+                    <p class="text-gray-600">Original (%): <span class="font-medium">${d.original}</span></p>
                     <p class="text-gray-600">${result_scatter_currentConfig.name}: <span class="font-medium">${d[result_scatter_currentConfig.yKey]}</span></p>`;
                 result_scatter_tooltip.style.left = `${event.pageX + 15}px`;
                 result_scatter_tooltip.style.top = `${event.pageY - 28}px`;
@@ -711,9 +711,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function result_scatter_updateButtonStyles() {
         const result_scatter_buttons = {
-            single: document.getElementById('result-scatter-btn-single'),
-            grouped: document.getElementById('result-scatter-btn-grouped'),
-            wes_minus: document.getElementById('result-scatter-btn-wes-minus'),
+            single: document.getElementById('oswh-result-scatter-btn-single'),
+            grouped: document.getElementById('oswh-result-scatter-btn-grouped'),
+            wes_minus: document.getElementById('oswh-result-scatter-btn-wes-minus'),
         };
 
         for (const plotKey in result_scatter_buttons) {
@@ -721,16 +721,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Reset classes
             result_scatter_button.className = '';
             if (plotKey === result_scatter_activePlot) {
-                result_scatter_button.classList.add(`result-scatter-btn-active-${plotKey}`);
+                result_scatter_button.classList.add(`oswh-result-scatter-btn-active-${plotKey}`);
             } else {
-                result_scatter_button.classList.add(`result-scatter-btn-inactive-${plotKey}`);
+                result_scatter_button.classList.add(`oswh-result-scatter-btn-inactive-${plotKey}`);
             }
         }
     }
 
-    document.getElementById('result-scatter-btn-single').addEventListener('click', () => { result_scatter_activePlot = 'single'; result_scatter_updateButtonStyles(); result_scatter_renderChart(); });
-    document.getElementById('result-scatter-btn-grouped').addEventListener('click', () => { result_scatter_activePlot = 'grouped'; result_scatter_updateButtonStyles(); result_scatter_renderChart(); });
-    document.getElementById('result-scatter-btn-wes-minus').addEventListener('click', () => { result_scatter_activePlot = 'wes_minus'; result_scatter_updateButtonStyles(); result_scatter_renderChart(); });
+    document.getElementById('oswh-result-scatter-btn-single').addEventListener('click', () => { result_scatter_activePlot = 'single'; result_scatter_updateButtonStyles(); result_scatter_renderChart(); });
+    document.getElementById('oswh-result-scatter-btn-grouped').addEventListener('click', () => { result_scatter_activePlot = 'grouped'; result_scatter_updateButtonStyles(); result_scatter_renderChart(); });
+    document.getElementById('oswh-result-scatter-btn-wes-minus').addEventListener('click', () => { result_scatter_activePlot = 'wes_minus'; result_scatter_updateButtonStyles(); result_scatter_renderChart(); });
     
     result_scatter_updateButtonStyles();
     result_scatter_renderChart();

@@ -1,8 +1,22 @@
-<section id="app-breakdown">
-  <div id="chart-container">
-    <h1 style="color: black">Application Action Breakdown</h1>
-    <div id="legend"></div>
-    <svg id="chart"></svg>
-    <div id="tooltip"></div>
+<section class="text-[#333] flex justify-center items-center text-center min-h-screen m-0">
+  <div id="app-breakdown-chart-container" class="bg-white p-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] w-[90%] max-w-[1200px]">
+    <h1 class="text-black mb-2">Application Action Breakdown</h1>
+    <div id="app-breakdown-legend" class="flex justify-center flex-wrap gap-6 mb-8"></div>
+    <svg id="app-breakdown-chart" class="w-[120%] h-[515px]"></svg>
+    <div id="app-breakdown-tooltip" class="absolute 
+  bg-black/80 
+  text-white 
+  px-3 py-2 
+  rounded 
+  text-[0.85rem] 
+  pointer-events-none 
+  opacity-0 
+  transition 
+  duration-200 
+  ease-in-out 
+  transform 
+  -translate-x-1/2 
+  -translate-y-full 
+  whitespace-nowrap"></div>
   </div>
 </section>
