@@ -1,15 +1,15 @@
-<div id="result-scatter-container">
-  <div id="result-scatter-content-wrapper">
+<div class="w-full min-h-screen p-4 flex flex-col items-center">
+  <div class="w-full max-w-[72rem] mx-auto">
       
       <!-- New main card container -->
-      <div id="result-scatter-main-card">
-          <div id="result-scatter-controls">
-              <button id="result-scatter-btn-single">Single WES+</button>
-              <button id="result-scatter-btn-grouped">Grouped WES+</button>
-              <button id="result-scatter-btn-wes-minus">WES-</button>
+      <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-200">
+          <div id="oswh-result-scatter-controls" class="flex justify-center items-center gap-2 mb-6 bg-gray-50 p-2 rounded-xl border border-gray-200">
+              <button id="oswh-result-scatter-btn-single" style="border: none; border-radius: 0.5rem; padding: 0.5rem 1rem;">Single WES+</button>
+              <button id="oswh-result-scatter-btn-grouped" style="border: none; border-radius: 0.5rem; padding: 0.5rem 1rem;">Grouped WES+</button>
+              <button id="oswh-result-scatter-btn-wes-minus" style="border: none; border-radius: 0.5rem; padding: 0.5rem 1rem;">WES-</button>
           </div>
 
-          <div id="result-scatter-chart-area">
+          <div id="oswh-result-scatter-chart-area" class="w-full h-[500px]">
               <!-- SVG for the chart will be appended here by Vanilla JS -->
           </div>
       </div>

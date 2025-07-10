@@ -18,6 +18,7 @@ Computer-Use Agents (CUAs) can perform complex tasks, but their high latency mak
 
 {{< oshuman/agent-time >}}
 
+
 We conduct a deep dive on the primary causes of CUA latency by studying [Agent S2](https://www.simular.ai/articles/agent-s2), the leading open-source CUA based on the [OSWorld benchmark](https://os-world.github.io/). The S2 framework generally follows the “observation-think-act” framework, as depicted for a simple document editing task here:
 
 ![Step-by-Step](/images/oshuman/blog-fast.gif)  
@@ -38,16 +39,12 @@ To measure the performance of SOTA agents on OSWorld-Human, we introduce two **w
 
 {{< oshuman/wes >}}
 
-We analyze 16 agents’ performance on OSWorld and OSWorld-Human against the original success rate on OSWorld on 3 metrics: single-action WES+, grouped-action WES+, and WES- (computed the same for single and grouped).
+We analyze 16 agents’ performance on OSWorld and OSWorld-Human against the original success rate on OSWorld on 3 metrics: single-action WES+, grouped-action WES+, and WES- (computed the same for single and grouped). Even the highest-performing agent, S2, takes **1.4x more steps** than needed to complete a task, which can add tens of minutes of real-time latency. 
 
 {{< oshuman/result-scatter >}}
-
-Even the highest-performing agent, S2, takes **1.4x more steps** than needed to complete a task, which can add tens of minutes of real-time latency. 
 
 ## Our Vision
 
 CUAs can significantly boost human productivity and accessibility by automating desktop tasks. Their adoption hinges on bringing latency down to human or sub-human levels. We hope OSWorld-Human encourages future research on improving the efficiency of CUAs as a parallel goal to accuracy. 
-
-<!-- Read our full paper on [arXiv](https://arxiv.org/abs/2506.00384). -->
 
 {{< oshuman/checkout-paper >}}
