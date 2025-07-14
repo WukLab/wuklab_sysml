@@ -31,7 +31,7 @@ Upon breaking down the latency for various applications, LLM calls for "Planning
 
 Based on our observations, we constructed **OSWorld-Human**, a benchmark that reflects how humans accomplish computer-use tasks. We manually performed all 369 tasks in OSWorld and recorded the sequence of manual actions needed to complete them. OSWorld-Human is available [open-source](https://github.com/WukLab/osworld-human). 
 
-Furthermore, we found that some steps can be completed without the need of an additional screenshot since there is no change in the UI. For example, clicking on a text box, typing, and pressing enter do not require 3 separate screenshots. Hence, we also construct a **grouped-action** trajectory for each task, which represents actions that can be completed from a single observation Applications where the UI does not change significantly from step to step have a much higher discrepancy between single and grouped trajectories, as shown below.
+Furthermore, we found that some steps can be completed without the need of an additional screenshot since there is no change in the UI. For example, clicking on a text box, typing, and pressing enter do not require 3 separate screenshots. Hence, we also construct a **grouped-action** trajectory for each task, which represents actions that can be completed from a single observation. Applications where the UI does not change significantly from step to step have a much higher discrepancy between single and grouped trajectories, as shown below.
  
 {{< oshuman/single-v-grouped >}}
 
