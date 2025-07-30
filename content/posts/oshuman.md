@@ -23,7 +23,7 @@ We conduct a deep dive on the primary causes of CUA latency by studying [Agent S
 
 ![Step-by-Step](/images/oshuman/blog-fast.gif)  
 
-Upon breaking down the latency for various applications, LLM calls for "Planning" and "Reflection" are the main culprits, consuming **75-94%** of total task time. Planning and reflection occur at each step and include the full history of observations. This means tasks that take more steps are *exponentially slower* than tasks that take fewer steps. 
+Upon breaking down the latency for various applications, LLM calls for "Planning" and "Reflection" are the main culprits, consuming **75-94%** of total task time. Planning and reflection occur at each step and include the full history of observations. This means tasks that take more steps are *quadratically slower* than tasks that take fewer steps. 
 
 {{< oshuman/app-breakdown >}}
 
