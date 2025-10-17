@@ -1,0 +1,31 @@
+<!-- Interactive Element 3: Token Cost -->
+
+<body class="anr-body antialiased">
+    <div class="bg-gray-800 p-6 rounded-lg my-12">
+        <h2 class="text-2xl font-bold text-white text-center mb-6">The Token Tax: How Retrieval Inflates Cost</h2>
+        <p class="text-center text-gray-400 mb-8">Our other major finding is that final answer generation uses the most
+            *tokens*. This is because all the content gathered from web searches is fed back to the model as context.
+            Use
+            the slider below to see how the amount of retrieved webpage content can dramatically increase the token
+            count
+            and cost of the final answer.</p>
+
+        <div class="flex flex-col items-center">
+            <label for="tokenSlider" class="font-semibold text-white">Retrieved Webpage Tokens: <span id="sliderValue"
+                    class="font-bold text-cyan-400">1.3M</span></label>
+            <input id="tokenSlider" type="range" min="100000" max="2500000" value="1300000" step="10000"
+                class="w-full max-w-md my-4 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center w-full max-w-md mt-4">
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-400 text-sm">Estimated Answer Gen Tokens</p>
+                    <p id="estimatedTokens" class="text-2xl font-bold text-white">~13,300</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-400 text-sm">Estimated Cost</p>
+                    <p id="estimatedCost" class="text-2xl font-bold text-white">~$0.78</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

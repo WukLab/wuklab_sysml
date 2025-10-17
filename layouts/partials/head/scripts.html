@@ -26,6 +26,7 @@
 {{ $js = $js | append (resources.Get "js/lib/chart.js") }}
 {{ $js = $js | append (resources.Get "js/farsight-interactive.js") }}
 {{ $js = $js | append (resources.Get "js/oshuman-interactive.js") }}
+{{ $js = $js | append (resources.Get "js/an-reasoning-interactive.js") }}
 
 {{ $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint }}
 
