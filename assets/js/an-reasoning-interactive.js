@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             taskType.models.forEach(model => {
                 const modelEl = document.createElement('div');
                 modelEl.className = 'flex items-center mb-2';
-                modelEl.innerHTML = `<div class="w-32 text-right mr-4 text-gray-300">${model.name}</div>`;
+                modelEl.innerHTML = `<div class="w-32 text-right mr-4 text-white">${model.name}</div>`;
                 
                 const barContainer = document.createElement('div');
                 barContainer.className = 'flex w-full h-8 bg-gray-700 rounded-md overflow-hidden';
