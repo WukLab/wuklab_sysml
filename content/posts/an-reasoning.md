@@ -1,5 +1,5 @@
 ---
-title: "Demystifying Delays in Reasoning: A Pilot Temporal and Token Analysis of Reasoning Systems"
+title: "Why is Your AI Deep Research Slow? A Temporal and Token Analysis of Reasoning Systems"
 date: 2025-10-17
 draft: false
 hideToc: false
@@ -12,9 +12,9 @@ Despite rapid gains in accuracy, the latency of reasoning and deep-research syst
 ---
 Author: Qi Qi, Reyna Abhyankar, Yiying Zhang
 
-## Why is Your AI Deep Research Slow?
+<!-- ## Why is Your AI Deep Research Slow?
 
-### A Temporal and Token Analysis of Reasoning Systems
+### A Temporal and Token Analysis of Reasoning Systems -->
 
 Ever ask an AI to tackle a tough research question and find yourself waiting... and waiting? You expect a smart, quick response, especially when the answer is needed for urgent tasks like debugging a production issue or analyzing a sudden market shift. When an AI takes too long, it breaks your workflow. In our new pilot study, ["Demystifying Delays in Reasoning"](https://cseweb.ucsd.edu/~yiying/2025_NIPS_ERW_Deep_Research_Perf_Study.pdf), we dug into why these slowdowns happen and found the bottleneck isn't where you might think.
 
