@@ -4,7 +4,63 @@ date: 2024-02-10
 ---
 
 ## Conference Papers  
-- **Cognify: The Automated Optimizer for Generative AI Workflows**  
+- **OSWorld-Human: Benchmarking the Efficiency of Computer-Use Agents**<br/>
+  *Reyna Abhyankar\*, Qi Qi\*, Yiying Zhang*<br/>
+  *Workshop on Computer Use Agents at ICML, 2025*<br/>
+  *9th Annual Conference on Machine Learning and Systems 2026*<br/>
+  [MLSys '2026](https://arxiv.org/abs/2506.16042)
+  {{< bibtex name="abhyankar2026osworld" >}} 
+  @inproceedings{abhyankar2026osworld, 
+  author = "Abhyankar, Reyna and Qi, Qi and Zhang, Yiying", 
+  title = "OSWorld-Human: Benchmarking the Efficiency of Computer-Use Agents", booktitle = "Proceedings of the 9th Annual Conference on Machine Learning and Systems (MLSys)", 
+  year = "2026" } 
+  {{< /bibtex >}}
+
+- **Beat the long tail: Distribution-Aware Speculative Decoding for RL Training**<br/> *Zelei Shao\*, Vikranth Srivatsa\*, Sanjana Srivastava, Qingyang Wu, Alpay Ariyak, Xiaoxia Wu, Ameen Patel, Jue Wang, Percy Liang, Tri Dao, Ce Zhang, Yiying Zhang, Ben Athiwaratkun, Chenfeng Xu, Junxiong Wang* <br/>
+  *9th Annual Conference on Machine Learning and Systems 2026*<br/>
+  [MLSys '2026](https://arxiv.org/abs/2511.13841)
+  {{< bibtex name="shao2026beat" >}} 
+  @inproceedings{shao2026beat, 
+  author = "Shao, Zelei and Srivatsa, Vikranth and Srivastava, Sanjana and Wu, Qingyang and Ariyak, Alpay and Wu, Xiaoxia and Patel, Ameen and Wang, Jue and Liang, Percy and Dao, Tri and Zhang, Ce and Zhang, Yiying and Athiwaratkun, Ben and Xu, Chenfeng and Wang, Junxiong", 
+  title = "Beat the long tail: Distribution-Aware Speculative Decoding for RL Training", 
+  booktitle = "Proceedings of the 9th Annual Conference on Machine Learning and Systems (MLSys)", 
+  year = "2026" } 
+  {{< /bibtex >}}
+
+
+- **FarSight: Deep-Learning-Driven Prefetching for Far Memory** <br/>
+  *Yutong Huang, Zhiyuan Guo, Yiying Zhang* </br>
+  *Workshop on Machine Learning for Systems at NeurIPS, 2025*  </br>
+  [NeurIPS 2025](https://neurips.cc/Conferences/2025)
+  {{< bibtex name="FarSight" >}} @inproceedings{
+  huang2025farsight,
+  title={FarSight: Deep-Learning-Driven Prefetching for Far Memory},
+  author={Yutong Huang and Zhiyuan Guo and Yiying Zhang},
+  booktitle={NeurIPS 2025 Workshop on Machine Learning for Systems},
+  year={2025},
+  month=Dec,
+  address={Vancouver, Canada},
+}
+  {{< /bibtex >}}
+
+- **Demystifying Delays in Reasoning** <br/>
+*Reyna Abhyankar, Qi Qi, Yiying Zhang* </br>
+*Workshop on Efficient Reasoning at NeurIPS, 2025* </br>
+[NeurIPS 2025](https://neurips.cc/Conferences/2025) 
+  {{< bibtex name="DemystifyingDelays" >}}
+@inproceedings{
+  abhyankar2025demystifying,
+  title={Demystifying Delays in Reasoning},
+  author={Reyna Abhyankar and Qi Qi and Yiying Zhang},
+  booktitle={NeurIPS 2025 Workshop on Efficient Reasoning},
+  year={2025},
+  month=Dec,
+  address={Vancouver, Canada},
+}
+  {{< /bibtex >}}
+
+
+- **Cognify: The Automated Optimizer for Generative AI Workflows**  <br/>
   *Zijian He\*, Reyna Abhyankar\*, Vikranth Srivatsa, Yiying Zhang*  
   *31st ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 2025*<br/>
   [KDD '25](https://arxiv.org/abs/2502.08056)
@@ -55,10 +111,6 @@ date: 2024-02-10
   {{< /bibtex >}}
 
 ## Preprints  
-- **OSWorld-Human: Benchmarking the Efficiency of Computer-Use Agents**<br/>
-  *Reyna Abhyankar, Qi Qi, Yiying Zhang*<br/>
-  *Accepted to Workshop on Computer Use Agents at ICML, 2025*<br/>
-  [arXiv:2506.16042](https://arxiv.org/abs/2506.16042)
 
 - **Deep-Learning-Driven Prefetching for Far Memory**<br/>
   *Yutong Huang, Zhiyuan Guo, Yiying Zhang*<br/>
