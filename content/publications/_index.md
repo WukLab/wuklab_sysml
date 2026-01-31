@@ -31,7 +31,7 @@ date: 2024-02-10
 - **FarSight: Deep-Learning-Driven Prefetching for Far Memory** <br/>
   *Yutong Huang, Zhiyuan Guo, Yiying Zhang* </br>
   *Workshop on Machine Learning for Systems at NeurIPS, 2025*  </br>
-  [NeurIPS 2025](https://neurips.cc/Conferences/2025)
+  [NeurIPS 2025](https://neurips.cc/virtual/2025/loc/san-diego/129118)
   {{< bibtex name="FarSight" >}} @inproceedings{
   huang2025farsight,
   title={FarSight: Deep-Learning-Driven Prefetching for Far Memory},
@@ -46,17 +46,17 @@ date: 2024-02-10
 - **Demystifying Delays in Reasoning** <br/>
 *Reyna Abhyankar, Qi Qi, Yiying Zhang* </br>
 *Workshop on Efficient Reasoning at NeurIPS, 2025* </br>
-[NeurIPS 2025](https://neurips.cc/Conferences/2025) 
+[NeurIPS 2025](https://neurips.cc/virtual/2025/loc/san-diego/126694) 
   {{< bibtex name="DemystifyingDelays" >}}
-@inproceedings{
-  abhyankar2025demystifying,
-  title={Demystifying Delays in Reasoning},
-  author={Reyna Abhyankar and Qi Qi and Yiying Zhang},
-  booktitle={NeurIPS 2025 Workshop on Efficient Reasoning},
-  year={2025},
-  month=Dec,
-  address={Vancouver, Canada},
-}
+  @inproceedings{
+    abhyankar2025demystifying,
+    title={Demystifying Delays in Reasoning},
+    author={Reyna Abhyankar and Qi Qi and Yiying Zhang},
+    booktitle={NeurIPS 2025 Workshop on Efficient Reasoning},
+    year={2025},
+    month=Dec,
+    address={Vancouver, Canada},
+  }
   {{< /bibtex >}}
 
 
