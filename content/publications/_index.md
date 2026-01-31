@@ -44,14 +44,14 @@ date: 2024-02-10
   {{< /bibtex >}}
 
 - **Demystifying Delays in Reasoning** <br/>
-*Reyna Abhyankar, Qi Qi, Yiying Zhang* </br>
+*Qi Qi, Reyna Abhyankar,Yiying Zhang* </br>
 *Workshop on Efficient Reasoning at NeurIPS, 2025* </br>
 [NeurIPS 2025](https://neurips.cc/virtual/2025/loc/san-diego/126694) 
   {{< bibtex name="DemystifyingDelays" >}}
   @inproceedings{
     abhyankar2025demystifying,
     title={Demystifying Delays in Reasoning},
-    author={Reyna Abhyankar and Qi Qi and Yiying Zhang},
+    author={Qi Qi and Reyna Abhyankar and Yiying Zhang},
     booktitle={NeurIPS 2025 Workshop on Efficient Reasoning},
     year={2025},
     month=Dec,
