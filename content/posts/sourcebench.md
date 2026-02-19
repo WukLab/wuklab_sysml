@@ -105,8 +105,8 @@ We constructed a dataset of 100 queries spanning informational, factual, argumen
 
 We evaluated 3,996 cited sources across 12 systems, including search-equipped LLMs (e.g., GPT-5, Gemini-3-Pro, Grok-4.1), traditional SERP (Google), and AI search tools (e.g., Exa, Tavily, Gensee).
 
-<div class="relative h-[400px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm mt-8">
-<canvas id="leaderboardChart"></canvas>
+<div class="chart-wrapper">
+    <canvas id="leaderboardChart"></canvas>
 </div>
 
 The full leaderboard is presented in the table below. GPT-5 leads the pack (89.1) with a substantial margin, particularly in the Meta Metric (4.5), suggesting an internal filtering mechanism that rigorously prioritizes institutional authority. Gensee secures the #3 spot by optimizing for Content Relevance (4.3).
@@ -146,16 +146,16 @@ There is a striking inverse relationship between a model's SourceBench score and
 Top-performing systems like **GPT-5** overlap with Google only 16% of the time, functioning as "**Discovery Engines**" that find high-quality, buried evidence.
 Conversely, lower-scoring systems (e.g., Tavily) overlap 55% with Google, essentially acting as "**Summarization Layers**" over standard SERPs.
 
-<div class="relative h-[300px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm">
-<canvas id="inverseChart"></canvas>
+<div class="chart-wrapper">
+    <canvas id="inverseChart"></canvas>
 </div>
 <div class="caption">Figure 2: SourceBench Score (Green) vs. Google Overlap (Gray).</div>
 </div>
 
 ### Insight 3: Better Search > Better Reasoning
 Instead of relying on a model to "think" its way through noise, providing superior, well-curated context allows simpler models to achieve better outcomes. In our controlled experiment with DeepSeek, a non-reasoning model ("Chat") with high-quality search tools outperformed a reasoning model with low-quality search tools.
-<div class="relative h-[250px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm">
-<canvas id="deepseekChart"></canvas>
+<div class="chart-wrapper">
+    <canvas id="deepseekChart"></canvas>
 </div>
 <div class="caption">Figure 3: DeepSeek experiment results.</div>
 </div>
@@ -273,6 +273,7 @@ const deepSeekData = [
     { name: 'Chat + High Search', score: 75.9, color: '#8b5cf6' },
 ];
 
+document.addEventListener('DOMContentLoaded', function() {
 new Chart(document.getElementById('leaderboardChart'), {
     type: 'bar',
     data: {
@@ -349,6 +350,7 @@ new Chart(document.getElementById('deepseekChart'), {
         plugins: { legend: { display: false } },
         scales: { x: { min: 65, max: 80, grid: { color: '#f1f5f9' } }, y: { grid: { display: false } } }
     }
+});
 });
 
 
