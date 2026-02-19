@@ -287,11 +287,11 @@ const deepSeekData = [
 new Chart(document.getElementById('leaderboardChart'), {
     type: 'bar',
     data: {
-        labels: leaderBoardData.map(d =&gt; d.name),
+        labels: leaderBoardData.map(d > d.name),
         datasets: [{
             label: 'SourceBench Score',
-            data: leaderBoardData.map(d =&gt; d.score),
-            backgroundColor: leaderBoardData.map(d =&gt; d.color),
+            data: leaderBoardData.map(d > d.score),
+            backgroundColor: leaderBoardData.map(d > d.color),
             borderRadius: 4,
             barThickness: 24
         }]
@@ -344,11 +344,11 @@ new Chart(document.getElementById('inverseChart'), {
 new Chart(document.getElementById('deepseekChart'), {
     type: 'bar',
     data: {
-        labels: deepSeekData.map(d =&gt; d.name),
+        labels: deepSeekData.map(d > d.name),
         datasets: [{
             label: 'Score',
-            data: deepSeekData.map(d =&gt; d.score),
-            backgroundColor: deepSeekData.map(d =&gt; d.color),
+            data: deepSeekData.map(d > d.score),
+            backgroundColor: deepSeekData.map(d > d.color),
             borderRadius: 4,
             barThickness: 24
         }]
