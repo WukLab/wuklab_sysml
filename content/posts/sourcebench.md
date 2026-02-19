@@ -13,7 +13,7 @@ Most AI benchmarks focus on answer correctness but ignore the quality of cited s
 ---
 Author: Yiying Zhang, Hexi Jin, Stephen Liu, Yuheng Li, Simran Malik
 
-<script src="https://www.google.com/search?q=https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 /* Scoped styles strictly for figures and tables */
@@ -48,13 +48,13 @@ Author: Yiying Zhang, Hexi Jin, Stephen Liu, Yuheng Li, Simran Malik
 
 Large Language Models (LLMs) increasingly answer queries by citing web sources. While web search mitigates hallucinations by grounding responses in external data, it introduces a new dependency: the quality of the sources themselves.
 
-In high-stakes domains—such as financial analysis or medical inquiries—users rely on citations for verification. A search-augmented LLM is subject to the "Garbage In, Garbage Out" principle; if an AI synthesizes information from biased or outdated pages, the resulting answer remains flawed.
+In high-stakes domains—such as financial analysis or medical inquiries—users rely on citations for verification. A search-augmented LLM is subject to the "**Garbage In, Garbage Out**" principle; if an AI synthesizes information from biased or outdated pages, the resulting answer remains flawed.
 
-Existing benchmarks and evaluators like HotpotQA and RAGAS emphasize answer correctness or relevance ranking. They do not evaluate the credibility of the evidence itself. We introduce SourceBench, a framework for measuring the quality of web sources referenced in AI answers.
+Existing benchmarks and evaluators like HotpotQA and RAGAS emphasize answer correctness or relevance ranking. They do not evaluate the credibility of the evidence itself. We introduce **SourceBench**, the **first** framework for measuring the **quality of web sources** referenced in AI answers.
 
 ## The SourceBench Framework
 
-We constructed a dataset of 100 queries spanning informational, factual, argumentative, social, and shopping intents. To evaluate the retrieved sources, we designed an eight-metric framework covering two key dimensions: Content Quality and Meta-Attributes.
+We constructed a dataset of 100 queries spanning informational, factual, argumentative, social, and shopping intents. To evaluate the retrieved sources, we designed an eight-metric framework covering two key dimensions: **Content Quality** and **Meta-Attributes**.
 
 <div class="metric-grid">
 <!-- Content Metrics -->
@@ -138,42 +138,30 @@ The full leaderboard is presented in the table below. GPT-5 leads the pack (89.1
 
 ## Key Insights
 
-<div class="insight-block">
-<h3 class="text-xl font-bold mb-2 sans-serif text-gray-900">Insight 1: Architecture must explicitly weight credibility.</h3>
-<p class="mb-0 text-gray-700">
+### Insight 1: Architecture must explicitly weight credibility
 The next leap of AI-based search should go for architectures that explicitly weight source credibility and content quality. Our correlation analysis reveals that accountability metrics (Ownership, Author, Domain Authority) cluster together, forming a "Trust" dimension distinct from pure Content Relevance.
-</p>
-</div>
 
-<div class="insight-block">
-<h3 class="text-xl font-bold mb-2 sans-serif text-gray-900">Insight 2: The Inverse Law of AI Search and SERP.</h3>
-<p class="mb-4 text-gray-700">
+### Insight 2: The Inverse Law of AI Search and SERP
 There is a striking inverse relationship between a model's SourceBench score and its reliance on traditional Google Search results.
-Top-performing systems like <strong>GPT-5</strong> overlap with Google only <strong>16%</strong> of the time, functioning as "Discovery Engines" that find high-quality, buried evidence.
-Conversely, lower-scoring systems (e.g., Tavily) overlap <strong>55%</strong> with Google, essentially acting as "Summarization Layers" over standard SERPs.
-</p>
+Top-performing systems like **GPT-5** overlap with Google only 16% of the time, functioning as "**Discovery Engines**" that find high-quality, buried evidence.
+Conversely, lower-scoring systems (e.g., Tavily) overlap 55% with Google, essentially acting as "**Summarization Layers**" over standard SERPs.
+
 <div class="relative h-[300px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm">
 <canvas id="inverseChart"></canvas>
 </div>
 <div class="caption">Figure 2: SourceBench Score (Green) vs. Google Overlap (Gray).</div>
 </div>
 
-<div class="insight-block">
-<h3 class="text-xl font-bold mb-2 sans-serif text-gray-900">Insight 3: Better Search > Better Reasoning.</h3>
-<p class="mb-4 text-gray-700">
+### Insight 3: Better Search > Better Reasoning
 Instead of relying on a model to "think" its way through noise, providing superior, well-curated context allows simpler models to achieve better outcomes. In our controlled experiment with DeepSeek, a non-reasoning model ("Chat") with high-quality search tools outperformed a reasoning model with low-quality search tools.
-</p>
 <div class="relative h-[250px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm">
 <canvas id="deepseekChart"></canvas>
 </div>
 <div class="caption">Figure 3: DeepSeek experiment results.</div>
 </div>
 
-<div class="insight-block">
-<h3 class="text-xl font-bold mb-6 sans-serif text-gray-900">Insight 4: Query intent dictates the difficulty landscape.</h3>
-<p class="mb-6 text-gray-700">
+### Insight 4: Query intent dictates the difficulty landscape
 Performance variability across query types highlights the different "personalities" of search tasks. A system that excels at factual retrieval often fails at social listening or shopping:
-</p>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <!-- Shopping Card -->
 <div class="intent-card border-l-4 border-l-pink-500">
@@ -345,11 +333,11 @@ new Chart(document.getElementById('inverseChart'), {
 new Chart(document.getElementById('deepseekChart'), {
     type: 'bar',
     data: {
-        labels: deepSeekData.map(d > d.name),
+        labels: deepSeekData.map(d => d.name),
         datasets: [{
             label: 'Score',
-            data: deepSeekData.map(d > d.score),
-            backgroundColor: deepSeekData.map(d > d.color),
+            data: deepSeekData.map(d => d.score),
+            backgroundColor: deepSeekData.map(d => d.color),
             borderRadius: 4,
             barThickness: 24
         }]
