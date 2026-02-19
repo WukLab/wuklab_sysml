@@ -260,36 +260,36 @@ Chart.defaults.font.family = "'Inter', sans-serif";
 Chart.defaults.color = '#475569';
 
 const leaderBoardData = [
-    { name: &#39;GPT-5&#39;, score: 89.1, color: &#39;#10b981&#39; },
-    { name: &#39;Grok-4.1&#39;, score: 83.4, color: &#39;#3b82f6&#39; },
-    { name: &#39;Gensee&#39;, score: 81.8, color: &#39;#06b6d4&#39; },
-    { name: &#39;GPT-4o&#39;, score: 81.5, color: &#39;#94a3b8&#39; },
-    { name: &#39;Claude 3.5&#39;, score: 81.3, color: &#39;#94a3b8&#39; },
-    { name: &#39;Exa&#39;, score: 80.1, color: &#39;#94a3b8&#39; },
-    { name: &#39;Google&#39;, score: 79.9, color: &#39;#94a3b8&#39; },
-    { name: &#39;Gemini 3 Pro&#39;, score: 79.4, color: &#39;#94a3b8&#39; },
-    { name: &#39;Perplexity&#39;, score: 78.5, color: &#39;#94a3b8&#39; },
-    { name: &#39;Tavily&#39;, score: 78.3, color: &#39;#ef4444&#39; },
+    { name: 'GPT-5', score: 89.1, color: '#10b981' },
+    { name: 'Grok-4.1', score: 83.4, color: '#3b82f6' },
+    { name: 'Gensee', score: 81.8, color: '#06b6d4' },
+    { name: 'GPT-4o', score: 81.5, color: '#94a3b8' },
+    { name: 'Claude 3.5', score: 81.3, color: '#94a3b8' },
+    { name: 'Exa', score: 80.1, color: '#94a3b8' },
+    { name: 'Google', score: 79.9, color: '#94a3b8' },
+    { name: 'Gemini 3 Pro', score: 79.4, color: '#94a3b8' },
+    { name: 'Perplexity', score: 78.5, color: '#94a3b8' },
+    { name: 'Tavily', score: 78.3, color: '#ef4444' },
 ];
 
 const inverseData = {
-    labels: [&#39;GPT-5&#39;, &#39;Grok-4.1&#39;, &#39;GPT-4o&#39;, &#39;Perplexity&#39;, &#39;Tavily&#39;],
+    labels: ['GPT-5', 'Grok-4.1', 'GPT-4o', 'Perplexity', 'Tavily'],
     score: [89.1, 83.4, 81.5, 78.5, 78.3],
     overlap: [16.0, 29.7, 27.5, 40.0, 55.5]
 };
 
 const deepSeekData = [
-    { name: &#39;Chat + Low Search&#39;, score: 70.1, color: &#39;#cbd5e1&#39; },
-    { name: &#39;Reason + Low Search&#39;, score: 75.8, color: &#39;#94a3b8&#39; },
-    { name: &#39;Chat + High Search&#39;, score: 75.9, color: &#39;#8b5cf6&#39; },
+    { name: 'Chat + Low Search', score: 70.1, color: '#cbd5e1' },
+    { name: 'Reason + Low Search', score: 75.8, color: '#94a3b8' },
+    { name: 'Chat + High Search', score: 75.9, color: '#8b5cf6' },
 ];
 
-new Chart(document.getElementById(&#39;leaderboardChart&#39;), {
-    type: &#39;bar&#39;,
+new Chart(document.getElementById('leaderboardChart'), {
+    type: 'bar',
     data: {
         labels: leaderBoardData.map(d =&gt; d.name),
         datasets: [{
-            label: &#39;SourceBench Score&#39;,
+            label: 'SourceBench Score',
             data: leaderBoardData.map(d =&gt; d.score),
             backgroundColor: leaderBoardData.map(d =&gt; d.color),
             borderRadius: 4,
@@ -297,32 +297,32 @@ new Chart(document.getElementById(&#39;leaderboardChart&#39;), {
         }]
     },
     options: {
-        indexAxis: &#39;y&#39;,
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
-        scales: { x: { min: 70, max: 95, grid: { color: &#39;#f1f5f9&#39; } }, y: { grid: { display: false } } }
+        scales: { x: { min: 70, max: 95, grid: { color: '#f1f5f9' } }, y: { grid: { display: false } } }
     }
 });
 
-new Chart(document.getElementById(&#39;inverseChart&#39;), {
-    type: &#39;bar&#39;,
+new Chart(document.getElementById('inverseChart'), {
+    type: 'bar',
     data: {
         labels: inverseData.labels,
         datasets: [
             {
-                label: &#39;SourceBench Score&#39;,
+                label: 'SourceBench Score',
                 data: inverseData.score,
-                backgroundColor: &#39;#10b981&#39;,
-                yAxisID: &#39;y&#39;,
+                backgroundColor: '#10b981',
+                yAxisID: 'y',
                 borderRadius: 4,
                 barPercentage: 0.6
             },
             {
-                label: &#39;Google Overlap %&#39;,
+                label: 'Google Overlap %',
                 data: inverseData.overlap,
-                backgroundColor: &#39;#94a3b8&#39;,
-                yAxisID: &#39;y1&#39;,
+                backgroundColor: '#94a3b8',
+                yAxisID: 'y1',
                 borderRadius: 4,
                 barPercentage: 0.6
             }
@@ -331,22 +331,22 @@ new Chart(document.getElementById(&#39;inverseChart&#39;), {
     options: {
         responsive: true,
         maintainAspectRatio: false,
-        interaction: { mode: &#39;index&#39;, intersect: false },
-        plugins: { legend: { position: &#39;top&#39;, labels: { usePointStyle: true } } },
+        interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { position: 'top', labels: { usePointStyle: true } } },
         scales: { 
             x: { grid: { display: false } },
-            y: { type: &#39;linear&#39;, display: true, position: &#39;left&#39;, min: 70, max: 95, title: { display: true, text: &#39;Weighted Score&#39; } },
-            y1: { type: &#39;linear&#39;, display: true, position: &#39;right&#39;, min: 0, max: 60, grid: { drawOnChartArea: false }, title: { display: true, text: &#39;Overlap %&#39; } }
+            y: { type: 'linear', display: true, position: 'left', min: 70, max: 95, title: { display: true, text: 'Weighted Score' } },
+            y1: { type: 'linear', display: true, position: 'right', min: 0, max: 60, grid: { drawOnChartArea: false }, title: { display: true, text: 'Overlap %' } }
         }
     }
 });
 
-new Chart(document.getElementById(&#39;deepseekChart&#39;), {
-    type: &#39;bar&#39;,
+new Chart(document.getElementById('deepseekChart'), {
+    type: 'bar',
     data: {
         labels: deepSeekData.map(d =&gt; d.name),
         datasets: [{
-            label: &#39;Score&#39;,
+            label: 'Score',
             data: deepSeekData.map(d =&gt; d.score),
             backgroundColor: deepSeekData.map(d =&gt; d.color),
             borderRadius: 4,
@@ -354,11 +354,11 @@ new Chart(document.getElementById(&#39;deepseekChart&#39;), {
         }]
     },
     options: {
-        indexAxis: &#39;y&#39;,
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
-        scales: { x: { min: 65, max: 80, grid: { color: &#39;#f1f5f9&#39; } }, y: { grid: { display: false } } }
+        scales: { x: { min: 65, max: 80, grid: { color: '#f1f5f9' } }, y: { grid: { display: false } } }
     }
 });
 
