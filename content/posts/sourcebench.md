@@ -11,39 +11,40 @@ Most AI benchmarks focus on answer correctness but ignore the quality of cited s
 "
 
 ---
-Author: Yiying Zhang, Reyna Abhyankar, Zijian He
-<head>
-<script src="https://www.google.com/search?q=https://cdn.tailwindcss.com"></script>
+Author: Yiying Zhang, Hexi Jin, Stephen Liu, Yuheng Li, Simran Malik
+
 <script src="https://www.google.com/search?q=https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://www.google.com/search?q=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DCrimson%2BPro:ital,wght%400,400%3B0,600%3B0,700%3B1,400%26family%3DInter:wght%40400%3B600%3B700%26display%3Dswap" rel="stylesheet">
+
 <style>
-body { font-family: 'Crimson Pro', serif; color: #1a1a1a; line-height: 1.6; font-size: 1.25rem; background-color: #ffffff; }
-h1, h2, h3, h4, .sans-serif { font-family: 'Inter', sans-serif; letter-spacing: -0.02em; }
-.caption { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #666; text-align: center; margin-top: 0.75rem; }
-.insight-block { margin: 2rem 0; padding: 1.5rem; background: #f8fafc; border-left: 4px solid #3b82f6; border-radius: 0 4px 4px 0; }
-.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
-.metric-box { border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background-color: #fff; transition: transform 0.2s; }
-.metric-box:hover { border-color: #cbd5e1; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); }
-.metric-tag { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: #64748b; margin-bottom: 0.5rem; display: block; }
-.heatmap-container { display: grid; grid-template-columns: 30px repeat(8, 1fr); gap: 2px; margin: 2rem 0; font-family: 'Inter', sans-serif; font-size: 0.65rem; }
-.heatmap-label { display: flex; align-items: center; justify-content: center; font-weight: 600; color: #64748b; }
-.heatmap-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: transform 0.1s; font-weight: 500; }
-.grad-neg { background-color: #f1f5f9; color: #94a3b8; } .grad-0 { background-color: #fff1f2; color: #be123c; } .grad-10 { background-color: #ffe4e6; color: #be123c; } .grad-20 { background-color: #fecdd3; color: #be123c; } .grad-30 { background-color: #fda4af; color: #881337; } .grad-40 { background-color: #fb7185; color: #fff; } .grad-50 { background-color: #f43f5e; color: #fff; } .grad-60 { background-color: #e11d48; color: #fff; } .grad-70 { background-color: #be123c; color: #fff; } .grad-80 { background-color: #9f1239; color: #fff; } .grad-90 { background-color: #881337; color: #fff; } .grad-100 { background-color: #4c0519; color: #fff; }
-.heatmap-cell:hover { transform: scale(1.2); z-index: 10; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
-.intent-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; }
-.intent-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-family: 'Inter', sans-serif; font-weight: 700; color: #1e293b; }
-.intent-stat { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-family: 'Inter', sans-serif; font-weight: 600; margin-right: 0.5rem; }
-.stat-good { background: #dcfce7; color: #166534; } .stat-bad { background: #fee2e2; color: #991b1b; }
-table { width: 100%; border-collapse: separate; border-spacing: 0; font-family: 'Inter', sans-serif; font-size: 0.85rem; margin: 2rem 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-th { background-color: #f8fafc; color: #64748b; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
-td { padding: 0.75rem 1rem; border-bottom: 1px solid #f1f5f9; color: #334155; }
-tr:last-child td { border-bottom: none; }
+/* Scoped styles strictly for figures and tables */
+.chart-wrapper { position: relative; height: 350px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin: 2rem 0; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+.styled-table { width: 100%; border-collapse: separate; border-spacing: 0; font-family: system-ui, -apple-system, sans-serif; font-size: 0.85rem; margin: 2rem 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+.styled-table th { background-color: #f8fafc; color: #64748b; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+.styled-table td { padding: 0.75rem 1rem; border-bottom: 1px solid #f1f5f9; color: #334155; }
+.styled-table tr:last-child td { border-bottom: none; }
 .rank-col { font-weight: 700; color: #94a3b8; width: 60px; }
 .score-col { font-weight: 700; color: #0f172a; text-align: right; }
 .metric-col { color: #64748b; text-align: right; }
+
+.heatmap-container { display: grid; grid-template-columns: 30px repeat(8, 1fr); gap: 2px; margin: 2rem 0; font-family: system-ui, -apple-system, sans-serif; font-size: 0.65rem; max-width: 600px; }
+.heatmap-label { display: flex; align-items: center; justify-content: center; font-weight: 600; color: #64748b; }
+.heatmap-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-weight: 500; color: #fff; }
+.heatmap-cell:hover { opacity: 0.8; }
+.grad-neg { background-color: #f1f5f9; color: #94a3b8; } 
+.grad-0 { background-color: #fff1f2; color: #be123c; }   
+.grad-10 { background-color: #ffe4e6; color: #be123c; } 
+.grad-20 { background-color: #fecdd3; color: #be123c; }  
+.grad-30 { background-color: #fda4af; color: #881337; }  
+.grad-40 { background-color: #fb7185; }     
+.grad-50 { background-color: #f43f5e; }     
+.grad-60 { background-color: #e11d48; }     
+.grad-70 { background-color: #be123c; }     
+.grad-80 { background-color: #9f1239; }     
+.grad-100 { background-color: #4c0519; }    
+
+
 </style>
-</head>
 
 Large Language Models (LLMs) increasingly answer queries by citing web sources. While web search mitigates hallucinations by grounding responses in external data, it introduces a new dependency: the quality of the sources themselves.
 
@@ -133,7 +134,7 @@ The full leaderboard is presented in the table below. GPT-5 leads the pack (89.1
 <tr><td class="rank-col">10</td><td>Tavily</td><td class="score-col">78.3</td><td class="metric-col">3.8</td><td class="metric-col">3.9</td></tr>
 </tbody>
 </table>
-<div class="caption">Table 4: Main Leaderboard. "Content Metric" averages Relevance, Factuality, and Objectivity.</div>
+<div class="caption">Table 1: SourceBench Leaderboard. "Content Metric" averages Relevance, Factuality, and Objectivity.</div>
 
 ## Key Insights
 
@@ -249,7 +250,7 @@ Performance variability across query types highlights the different "personaliti
 </div>
 <div class="caption">Figure 4: Full Correlation Matrix. Colors represent correlation strength in 0.1 intervals.</div>
 
-Conclusion: From Retrieval to Judgment
+## Conclusion: From Retrieval to Judgment
 
 As AI systems transition from passive tools to active agents, the "black box" of retrieval is no longer acceptable. SourceBench demonstrates that high-parameter reasoning cannot fix low-quality context.
 
