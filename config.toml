@@ -2,7 +2,7 @@
   [module.hugoVersion]
     min = "0.41.0"
 
-baseURL = "https://jiange91.github.io/draft-dae-blog/"
+baseURL = "https://mlsys.wuklab.io/"
 languageCode = "en-us"
 theme = "poison"
 paginate = 10
