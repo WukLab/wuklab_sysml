@@ -21,7 +21,7 @@ In this post, we will cover:
 2. **The principle and practice of decoupling**: We introduce decoupled cores, a new programming model that untangles GPU kernels into state isolated, asynchronous execution units, and show how this enables composability (without performance overhead).
 3. **What flexibility enables**: Beyond faster and simpler programming, what new system-level resource patterns and optimizations that VDCores make possible.
 
-## 1. GPUs Are Becoming Asynchronous, Kernel Programming Is Becoming Messy
+## GPUs Are Becoming Asynchronous, Kernel Programming Is Becoming Messy
 
 <img src="../../images/vdcores/simd_vs_decouple.png" alt="comparison" />
 
@@ -33,7 +33,7 @@ This coupling amplifies complexity. Performance features like prefetching, pipel
 
 
 
-## 2. How to Make Programmer's Life Easier With a Decoupled Mind
+## How to Make Programmer's Life Easier With a Decoupled Mind
 
 > We adopt the key principle of how [software systems](https://en.wikipedia.org/wiki/Actor_model) controls the complexity of asynchonous: **Resource/state isolation** and **asynchronous through message passing**, and rebuild GPU SMs to **decoupled cores**.
 
@@ -51,6 +51,12 @@ This structure makes dependencies explicit and enables safe parallelism among in
 1. **Read-read without dependency** are allowed to be reordered in memory core.
 2. **Read-after-write without dependency** are allowed to be overlapped: read could execute first and write to be committed later when dependency satisfied.
 3. **Read/write with control flow:** decouple control decisions (issue) from memory completion so that control does not unnecessarily block data movement.
+
+> VDCores also draws on ideas from microarchitectural design. Its core approach is to rebalance responsibilities between the runtime and the programmer/compiler:
+> - **Programmers/Compiler** focus on specifying *what* must happen and being precise about dependencies (what consumes what), rather than hand-inlining a separate "prefetch" phase and then a "compute" phase.
+> - **The runtime** owns control flow and runtime management: scheduling memory/compute operations, managing in-flight instructions, and allocating local memory spaces as they become available.
+
+For readers interested in how we efficiently implement this abstraction on real GPU hardware, see the [Deep Dive](#deep-dive-turning-gpu-sms-into-virtual-decoupled-cores) at the end of this post.
 
 Here's a quick example of how VDCores simplify the programming and at the same time covers the common performance pitfall for you.
 We build VDCores by composing only 5 basic compute instructions and 23 memory/control instructions, and use them to compose all operators used in QWen-8B inference. Compared to a state-of-the-art megakernel implementation, [Mirage Persistent Kernel](https://github.com/mirage-project/mirage), VDCores use **67% fewer** lines of code and achieves over **12% performance** gain.
@@ -83,28 +89,6 @@ Hard to tell which one is faster Huh?
 Manually morphing between these two schedules requires significant changes to the kernel implementation. With decoupled cores abstraction, switching between them requires **instruction flow level change**, all tasks remain composable, without sacrificing performance.
 We try both with in 10 minutes with VDCores, and get a quick 7% performance gain in this operator.
 
-## Turning GPU SMs into Virtual Decoupled Cores
-
-> We turn every SM on H200 into a pair of Memory/Compute decoupeld cores, connected by message queues, all run at the speed of GPU!
-
-We materialize the concept of decoupled cores on top of single GPU SM's hardware, and call them **Virtual** Decoupled Cores.
-Making these virtual components keep up with raw GPU speed remains a major performance-engineering challenge. To reach PFLOPs of compute and multi-terabytes-per-second memory bandwidth, every SM cycle counts, and there is only limited headroom for virtual-core overheads.
-
-The main idea is to build {{< highlight-text >}}**virtual software memory cores and compute cores on top of warps**{{< /highlight-text >}}, and let them communicate through explicit queues and ports. VDCores assembles the warps within a single SM into two kinds of "cores" (memory cores and compute cores), implementing a small, software-defined superscalar processor. On the memory side, we expose (i) an **allocation & branch / control unit**, and (ii) **configurable load and store units**, all running asynchronously.
-
-<!-- {{< placeholder "VDCores overview with divided responsibility [programmer, runtime]" >}}  -->
-
-VDCores also draws on ideas from microarchitectural design. Its core approach is to rebalance responsibilities between the runtime and the programmer/compiler:
-- **Programmers/Compiler** focus on specifying *what* must happen and being precise about dependencies (what consumes what), rather than hand-inlining a separate "prefetch" phase and then a "compute" phase.
-- **The runtime** owns control flow and runtime management: scheduling memory/compute operations, managing in-flight instructions, and allocating local memory spaces as they become available.
-
-Under this principle, some designs emerges to further optimize the performance while keeping the flexibility:
-- Instruction issue is ordered but completion can be out-of-order. Control flow keeps program order when needed, while the load dispatch unit (LDU) can complete loads out of order (with compiler hints) to unlock overlap.
-- Programmable dependencies with software-controlled virtual ports. Control logic routes instructions to load/store “engines” without baking scheduling policy into every kernel.
-- And so much more!
-
-
-
 
 ## Decoupled Cores: In Live Action and in the Wild
 
@@ -118,3 +102,21 @@ VDCores's decoupled model goes beyond cleaner way to write one kernel, it is {{<
 
 We’ll cover these topics in future posts in this series. Before that, we’re excited to bring the runtime to the public and let you all give it a spin very soon. Stay tuned!
 
+
+<hr style="border-top: 1px solid var(--text-color, #ccc); opacity: 0.3; margin: 2rem 0;">
+
+## Deep Dive: Turning GPU SMs into Virtual Decoupled Cores
+
+> We turn every SM on H200 into a pair of Memory/Compute decoupeld cores, connected by message queues, all run at the speed of GPU!
+
+We materialize the concept of decoupled cores on top of single GPU SM's hardware, and call them **Virtual** Decoupled Cores.
+Making these virtual components keep up with raw GPU speed remains a major performance-engineering challenge. To reach PFLOPs of compute and multi-terabytes-per-second memory bandwidth, every SM cycle counts, and there is only limited headroom for virtual-core overheads.
+
+The main idea is to build {{< highlight-text >}}**virtual software memory cores and compute cores on top of warps**{{< /highlight-text >}}, and let them communicate through explicit queues and ports. VDCores assembles the warps within a single SM into two kinds of "cores" (memory cores and compute cores), implementing a small, software-defined superscalar processor. On the memory side, we expose (i) an **allocation & branch / control unit**, and (ii) **configurable load and store units**, all running asynchronously.
+
+<!-- {{< placeholder "VDCores overview with divided responsibility [programmer, runtime]" >}}  -->
+
+Recall that VDCores aim to achieve pipelining without programmers explictly defining them. Under this principle, some designs emerge to further optimize the performance while keeping the flexibility:
+- Instruction issue is ordered but completion can be out-of-order. Control flow keeps program order when needed, while the load dispatch unit (LDU) can complete loads out of order (with compiler hints) to unlock overlap.
+- Programmable dependencies with software-controlled virtual ports. Control logic routes instructions to load/store “engines” without baking scheduling policy into every kernel.
+- And so much more!
