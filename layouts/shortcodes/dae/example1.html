@@ -1,0 +1,69 @@
+<div class="step-gallery" id="gallery-ex1" style="margin: 1.5rem 0;">
+  <div style="display: flex; gap: 1rem; align-items: flex-start;">
+    <div style="flex: 4; font-size: 0.85rem;">
+      <div class="step-text" data-gallery="gallery-ex1" data-step="0" style="padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; border-left: 3px solid #555; cursor: pointer; opacity: 0.4; transition: opacity 0.2s;">
+        <strong>Overview:</strong> The colors indicate which memory buffers each compute operation depends on.
+      </div>
+      <div class="step-text" data-gallery="gallery-ex1" data-step="1" style="padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; border-left: 3px solid #555; cursor: pointer; opacity: 0.4; transition: opacity 0.2s;">
+        <strong>Step 1:</strong> Starting from the first compute task, the compute core waits for the readiness of <span style="color: #E67E22; font-weight: 600;">buffer 0</span> and <span style="color: #E67E22; font-weight: 600;">1</span>.
+      </div>
+      <div class="step-text" data-gallery="gallery-ex1" data-step="2" style="padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; border-left: 3px solid #555; cursor: pointer; opacity: 0.4; transition: opacity 0.2s;">
+        <strong>Step 2:</strong> During <span style="color: #E67E22; font-weight: 600;">compute task 0</span>'s execution, the runtime can start to prefetch <span style="color: #5DADE2; font-weight: 600;">weights of the linear layer</span> — no need to wait for the first kernel to finish.
+      </div>
+      <div class="step-text" data-gallery="gallery-ex1" data-step="3" style="padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; border-left: 3px solid #555; cursor: pointer; opacity: 0.4; transition: opacity 0.2s;">
+        <strong>Step 3:</strong> When <span style="color: #5DADE2; font-weight: 600;">buffer 3</span> is finally available, the compute core can proceed with the <span style="color: #5DADE2; font-weight: 600;">matmul</span> without stalling on the weight buffer.
+      </div>
+      <div class="step-text" data-gallery="gallery-ex1" data-step="4" style="padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; border-left: 3px solid #555; cursor: pointer; opacity: 0.4; transition: opacity 0.2s;">
+        <strong>Step 4:</strong> Likewise, the <span style="color: #2471A3; font-weight: 600;">residual input</span> can be prefetched before the <span style="color: #2471A3; font-weight: 600;">vec_add</span>
+      </div>
+    </div>
+    <div style="flex: 6;">
+      <img class="step-img" data-gallery="gallery-ex1" data-step="0" src="{{ "images/dae/example1-1.jpg" | relURL }}" alt="overview: two kernels with color-coded dependencies" style="width: 100%; display: none;" />
+      <img class="step-img" data-gallery="gallery-ex1" data-step="1" src="{{ "images/dae/example1-2.jpg" | relURL }}" alt="step 1: compute core waits for buffer 0 and 1" style="width: 100%; display: none;" />
+      <img class="step-img" data-gallery="gallery-ex1" data-step="2" src="{{ "images/dae/example1-3.jpg" | relURL }}" alt="step 2: prefetch weights during kernel 0" style="width: 100%; display: none;" />
+      <img class="step-img" data-gallery="gallery-ex1" data-step="3" src="{{ "images/dae/example1-4.jpg" | relURL }}" alt="step 3: proceed with matrix when buffer 3 ready" style="width: 100%; display: none;" />
+      <img class="step-img" data-gallery="gallery-ex1" data-step="4" src="{{ "images/dae/example1-5.jpg" | relURL }}" alt="step 4: prefetch residual before vec_add" style="width: 100%; display: none;" />
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 0.4rem;">
+        <span class="step-prev" data-gallery="gallery-ex1" style="cursor: pointer; color: #268BD2; font-size: 1rem; user-select: none; padding: 0.2rem 0.5rem; border: 1px solid #268BD2; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#268BD2';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#268BD2'">&#8592; prev</span>
+        <span class="step-counter" data-gallery="gallery-ex1" style="font-size: 0.8rem; color: #888;">1 / 5</span>
+        <span class="step-next" data-gallery="gallery-ex1" style="cursor: pointer; color: #268BD2; font-size: 1rem; user-select: none; padding: 0.2rem 0.5rem; border: 1px solid #268BD2; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#268BD2';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#268BD2'">next &#8594;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var gallery = document.getElementById('gallery-ex1');
+  var id = 'gallery-ex1';
+  var texts = gallery.querySelectorAll('.step-text[data-gallery="'+id+'"]');
+  var imgs = gallery.querySelectorAll('.step-img[data-gallery="'+id+'"]');
+  var counter = gallery.querySelector('.step-counter[data-gallery="'+id+'"]');
+  var current = 0;
+
+  function show(idx) {
+    texts.forEach(function(t, i) {
+      t.style.opacity = i === idx ? '1' : '0.4';
+      t.style.borderLeftColor = i === idx ? '#268BD2' : '#555';
+    });
+    imgs.forEach(function(img, i) {
+      img.style.display = i === idx ? 'block' : 'none';
+    });
+    counter.textContent = (idx + 1) + ' / ' + texts.length;
+    current = idx;
+  }
+
+  texts.forEach(function(t, i) {
+    t.addEventListener('click', function() { show(i); });
+  });
+
+  gallery.querySelector('.step-prev').addEventListener('click', function() {
+    show(current > 0 ? current - 1 : texts.length - 1);
+  });
+  gallery.querySelector('.step-next').addEventListener('click', function() {
+    show(current < texts.length - 1 ? current + 1 : 0);
+  });
+
+  show(0);
+})();
+</script>
