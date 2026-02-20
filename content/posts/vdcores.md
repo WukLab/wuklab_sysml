@@ -23,7 +23,7 @@ In this post, we will cover:
 
 ## 1. GPUs Are Becoming Asynchronous, Kernel Programming Is Becoming Messy
 
-<img src="../../images/dae/simd_vs_decouple.png" alt="comparison" />
+<img src="../../images/vdcores/simd_vs_decouple.png" alt="comparison" />
 
 Modern GPUs are no longer "just" wide SIMD machines. They are increasingly asynchronous systems with {{< highlight-text >}}**heterogeneous resources**{{< /highlight-text >}} that each operate on their own timelines: tensor cores run independently, memory pipelines have their own queues, and async copy engines allow data movement to proceed concurrently with computation. Programming should adapt to this asynchronous style --- and the performance rewards for doing so are real.
 
@@ -37,7 +37,7 @@ This coupling amplifies complexity. Performance features like prefetching, pipel
 
 > We adopt the key principle of how [software systems](https://en.wikipedia.org/wiki/Actor_model) controls the complexity of asynchonous: **Resource/state isolation** and **asynchronous through message passing**, and rebuild GPU SMs to **decoupled cores**.
 
-<img src="../../images/dae/rt-overview.jpg" alt="runtime" />
+<img src="../../images/vdcores/rt-overview.jpg" alt="runtime" />
 
 In the VDCores model, virtual cores are the unit of execution and composition. Instead of a single monolithic kernel, execution is decomposed into independent instruction streams executed by loosely coupled cores.
 
@@ -57,13 +57,13 @@ We build VDCores by composing only 5 basic compute instructions and 23 memory/co
 
 VDCores do not get this edge by hand-tunning better kernels, but instead through decouopled runtime and flexbile programming interface. We illustrate this with two exmples in this process.
 
-<img src="../../images/dae/performance.png" style="width: 55%;display: flex;justify-content: center;" alt="QWen-8B Performance" />
+<img src="../../images/vdcores/performance.png" style="width: 55%;display: flex;justify-content: center;" alt="QWen-8B Performance" />
 
 ### Example 1: **Free** "Prefetch" Non-Dependent Memory Buffers
 
 Consider an attention kernel followed by a linear projection with residual addition. In VDCores, we connect them by dependencies rather than manually fusing/staging: (Also note that in VDCores we do not have the notion of kernel boundary; we mark the original kernel boundary in the example for easy to understand.)
 
-{{< dae/example1 >}}
+{{< vdcores/example1 >}}
 
 This is the key shift: {{< highlight-text >}} Overlap **emerges automatically**{{< /highlight-text >}} from runtime dependency resolving, without humans splitting code into explicit "prefetch" stages or manually fusing kernels to force concurrency.
 
@@ -73,7 +73,7 @@ Another secret sause of VDCores is the **composbility** of it's components. Same
 
 Consider a MLP block: GEMV (Up + Gate) followed by SiLU activation and GEMV (Down). Input is shape [1, 4096], Up and Gate outputs are [1, 12288], and Down output is [1, 4096]. We can tile Gate and Up along the N dimension and Down along the K dimension.
 
-<img src="../../images/dae/example2.jpg" alt="flexible core composition: two schedules" style="width: 100%;" />
+<img src="../../images/vdcores/example2.jpg" alt="flexible core composition: two schedules" style="width: 100%;" />
 
 **Schedule 1** executes the operations in order and fuses SiLU with Up—straightforward and amenable to kernel fusion for optimization.
 
