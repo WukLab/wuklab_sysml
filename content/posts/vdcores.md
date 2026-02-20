@@ -83,7 +83,7 @@ Hard to tell which one is faster Huh?
 Manually morphing between these two schedules requires significant changes to the kernel implementation. With decoupled cores abstraction, switching between them requires **instruction flow level change**, all tasks remain composable, without sacrificing performance.
 We try both with in 10 minutes with VDCores, and get a quick 7% performance gain in this operator.
 
-## 3. Turning GPU SMs into Virtual Decoupled Cores
+## Turning GPU SMs into Virtual Decoupled Cores
 
 > We turn every SM on H200 into a pair of Memory/Compute decoupeld cores, connected by message queues, all run at the speed of GPU!
 
@@ -106,7 +106,7 @@ Under this principle, some designs emerges to further optimize the performance w
 
 
 
-## 4. Decoupled Cores: In Live Action and in the Wild
+## Decoupled Cores: In Live Action and in the Wild
 
 > We are working to bring VDCores to the open-source community and to a wider range of cores and hardware platforms. Stay tuned!
 
