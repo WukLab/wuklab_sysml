@@ -53,7 +53,7 @@ This structure makes dependencies explicit and enables safe parallelism among in
 3. **Read/write with control flow:** decouple control decisions (issue) from memory completion so that control does not unnecessarily block data movement.
 
 Here's a quick example of how VDCores simplify the programming and at the same time covers the common performance pitfall for you.
-We build VDCores by composing only 5 basic compute instructions and 23 memory/control instructions, and use them to compose all operators used in QWen-8B inference. Compared to a state-of-the-art megakernel implementation, [Mirage Persistent Kernel](https://github.com/mirage-project/mirage), VDCores use **67% less** lines of code and achieves over **12% performance** gain.
+We build VDCores by composing only 5 basic compute instructions and 23 memory/control instructions, and use them to compose all operators used in QWen-8B inference. Compared to a state-of-the-art megakernel implementation, [Mirage Persistent Kernel](https://github.com/mirage-project/mirage), VDCores use **67% fewer** lines of code and achieves over **12% performance** gain.
 
 VDCores do not get this edge by hand-tunning better kernels, but instead through decouopled runtime and flexbile programming interface. We illustrate this with two exmples in this process.
 
