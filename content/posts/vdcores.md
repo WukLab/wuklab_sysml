@@ -89,6 +89,21 @@ Hard to tell which one is faster Huh?
 Manually morphing between these two schedules requires significant changes to the kernel implementation. With decoupled cores abstraction, switching between them requires **instruction flow level change**, all tasks remain composable, without sacrificing performance.
 We try both with in 10 minutes with VDCores, and get a quick 7% performance gain in this operator.
 
+## Deep Dive: Turning GPU SMs into Virtual Decoupled Cores
+
+> We turn every SM on H200 into a pair of Memory/Compute decoupeld cores, connected by message queues, all run at the speed of GPU!
+
+We built Virtual Decoupled Cores on top of the GPU's SM hardware.
+Making these virtual components keep up with raw GPU speed poses a major performance challenge. 
+To reach PFLOPs of compute and multi-terabytes-per-second memory bandwidth, every SM cycle counts, and there is only limited headroom for virtual-core overheads.
+
+Our main idea is to build {{< highlight-text >}}**virtual software memory cores and compute cores on top of warps**{{< /highlight-text >}}, and let them communicate through explicit queues and ports. VDCores assembles the warps within a single SM into two kinds of "cores" (memory cores and compute cores), implementing a small, software-defined superscalar processor. On the memory side, we expose (i) an **allocation & branch / control unit**, and (ii) **configurable load and store units**, all running asynchronously.
+
+<!-- {{< placeholder "VDCores overview with divided responsibility [programmer, runtime]" >}}  -->
+
+Recall that VDCores aim to achieve pipelining without programmers explictly defining them. Under this principle, some designs emerge to further optimize the performance while keeping the flexibility:
+- Instruction issue is ordered but completion can be out-of-order. Control flow keeps program order when needed, while the load dispatch unit (LDU) can complete loads out of order (with compiler hints) to unlock overlap.
+- Programmable dependencies with software-controlled virtual ports. Control logic routes instructions to load/store “engines” without baking scheduling policy into every kernel.
 
 ## Decoupled Cores: In Live Action and in the Wild
 
@@ -105,18 +120,4 @@ We’ll cover these topics in future posts in this series. Before that, we’re 
 
 <hr style="border-top: 1px solid var(--text-color, #ccc); opacity: 0.3; margin: 2rem 0;">
 
-## Deep Dive: Turning GPU SMs into Virtual Decoupled Cores
 
-> We turn every SM on H200 into a pair of Memory/Compute decoupeld cores, connected by message queues, all run at the speed of GPU!
-
-We materialize the concept of decoupled cores on top of single GPU SM's hardware, and call them **Virtual** Decoupled Cores.
-Making these virtual components keep up with raw GPU speed remains a major performance-engineering challenge. To reach PFLOPs of compute and multi-terabytes-per-second memory bandwidth, every SM cycle counts, and there is only limited headroom for virtual-core overheads.
-
-The main idea is to build {{< highlight-text >}}**virtual software memory cores and compute cores on top of warps**{{< /highlight-text >}}, and let them communicate through explicit queues and ports. VDCores assembles the warps within a single SM into two kinds of "cores" (memory cores and compute cores), implementing a small, software-defined superscalar processor. On the memory side, we expose (i) an **allocation & branch / control unit**, and (ii) **configurable load and store units**, all running asynchronously.
-
-<!-- {{< placeholder "VDCores overview with divided responsibility [programmer, runtime]" >}}  -->
-
-Recall that VDCores aim to achieve pipelining without programmers explictly defining them. Under this principle, some designs emerge to further optimize the performance while keeping the flexibility:
-- Instruction issue is ordered but completion can be out-of-order. Control flow keeps program order when needed, while the load dispatch unit (LDU) can complete loads out of order (with compiler hints) to unlock overlap.
-- Programmable dependencies with software-controlled virtual ports. Control logic routes instructions to load/store “engines” without baking scheduling policy into every kernel.
-- And so much more!
