@@ -1,0 +1,6 @@
+<figure style="margin: 2rem auto; text-align: center;">
+  <div style="width: 100%; height: {{ with .Get "height" }}{{ . }}{{ else }}300px{{ end }}; background: #ffffff; border: 2px dashed #ccc; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+    <span style="color: #999; font-size: 1.1rem; font-style: italic;">{{ .Get 0 }}</span>
+  </div>
+  {{ with .Get 0 }}<figcaption style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">{{ . }}</figcaption>{{ end }}
+</figure>
