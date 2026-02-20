@@ -1,0 +1,83 @@
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Metrics Grid Styling */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .metric-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #fff;
+            transition: transform 0.2s;
+        }
+        .metric-box:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+        .metric-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+    </style>
+            
+<div class="metric-grid">
+                <!-- Content Metrics -->
+                <div class="metric-box border-l-4 border-l-indigo-500">
+                    <span class="metric-tag text-indigo-600">Content Quality</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">1. Relevance (CR)</strong>
+                    <span class="text-gray-600 text-base">Does the source directly resolve the user need, or is it merely a keyword match?</span>
+                </div>
+                <div class="metric-box border-l-4 border-l-indigo-500">
+                    <span class="metric-tag text-indigo-600">Content Quality</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">2. Factual Accuracy (FA)</strong>
+                    <span class="text-gray-600 text-base">Are claims verifiable and supported by citations? Does it prioritize primary sources?</span>
+                </div>
+                <div class="metric-box border-l-4 border-l-indigo-500">
+                    <span class="metric-tag text-indigo-600">Content Quality</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">3. Objectivity (NE)</strong>
+                    <span class="text-gray-600 text-base">Is the tone neutral and clinical, avoiding emotional manipulation?</span>
+                </div>
+                
+                <!-- Meta Metrics -->
+                <div class="metric-box border-l-4 border-l-emerald-500">
+                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">4. Freshness (FR)</strong>
+                    <span class="text-gray-600 text-base">Is the content timely? Obsolete data (e.g., old code) is heavily penalized.</span>
+                </div>
+                <div class="metric-box border-l-4 border-l-emerald-500">
+                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">5. Author Accountability (AA)</strong>
+                    <span class="text-gray-600 text-base">Is there a named author with verifiable credentials?</span>
+                </div>
+                <div class="metric-box border-l-4 border-l-emerald-500">
+                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">6. Ownership (OA)</strong>
+                    <span class="text-gray-600 text-base">Is the entity behind the site transparent about its funding and location?</span>
+                </div>
+                <div class="metric-box border-l-4 border-l-emerald-500">
+                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">7. Domain Authority (DA)</strong>
+                    <span class="text-gray-600 text-base">Is the domain a known institution (e.g., .gov, .edu) or a recognized brand?</span>
+                </div>
+                <div class="metric-box border-l-4 border-l-emerald-500">
+                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+                    <strong class="sans-serif text-gray-900 block text-lg mb-2">8. Layout Clarity (LC)</strong>
+                    <span class="text-gray-600 text-base">Evaluates consumability. Penalizes "SEO farms" saturated with ads.</span>
+                </div>
+            </div>
+        </div>
+
+

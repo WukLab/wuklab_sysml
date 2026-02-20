@@ -1,0 +1,44 @@
+<div class="chart-wrapper">
+    <canvas id="deepseekChart"></canvas>
+</div>
+<div class="caption">Figure 3: DeepSeek experiment results.</div>
+</div>
+
+<script>
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#475569';
+
+const inverseData = {
+    labels: ['GPT-5', 'Grok-4.1', 'GPT-4o', 'Perplexity', 'Tavily'],
+    score: [89.1, 83.4, 81.5, 78.5, 78.3],
+    overlap: [16.0, 29.7, 27.5, 40.0, 55.5]
+};
+
+const deepSeekData = [
+    { name: 'Chat + Low Search', score: 70.1, color: '#cbd5e1' },
+    { name: 'Reason + Low Search', score: 75.8, color: '#94a3b8' },
+    { name: 'Chat + High Search', score: 75.9, color: '#8b5cf6' },
+];
+
+new Chart(document.getElementById('deepseekChart'), {
+    type: 'bar',
+    data: {
+        labels: deepSeekData.map(d => d.name),
+        datasets: [{
+            label: 'Score',
+            data: deepSeekData.map(d => d.score),
+            backgroundColor: deepSeekData.map(d => d.color),
+            borderRadius: 4,
+            barThickness: 24
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { min: 65, max: 80, grid: { color: '#f1f5f9' } }, y: { grid: { display: false } } }
+    }
+});
+
+</script>

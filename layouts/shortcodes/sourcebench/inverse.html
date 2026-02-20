@@ -1,0 +1,54 @@
+<div class="chart-wrapper">
+    <canvas id="inverseChart"></canvas>
+</div>
+<div class="caption">Figure 2: SourceBench Score (Green) vs. Google Overlap (Gray).</div>
+</div>
+
+
+<script>
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#475569';
+
+const inverseData = {
+    labels: ['GPT-5', 'Grok-4.1', 'GPT-4o', 'Perplexity', 'Tavily'],
+    score: [89.1, 83.4, 81.5, 78.5, 78.3],
+    overlap: [16.0, 29.7, 27.5, 40.0, 55.5]
+};
+
+new Chart(document.getElementById('inverseChart'), {
+    type: 'bar',
+    data: {
+        labels: inverseData.labels,
+        datasets: [
+            {
+                label: 'SourceBench Score',
+                data: inverseData.score,
+                backgroundColor: '#10b981',
+                yAxisID: 'y',
+                borderRadius: 4,
+                barPercentage: 0.6
+            },
+            {
+                label: 'Google Overlap %',
+                data: inverseData.overlap,
+                backgroundColor: '#94a3b8',
+                yAxisID: 'y1',
+                borderRadius: 4,
+                barPercentage: 0.6
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { position: 'top', labels: { usePointStyle: true } } },
+        scales: { 
+            x: { grid: { display: false } },
+            y: { type: 'linear', display: true, position: 'left', min: 70, max: 95, title: { display: true, text: 'Weighted Score' } },
+            y1: { type: 'linear', display: true, position: 'right', min: 0, max: 60, grid: { drawOnChartArea: false }, title: { display: true, text: 'Overlap %' } }
+        }
+    }
+});
+
+</script>
