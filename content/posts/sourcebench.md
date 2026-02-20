@@ -67,3 +67,4 @@ As AI systems transition from passive tools to active agents, the "black box" of
 The future isn't just about smarter models; it's about discerning models—ones that understand that a random forum post and a peer-reviewed study are not semantically equivalent, even if they share the same keywords. If we want AI to be a trusted arbiter of truth, we must teach it to judge its sources, not just summarize them.
 
 
+{{< sourcebench/checkout-paper >}}
