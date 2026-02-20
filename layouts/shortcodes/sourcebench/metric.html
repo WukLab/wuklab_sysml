@@ -1,83 +1,258 @@
+<!-- Shared dependencies for sourcebench shortcodes -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    corePlugins: {
+        preflight: false,
+    }
+}
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Metrics Grid Styling */
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        .metric-box {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1.25rem;
-            background-color: #fff;
-            transition: transform 0.2s;
-        }
-        .metric-box:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-        }
-        .metric-tag {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-    </style>
-            
+<style>
+    /* Shared styles for sourcebench */
+    .sb h1, .sb h2, .sb h3, .sb h4, .sb .sans-serif {
+        font-family: 'Inter', sans-serif;
+        letter-spacing: -0.02em;
+    }
+    .sb .caption {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        color: #666;
+        text-align: center;
+        margin-top: 0.75rem;
+    }
+    .sb .chart-wrapper {
+        position: relative;
+        width: 100%;
+        border: 1px solid #f1f5f9;
+        border-radius: 8px;
+        padding: 1.5rem;
+        background: #fff;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    }
+    /* Metrics Grid */
+    .sb .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+    .sb .metric-box {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1.25rem;
+        background-color: #fff;
+        transition: transform 0.2s;
+    }
+    .sb .metric-box:hover {
+        border-color: #cbd5e1;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+    }
+    .sb .metric-tag {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        color: #64748b;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    /* Table Styling */
+    .sb table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        margin: 2rem 0;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .sb th {
+        background-color: #f8fafc;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .sb td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #334155;
+    }
+    .sb tr:last-child td {
+        border-bottom: none;
+    }
+    .sb .rank-col { font-weight: 700; color: #94a3b8; width: 60px; }
+    .sb .score-col { font-weight: 700; color: #0f172a; text-align: right; }
+    .sb .metric-col { color: #64748b; text-align: right; }
+    /* Intent Cards */
+    .sb .intent-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .sb .intent-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    .sb .intent-stat {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        margin-right: 0.5rem;
+    }
+    .sb .stat-good { background: #dcfce7; color: #166534; }
+    .sb .stat-bad { background: #fee2e2; color: #991b1b; }
+    /* Intent alert boxes */
+    .sb .intent-alert {
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        font-family: 'Inter', sans-serif;
+    }
+    .sb .intent-alert-red {
+        background: #fef2f2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+    }
+    .sb .intent-alert-slate {
+        background: #f1f5f9;
+        color: #334155;
+        border: 1px solid #e2e8f0;
+    }
+
+    /* Dark mode overrides */
+    .dark-theme .sb .metric-box {
+        background-color: #1e293b;
+        border-color: #334155;
+    }
+    .dark-theme .sb .metric-box:hover {
+        border-color: #475569;
+    }
+    .dark-theme .sb .metric-tag {
+        color: #94a3b8;
+    }
+    .dark-theme .sb .caption {
+        color: #94a3b8;
+    }
+    .dark-theme .sb .chart-wrapper {
+        background: #1e293b;
+        border-color: #334155;
+    }
+    .dark-theme .sb table {
+        border-color: #334155;
+    }
+    .dark-theme .sb th {
+        background-color: #1e293b;
+        color: #94a3b8;
+        border-bottom-color: #334155;
+    }
+    .dark-theme .sb td {
+        color: #cbd5e1;
+        border-bottom-color: #334155;
+    }
+    .dark-theme .sb .rank-col { color: #64748b; }
+    .dark-theme .sb .score-col { color: #f1f5f9; }
+    .dark-theme .sb .metric-col { color: #94a3b8; }
+    .dark-theme .sb .intent-card {
+        background: #1e293b;
+        border-color: #334155;
+    }
+    .dark-theme .sb .intent-header {
+        color: #e2e8f0;
+    }
+    .dark-theme .sb .stat-good { background: #064e3b; color: #6ee7b7; }
+    .dark-theme .sb .stat-bad { background: #7f1d1d; color: #fca5a5; }
+    .dark-theme .sb .intent-alert-red {
+        background: #450a0a;
+        color: #fca5a5;
+        border-color: #7f1d1d;
+    }
+    .dark-theme .sb .intent-alert-slate {
+        background: #1e293b;
+        color: #cbd5e1;
+        border-color: #334155;
+    }
+    /* General dark mode text - make all text lighter */
+    .dark-theme .sb {
+        color: #e2e8f0;
+    }
+    .dark-theme .sb strong,
+    .dark-theme .sb span {
+        color: #e2e8f0;
+    }
+    .dark-theme .sb .metric-box strong {
+        color: #f1f5f9;
+    }
+    .dark-theme .sb .metric-box span:not(.metric-tag) {
+        color: #cbd5e1;
+    }
+</style>
+
+<div class="sb">
 <div class="metric-grid">
-                <!-- Content Metrics -->
-                <div class="metric-box border-l-4 border-l-indigo-500">
-                    <span class="metric-tag text-indigo-600">Content Quality</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">1. Relevance (CR)</strong>
-                    <span class="text-gray-600 text-base">Does the source directly resolve the user need, or is it merely a keyword match?</span>
-                </div>
-                <div class="metric-box border-l-4 border-l-indigo-500">
-                    <span class="metric-tag text-indigo-600">Content Quality</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">2. Factual Accuracy (FA)</strong>
-                    <span class="text-gray-600 text-base">Are claims verifiable and supported by citations? Does it prioritize primary sources?</span>
-                </div>
-                <div class="metric-box border-l-4 border-l-indigo-500">
-                    <span class="metric-tag text-indigo-600">Content Quality</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">3. Objectivity (NE)</strong>
-                    <span class="text-gray-600 text-base">Is the tone neutral and clinical, avoiding emotional manipulation?</span>
-                </div>
-                
-                <!-- Meta Metrics -->
-                <div class="metric-box border-l-4 border-l-emerald-500">
-                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">4. Freshness (FR)</strong>
-                    <span class="text-gray-600 text-base">Is the content timely? Obsolete data (e.g., old code) is heavily penalized.</span>
-                </div>
-                <div class="metric-box border-l-4 border-l-emerald-500">
-                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">5. Author Accountability (AA)</strong>
-                    <span class="text-gray-600 text-base">Is there a named author with verifiable credentials?</span>
-                </div>
-                <div class="metric-box border-l-4 border-l-emerald-500">
-                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">6. Ownership (OA)</strong>
-                    <span class="text-gray-600 text-base">Is the entity behind the site transparent about its funding and location?</span>
-                </div>
-                <div class="metric-box border-l-4 border-l-emerald-500">
-                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">7. Domain Authority (DA)</strong>
-                    <span class="text-gray-600 text-base">Is the domain a known institution (e.g., .gov, .edu) or a recognized brand?</span>
-                </div>
-                <div class="metric-box border-l-4 border-l-emerald-500">
-                    <span class="metric-tag text-emerald-600">Meta-Attribute</span>
-                    <strong class="sans-serif text-gray-900 block text-lg mb-2">8. Layout Clarity (LC)</strong>
-                    <span class="text-gray-600 text-base">Evaluates consumability. Penalizes "SEO farms" saturated with ads.</span>
-                </div>
-            </div>
-        </div>
-
-
+    <!-- Content Metrics -->
+    <div class="metric-box border-l-4 border-l-indigo-500">
+        <span class="metric-tag text-indigo-600">Content Quality</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">1. Relevance (CR)</strong>
+        <span class="text-gray-600 text-base">Does the source directly resolve the user need, or is it merely a keyword match?</span>
+    </div>
+    <div class="metric-box border-l-4 border-l-indigo-500">
+        <span class="metric-tag text-indigo-600">Content Quality</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">2. Factual Accuracy (FA)</strong>
+        <span class="text-gray-600 text-base">Are claims verifiable and supported by citations? Does it prioritize primary sources?</span>
+    </div>
+    <div class="metric-box border-l-4 border-l-indigo-500">
+        <span class="metric-tag text-indigo-600">Content Quality</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">3. Objectivity (NE)</strong>
+        <span class="text-gray-600 text-base">Is the tone neutral and clinical, avoiding emotional manipulation?</span>
+    </div>
+    <!-- Meta Metrics -->
+    <div class="metric-box border-l-4 border-l-emerald-500">
+        <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">4. Freshness (FR)</strong>
+        <span class="text-gray-600 text-base">Is the content timely? Obsolete data (e.g., old code) is heavily penalized.</span>
+    </div>
+    <div class="metric-box border-l-4 border-l-emerald-500">
+        <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">5. Author Accountability (AA)</strong>
+        <span class="text-gray-600 text-base">Is there a named author with verifiable credentials?</span>
+    </div>
+    <div class="metric-box border-l-4 border-l-emerald-500">
+        <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">6. Ownership (OA)</strong>
+        <span class="text-gray-600 text-base">Is the entity behind the site transparent about its funding and location?</span>
+    </div>
+    <div class="metric-box border-l-4 border-l-emerald-500">
+        <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">7. Domain Authority (DA)</strong>
+        <span class="text-gray-600 text-base">Is the domain a known institution (e.g., .gov, .edu) or a recognized brand?</span>
+    </div>
+    <div class="metric-box border-l-4 border-l-emerald-500">
+        <span class="metric-tag text-emerald-600">Meta-Attribute</span>
+        <strong class="sans-serif text-gray-900 block text-lg mb-2">8. Layout Clarity (LC)</strong>
+        <span class="text-gray-600 text-base">Evaluates consumability. Penalizes "SEO farms" saturated with ads.</span>
+    </div>
+</div>
+</div>

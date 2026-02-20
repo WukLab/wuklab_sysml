@@ -1,51 +1,51 @@
-	<figure>
-                <div class="relative h-[400px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm mt-8">
-                    <canvas id="leaderboardChart"></canvas>
-                </div>
-	</figure>
+<div class="sb">
+<figure>
+    <div class="relative h-[400px] w-full border border-gray-100 rounded-lg p-6 bg-white shadow-sm mt-8">
+        <canvas id="leaderboardChart"></canvas>
+    </div>
+</figure>
+</div>
 
 <script>
-        // Chart Config Defaults
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = '#475569';
-        
-        // Data with Vibrant Colors
-        const leaderBoardData = [
-            { name: 'GPT-5', score: 89.1, color: '#10b981' },   // Emerald 500
-            { name: 'Grok-4.1', score: 83.4, color: '#3b82f6' }, // Blue 500
-            { name: 'Gensee', score: 81.8, color: '#06b6d4' },   // Cyan 500
-            { name: 'GPT-4o', score: 81.5, color: '#94a3b8' },   // Slate 400
-            { name: 'Claude 3.5', score: 81.3, color: '#94a3b8' },
-            { name: 'Exa', score: 80.1, color: '#94a3b8' },
-            { name: 'Google', score: 79.9, color: '#94a3b8' },
-            { name: 'Gemini 3 Pro', score: 79.4, color: '#94a3b8' },
-            { name: 'Perplexity', score: 78.5, color: '#94a3b8' },
-            { name: 'Tavily', score: 78.3, color: '#ef4444' },   // Red 500
-        ];
+window.addEventListener('DOMContentLoaded', function() {
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#475569';
 
-        // Leaderboard Chart
-        new Chart(document.getElementById('leaderboardChart'), {
-            type: 'bar',
-            data: {
-                labels: leaderBoardData.map(d => d.name),
-                datasets: [{
-                    label: 'SourceBench Score',
-                    data: leaderBoardData.map(d => d.score),
-                    backgroundColor: leaderBoardData.map(d => d.color),
-                    borderRadius: 4,
-                    barThickness: 24
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { 
-                    x: { min: 70, max: 95, grid: { color: '#f1f5f9' } },
-                    y: { grid: { display: false } }
-                }
-            }
-        });
+const leaderBoardData = [
+    { name: 'GPT-5', score: 89.1, color: '#10b981' },
+    { name: 'Grok-4.1', score: 83.4, color: '#3b82f6' },
+    { name: 'Gensee', score: 81.8, color: '#06b6d4' },
+    { name: 'GPT-4o', score: 81.5, color: '#94a3b8' },
+    { name: 'Claude 3.5', score: 81.3, color: '#94a3b8' },
+    { name: 'Exa', score: 80.1, color: '#94a3b8' },
+    { name: 'Google', score: 79.9, color: '#94a3b8' },
+    { name: 'Gemini 3 Pro', score: 79.4, color: '#94a3b8' },
+    { name: 'Perplexity', score: 78.5, color: '#94a3b8' },
+    { name: 'Tavily', score: 78.3, color: '#ef4444' },
+];
 
+new Chart(document.getElementById('leaderboardChart'), {
+    type: 'bar',
+    data: {
+        labels: leaderBoardData.map(d => d.name),
+        datasets: [{
+            label: 'SourceBench Score',
+            data: leaderBoardData.map(d => d.score),
+            backgroundColor: leaderBoardData.map(d => d.color),
+            borderRadius: 4,
+            barThickness: 24
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { min: 70, max: 95, grid: { color: '#f1f5f9' } },
+            y: { grid: { display: false } }
+        }
+    }
+});
+});
 </script>

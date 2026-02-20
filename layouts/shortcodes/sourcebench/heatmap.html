@@ -1,153 +1,149 @@
+<style>
+    .heatmap-container {
+        display: grid;
+        grid-template-columns: 30px repeat(8, 1fr);
+        gap: 2px;
+        margin: 2rem 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.65rem;
+    }
+    .heatmap-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: #64748b;
+    }
+    .heatmap-cell {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+        transition: transform 0.1s;
+        font-weight: 500;
+    }
+    .grad-neg { background-color: #f1f5f9; color: #94a3b8; }
+    .grad-0 { background-color: #fff1f2; color: #be123c; }
+    .grad-10 { background-color: #ffe4e6; color: #be123c; }
+    .grad-20 { background-color: #fecdd3; color: #be123c; }
+    .grad-30 { background-color: #fda4af; color: #881337; }
+    .grad-40 { background-color: #fb7185; color: #fff; }
+    .grad-50 { background-color: #f43f5e; color: #fff; }
+    .grad-60 { background-color: #e11d48; color: #fff; }
+    .grad-70 { background-color: #be123c; color: #fff; }
+    .grad-80 { background-color: #9f1239; color: #fff; }
+    .grad-90 { background-color: #881337; color: #fff; }
+    .grad-100 { background-color: #4c0519; color: #fff; }
+    .heatmap-cell:hover {
+        transform: scale(1.2);
+        z-index: 10;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+        border-radius: 4px;
+    }
+    /* Dark mode overrides */
+    .dark-theme .heatmap-label {
+        color: #94a3b8;
+    }
+    .dark-theme .grad-neg { background-color: #1e293b; color: #64748b; }
+    .dark-theme .grad-0 { background-color: #2a1215; color: #fda4af; }
+    .dark-theme .grad-10 { background-color: #3b1219; color: #fda4af; }
+    .dark-theme .grad-20 { background-color: #4c1420; color: #fda4af; }
+    .dark-theme .grad-30 { background-color: #6b1a2a; color: #fecdd3; }
+</style>
 
-    <style>
-        /* Heatmap Styling for 4.3 */
-        .heatmap-container {
-            display: grid;
-            grid-template-columns: 30px repeat(8, 1fr);
-            gap: 2px;
-            margin: 2rem 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-        }
-        .heatmap-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #64748b;
-        }
-        .heatmap-cell {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 2px;
-            transition: transform 0.1s;
-            font-weight: 500;
-        }
-        
-        /* 10-step Gradient (Rose Palette) */
-        .grad-neg { background-color: #f1f5f9; color: #94a3b8; } /* Slate 100 */
-        .grad-0 { background-color: #fff1f2; color: #be123c; }   /* Rose 50 */
-        .grad-10 { background-color: #ffe4e6; color: #be123c; }  /* Rose 100 */
-        .grad-20 { background-color: #fecdd3; color: #be123c; }  /* Rose 200 */
-        .grad-30 { background-color: #fda4af; color: #881337; }  /* Rose 300 */
-        .grad-40 { background-color: #fb7185; color: #fff; }     /* Rose 400 */
-        .grad-50 { background-color: #f43f5e; color: #fff; }     /* Rose 500 */
-        .grad-60 { background-color: #e11d48; color: #fff; }     /* Rose 600 */
-        .grad-70 { background-color: #be123c; color: #fff; }     /* Rose 700 */
-        .grad-80 { background-color: #9f1239; color: #fff; }     /* Rose 800 */
-        .grad-90 { background-color: #881337; color: #fff; }     /* Rose 900 */
-        .grad-100 { background-color: #4c0519; color: #fff; }    /* Rose 950 */
+<div class="sb">
+<figure>
+    <div class="p-6 border border-gray-200 rounded-lg shadow-sm w-full max-w-lg mx-auto" style="background-color: var(--bkg-color, #fff);">
+        <div class="heatmap-container">
+            <div class="heatmap-label"></div>
+            <div class="heatmap-label">CR</div><div class="heatmap-label">FA</div><div class="heatmap-label">NE</div>
+            <div class="heatmap-label">AA</div><div class="heatmap-label">FR</div><div class="heatmap-label">OA</div>
+            <div class="heatmap-label">DA</div><div class="heatmap-label">LC</div>
 
-        .heatmap-cell:hover {
-            transform: scale(1.2);
-            z-index: 10;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
-            border-radius: 4px;
-        }
-    </style>
-        
-                            <figure>
-                <div class="bg-white p-6 border border-gray-200 rounded-lg shadow-sm w-full max-w-lg mx-auto">
-                    <div class="heatmap-container">
-                        <!-- Header Row -->
-                        <div class="heatmap-label"></div>
-                        <div class="heatmap-label">CR</div><div class="heatmap-label">FA</div><div class="heatmap-label">NE</div>
-                        <div class="heatmap-label">AA</div><div class="heatmap-label">FR</div><div class="heatmap-label">OA</div>
-                        <div class="heatmap-label">DA</div><div class="heatmap-label">LC</div>
+            <div class="heatmap-label">CR</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-60">.61</div>
+            <div class="heatmap-cell grad-30">.31</div>
+            <div class="heatmap-cell grad-30">.32</div>
+            <div class="heatmap-cell grad-0">.02</div>
+            <div class="heatmap-cell grad-20">.21</div>
+            <div class="heatmap-cell grad-20">.19</div>
+            <div class="heatmap-cell grad-10">.12</div>
 
-                        <!-- Row CR -->
-                        <div class="heatmap-label">CR</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-60">.61</div>
-                        <div class="heatmap-cell grad-30">.31</div>
-                        <div class="heatmap-cell grad-30">.32</div>
-                        <div class="heatmap-cell grad-0">.02</div>
-                        <div class="heatmap-cell grad-20">.21</div>
-                        <div class="heatmap-cell grad-20">.19</div>
-                        <div class="heatmap-cell grad-10">.12</div>
+            <div class="heatmap-label">FA</div>
+            <div class="heatmap-cell grad-60">.61</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-60">.67</div>
+            <div class="heatmap-cell grad-40">.44</div>
+            <div class="heatmap-cell grad-10">.07</div>
+            <div class="heatmap-cell grad-40">.47</div>
+            <div class="heatmap-cell grad-50">.48</div>
+            <div class="heatmap-cell grad-30">.35</div>
 
-                        <!-- Row FA -->
-                        <div class="heatmap-label">FA</div>
-                        <div class="heatmap-cell grad-60">.61</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-60">.67</div>
-                        <div class="heatmap-cell grad-40">.44</div>
-                        <div class="heatmap-cell grad-10">.07</div>
-                        <div class="heatmap-cell grad-40">.47</div>
-                        <div class="heatmap-cell grad-50">.48</div>
-                        <div class="heatmap-cell grad-30">.35</div>
-                        
-                        <!-- Row NE -->
-                        <div class="heatmap-label">NE</div>
-                        <div class="heatmap-cell grad-30">.31</div>
-                        <div class="heatmap-cell grad-60">.67</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-30">.31</div>
-                        <div class="heatmap-cell grad-0">.02</div>
-                        <div class="heatmap-cell grad-40">.39</div>
-                        <div class="heatmap-cell grad-40">.44</div>
-                        <div class="heatmap-cell grad-40">.44</div>
+            <div class="heatmap-label">NE</div>
+            <div class="heatmap-cell grad-30">.31</div>
+            <div class="heatmap-cell grad-60">.67</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-30">.31</div>
+            <div class="heatmap-cell grad-0">.02</div>
+            <div class="heatmap-cell grad-40">.39</div>
+            <div class="heatmap-cell grad-40">.44</div>
+            <div class="heatmap-cell grad-40">.44</div>
 
-                         <!-- Row AA -->
-                        <div class="heatmap-label">AA</div>
-                        <div class="heatmap-cell grad-30">.32</div>
-                        <div class="heatmap-cell grad-40">.44</div>
-                        <div class="heatmap-cell grad-30">.31</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-0">.05</div>
-                        <div class="heatmap-cell grad-50">.53</div>
-                        <div class="heatmap-cell grad-50">.48</div>
-                        <div class="heatmap-cell grad-20">.22</div>
+            <div class="heatmap-label">AA</div>
+            <div class="heatmap-cell grad-30">.32</div>
+            <div class="heatmap-cell grad-40">.44</div>
+            <div class="heatmap-cell grad-30">.31</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-0">.05</div>
+            <div class="heatmap-cell grad-50">.53</div>
+            <div class="heatmap-cell grad-50">.48</div>
+            <div class="heatmap-cell grad-20">.22</div>
 
-                        <!-- Row FR -->
-                        <div class="heatmap-label">FR</div>
-                        <div class="heatmap-cell grad-0">.02</div>
-                        <div class="heatmap-cell grad-10">.07</div>
-                        <div class="heatmap-cell grad-0">.02</div>
-                        <div class="heatmap-cell grad-0">.05</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-10">.10</div>
-                        <div class="heatmap-cell grad-0">.05</div>
-                        <div class="heatmap-cell grad-neg">-.03</div>
-                        
-                        <!-- Row OA -->
-                        <div class="heatmap-label">OA</div>
-                        <div class="heatmap-cell grad-20">.21</div>
-                        <div class="heatmap-cell grad-40">.47</div>
-                        <div class="heatmap-cell grad-40">.39</div>
-                        <div class="heatmap-cell grad-50">.53</div>
-                        <div class="heatmap-cell grad-10">.10</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-70">.73</div>
-                        <div class="heatmap-cell grad-30">.36</div>
+            <div class="heatmap-label">FR</div>
+            <div class="heatmap-cell grad-0">.02</div>
+            <div class="heatmap-cell grad-10">.07</div>
+            <div class="heatmap-cell grad-0">.02</div>
+            <div class="heatmap-cell grad-0">.05</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-10">.10</div>
+            <div class="heatmap-cell grad-0">.05</div>
+            <div class="heatmap-cell grad-neg">-.03</div>
 
-                        <!-- Row DA -->
-                        <div class="heatmap-label">DA</div>
-                        <div class="heatmap-cell grad-20">.19</div>
-                        <div class="heatmap-cell grad-50">.48</div>
-                        <div class="heatmap-cell grad-40">.44</div>
-                        <div class="heatmap-cell grad-50">.48</div>
-                        <div class="heatmap-cell grad-0">.05</div>
-                        <div class="heatmap-cell grad-70">.73</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                        <div class="heatmap-cell grad-40">.39</div>
-                        
-                        <!-- Row LC -->
-                        <div class="heatmap-label">LC</div>
-                        <div class="heatmap-cell grad-10">.12</div>
-                        <div class="heatmap-cell grad-30">.35</div>
-                        <div class="heatmap-cell grad-40">.44</div>
-                        <div class="heatmap-cell grad-20">.22</div>
-                        <div class="heatmap-cell grad-neg">-.03</div>
-                        <div class="heatmap-cell grad-30">.36</div>
-                        <div class="heatmap-cell grad-40">.39</div>
-                        <div class="heatmap-cell grad-100">1.0</div>
-                    </div>
-                </div>
-                <figcaption class="caption">
-                    Figure 4: Full Correlation Matrix. Colors represent correlation strength in 0.1 intervals.
-                </figcaption>
-            </figure>
+            <div class="heatmap-label">OA</div>
+            <div class="heatmap-cell grad-20">.21</div>
+            <div class="heatmap-cell grad-40">.47</div>
+            <div class="heatmap-cell grad-40">.39</div>
+            <div class="heatmap-cell grad-50">.53</div>
+            <div class="heatmap-cell grad-10">.10</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-70">.73</div>
+            <div class="heatmap-cell grad-30">.36</div>
 
+            <div class="heatmap-label">DA</div>
+            <div class="heatmap-cell grad-20">.19</div>
+            <div class="heatmap-cell grad-50">.48</div>
+            <div class="heatmap-cell grad-40">.44</div>
+            <div class="heatmap-cell grad-50">.48</div>
+            <div class="heatmap-cell grad-0">.05</div>
+            <div class="heatmap-cell grad-70">.73</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+            <div class="heatmap-cell grad-40">.39</div>
+
+            <div class="heatmap-label">LC</div>
+            <div class="heatmap-cell grad-10">.12</div>
+            <div class="heatmap-cell grad-30">.35</div>
+            <div class="heatmap-cell grad-40">.44</div>
+            <div class="heatmap-cell grad-20">.22</div>
+            <div class="heatmap-cell grad-neg">-.03</div>
+            <div class="heatmap-cell grad-30">.36</div>
+            <div class="heatmap-cell grad-40">.39</div>
+            <div class="heatmap-cell grad-100">1.0</div>
+        </div>
+    </div>
+    <figcaption class="caption">
+        Figure 1: Full Correlation Matrix. Colors represent correlation strength in 0.1 intervals.
+    </figcaption>
+</figure>
+</div>

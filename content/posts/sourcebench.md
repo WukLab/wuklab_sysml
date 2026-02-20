@@ -42,8 +42,6 @@ The next leap of AI-based search should go for architectures that explicitly wei
 
 {{< sourcebench/heatmap >}}
 
-Figure 1: Full Correlation Matrix. Colors represent correlation strength in 0.1 intervals.
-
 ### Insight 2: The Inverse Law of AI Search and SERP
 There is a striking inverse relationship between a model's SourceBench score and its reliance on traditional Google Search results.
 Top-performing systems like **GPT-5** overlap with Google only 16% of the time, functioning as "**Discovery Engines**" that find high-quality, buried evidence.
