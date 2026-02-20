@@ -61,7 +61,7 @@ VDCores do not get this edge by hand-tunning better kernels, but instead through
 
 ### Example 1: **Free** "Prefetch" Non-Dependent Memory Buffers
 
-Consider an attention kernel followed by a linear projection with residual addition. In VDCores, we connect them by dependencies rather than manually fusing/staging: (Also note that in VDCores we do not have the notion of kernel boundary; we mark the original kernel boundary in the example for easy to understand.)
+Consider an attention kernel followed by a linear projection with residual addition. In VDCores, we connect them by dependencies rather than manually fusing/staging: (Also note that in VDCores we do not have the notion of kernel boundary; we mark the original kernel boundary in the example for ease of understanding.)
 
 {{< vdcores/example1 >}}
 
@@ -71,7 +71,7 @@ This is the key shift: {{< highlight-text >}} Overlap **emerges automatically**{
 
 Another secret sause of VDCores is the **composbility** of it's components. Same set of computation instructions could be composed with different memory instructions, different memory dependencies, thus allowing programmer to quick experimenting with different plans without manual kernel rewrite and fusion.
 
-Consider a MLP block: GEMV (Up + Gate) followed by SiLU activation and GEMV (Down). Input is shape [1, 4096], Up and Gate outputs are [1, 12288], and Down output is [1, 4096]. We can tile Gate and Up along the N dimension and Down along the K dimension.
+Consider an MLP block: GEMV (Up + Gate) followed by SiLU activation and GEMV (Down). Input is shape [1, 4096], Up and Gate outputs are [1, 12288], and Down output is [1, 4096]. We can tile Gate and Up along the N dimension and Down along the K dimension.
 
 <img src="../../images/vdcores/example2.jpg" alt="flexible core composition: two schedules" style="width: 100%;" />
 

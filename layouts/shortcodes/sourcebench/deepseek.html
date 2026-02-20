@@ -7,13 +7,22 @@
 
 <script>
 window.addEventListener('DOMContentLoaded', function() {
-const deepSeekData = [
+
+function sbGetThemeColors2() {
+    var ls = localStorage.getItem('theme');
+    var hugo = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    var dark = (ls || hugo) === 'dark';
+    return { font: dark ? '#cbd5e1' : '#475569', grid: dark ? '#334155' : '#f1f5f9' };
+}
+
+var tc = sbGetThemeColors2();
+var deepSeekData = [
     { name: 'Chat + Low Search', score: 70.1, color: '#cbd5e1' },
     { name: 'Reason + Low Search', score: 75.8, color: '#94a3b8' },
     { name: 'Chat + High Search', score: 75.9, color: '#8b5cf6' },
 ];
 
-new Chart(document.getElementById('deepseekChart'), {
+var deepseekChart = new Chart(document.getElementById('deepseekChart'), {
     type: 'bar',
     data: {
         labels: deepSeekData.map(d => d.name),
@@ -29,12 +38,26 @@ new Chart(document.getElementById('deepseekChart'), {
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        color: tc.font,
         plugins: { legend: { display: false } },
         scales: {
-            x: { min: 65, max: 80, grid: { color: '#f1f5f9' } },
-            y: { grid: { display: false } }
+            x: { min: 65, max: 80, grid: { color: tc.grid }, ticks: { color: tc.font } },
+            y: { grid: { display: false }, ticks: { color: tc.font } }
         }
     }
 });
+
+function sbUpdateDeepseekColors() {
+    var c = sbGetThemeColors2();
+    deepseekChart.options.color = c.font;
+    deepseekChart.options.scales.x.ticks.color = c.font;
+    deepseekChart.options.scales.x.grid.color = c.grid;
+    deepseekChart.options.scales.y.ticks.color = c.font;
+    deepseekChart.update();
+}
+
+var toggleBtn = document.querySelector('.btn-light-dark');
+if (toggleBtn) toggleBtn.addEventListener('click', function() { setTimeout(sbUpdateDeepseekColors, 50); });
+
 });
 </script>
