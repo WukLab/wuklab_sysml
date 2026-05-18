@@ -11,7 +11,7 @@ Reinforcement learning post-training spends most of its wall-clock time generati
 "
 
 ---
-Author: Zelei Shao, Vikranth Srivatsa, Sanjana Srivastava, Qingyang Wu, Alpay Ariyak, Xiaoxia Wu, Ameen Patel, Jue Wang, Percy Liang, Tri Dao, Ce Zhang, Yiying Zhang, Ben Athiwaratkun, Chenfeng Xu, and Junxiong Wang
+Author: Vikranth Srivatsa, Yiying Zhang
 
 *This is joint work with [Together AI](https://www.together.ai/).*
 
