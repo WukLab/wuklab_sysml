@@ -13,6 +13,8 @@ Reinforcement learning post-training spends most of its wall-clock time generati
 ---
 Author: Zelei Shao, Vikranth Srivatsa, Sanjana Srivastava, Qingyang Wu, Alpay Ariyak, Xiaoxia Wu, Ameen Patel, Jue Wang, Percy Liang, Tri Dao, Ce Zhang, Yiying Zhang, Ben Athiwaratkun, Chenfeng Xu, and Junxiong Wang
 
+*This is joint work with [Together AI](https://www.together.ai/).*
+
 **TLDR**: Reinforcement learning (RL) post-training spends most of its wall-clock time in the "rollout" phase generating answers, and a few very long generations dominate every training step. We designed [DAS [MLSys '26]](https://arxiv.org/abs/2511.13841), a distribution-aware speculative decoding framework that speeds up RL rollouts without changing what the model learns. DAS uses a training-free drafter that continually rebuilds itself from recent rollouts and spends its speculation budget on the long generations that set the pace, cutting **rollout time by up to 50%** while keeping the training curve identical to the baseline.
 
 ## RL Post-Training Is Bottlenecked by the Rollout
