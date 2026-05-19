@@ -30,7 +30,7 @@ We built **TClone**, a workspace-versioning substrate built on a modified Linux 
 architectural principle is that *online branch creation is separated from durable checkpointing*: a branch becomes
 runnable through copy-on-write sharing without copying a single page on the critical path, while serialization to disk
 proceeds asynchronously and off that path. TClone clones a live workspace **up to 4.9x faster** than KVM snapshots and
-**3.4x faster** than stock CRIU.
+**3.4x faster** than stock CRIU. Checkout our full paper on [arxiv](https://arxiv.org/abs/2605.17320).
 
 ## Computer-Use Agents Want to Branch
 
@@ -182,4 +182,4 @@ drops from a full-workspace checkpoint to just the working set you actually dive
 
 <hr>
 
-*This work is currently under submission.*
+{{< tclone/checkout-paper >}}
