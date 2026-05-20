@@ -47,9 +47,13 @@ Borrowing serving techniques directly does not work, for three reasons.
 
 Together these say: speculation should be driven by recent rollout history, refreshed continuously as the policy moves, and concentrated on the long generations.
 
-## Introducing DAS
+## Background: Speculative Decoding and Suffix Decoding
 
-Speculative decoding speeds up generation by adding a small fast **drafter** that proposes several next tokens at once. The large target model then verifies all of them in a single parallel pass and keeps the longest correct prefix. Correct guesses let the model skip expensive one-token-at-a-time steps. Speculative decoding is lossless: the verified output has exactly the same distribution as normal decoding, so it never changes what the model learns.
+**Speculative decoding** speeds up autoregressive generation by adding a small fast **drafter** that proposes several next tokens at once. The large target model then verifies all of them in a single parallel pass, keeping the longest prefix that matches what it would have generated and discarding the rest. Each accepted token replaces a sequential target-model step with a piece of a single parallel one, so the wall-clock cost of generating a sequence drops whenever the drafter guesses well. The verified output has exactly the same distribution as standard decoding, so speculative decoding is **lossless**: it never changes what the model produces or learns. The classic drafter is a small neural network (e.g., a distilled model or EAGLE) trained to mimic the target.
+
+**Suffix decoding** replaces the neural drafter with a non-parametric one: an index over text the system has already seen. Given the last few generated tokens (the current suffix), the index looks up the most frequent continuation observed in the corpus and proposes it as the draft. The corpus can be prior outputs of the same model, the prompt itself, or a cache of past requests. Because the drafter is just a lookup, there is no drafter model to train, no extra GPU pass to run the drafter, and the index can be updated incrementally as new text arrives. Suffix decoding is especially effective when generations are repetitive or recur across requests, which is exactly the regime an RL rollout sits in: the same prompts come back every epoch, and the model's outputs for a given prompt are highly similar across nearby steps. DAS builds on this idea, using a per-problem suffix tree over recent rollouts as its drafter.
+
+## Introducing DAS
 
 DAS (Distribution-Aware Speculative decoding) is a speculative decoding framework built for the RL rollout. It has two parts: a training-free drafter that rebuilds itself from recent rollouts, and a length-aware policy that decides how much speculation each prompt gets.
 
