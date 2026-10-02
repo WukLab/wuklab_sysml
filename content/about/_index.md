@@ -25,6 +25,11 @@ currentMembers:
         imageFile: ziren.jpg
         link: https://wazrrr.github.io
 
+  - name: Undergraduate
+    members:
+      - name: Xuming Huang
+        imageFile: xuming.jpg
+        link: https://xuming.ai/
 
 alumni:
   - name: Zhiyuan Guo
