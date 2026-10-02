@@ -37,12 +37,12 @@ alumni:
     note: (PhD 2025), PostDoc @ Cornell
   - name: Reyna Abhyankar
     link: https://reyna-abhyankar.github.io/
-    note: (PhD 2025), Research Scientist @ Together AI
+    note: Research Scientist @ Together AI
   - name: Hansin Patwa
     link: https://www.linkedin.com/in/hansinpatwa/
     note: AI Enginewr @ Velvet
   - name: Alex Asch
-    name: https://www.linkedin.com/in/alex-asch-755270219 
+    name: https://www.linkedin.com/in/alex-asch-755270219/
     note: SWE @ RADAR 
   - name: Pu Guo
     note: (Master 2025), PhD @ UNC Chapel Hill
